@@ -25,7 +25,7 @@ const LoginForm = () => {
       toast.success('Login Successful!');
       
       if (data.user.role === 'admin') {
-        window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
+        window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${data.token}&role=${data.user.role}`;
       } else {
         navigate('/');
       }
