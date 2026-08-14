@@ -10,23 +10,25 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      // If we have a token but no user, try to load user from localStorage
-      if (token && !user) {
+      if (token) {
         try {
-          const savedUser = localStorage.getItem('user');
-          if (savedUser) {
-            setUser(JSON.parse(savedUser));
-          }
+          // Verify authentication session with backend server
+          const response = await api.get('/users/profile');
+          setUser(response.data);
+          localStorage.setItem('user', JSON.stringify(response.data));
         } catch (error) {
-          console.error('Failed to authenticate:', error);
+          console.error('Authentication verification failed:', error);
+          // Clear session if server is stopped, unreachable, or token is invalid
           logout();
         }
+      } else {
+        setUser(null);
       }
       setLoading(false);
     };
 
     checkAuth();
-  }, [token, user]);
+  }, [token]);
 
   const login = (userData, userToken) => {
     setToken(userToken);

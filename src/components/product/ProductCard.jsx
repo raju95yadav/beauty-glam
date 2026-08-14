@@ -1,22 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Star, ShoppingBag, Heart, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-hot-toast';
 import WishlistButton from '../ui/WishlistButton';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    try {
-      await addToCart(product, 1);
+    if (!isAuthenticated) {
+      toast.error('Please login to add items to your bag');
+      navigate('/login');
+      return;
+    }
+    const success = await addToCart(product, 1);
+    if (success) {
       toast.success('Added to collection');
-    } catch (error) {
-      toast.error('Failed to add to bag');
     }
   };
 

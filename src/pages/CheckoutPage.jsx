@@ -106,21 +106,17 @@ const CheckoutPage = () => {
   const handlePlaceOrder = async () => {
     if (!isPaymentValid) return;
 
+    if (!addresses || addresses.length === 0) {
+      toast.error('Please add a shipping address first.');
+      return;
+    }
+
     try {
       setPaymentLoading(true);
       setShowSuccess(true);
       setError(null);
 
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 2500));
-
-      const selectedAddress = addresses[selectedAddressIndex] || {
-        street: '123, Beauty Lane',
-        city: 'Cosmetic City',
-        state: 'Maharashtra',
-        zip: '400001',
-        country: 'India'
-      };
+      const selectedAddress = addresses[selectedAddressIndex];
 
       const orderData = {
         orderItems: cartItems.map(item => ({
@@ -145,7 +141,7 @@ const CheckoutPage = () => {
         totalPrice: total,
         isPaid: paymentMethod !== 'cod',
         paidAt: paymentMethod !== 'cod' ? new Date().toISOString() : null,
-        paymentResult: paymentMethod !== 'cod' ? { id: 'DUMMY-' + Date.now(), status: 'COMPLETED' } : null
+        paymentResult: paymentMethod !== 'cod' ? { id: 'TEST-' + Date.now(), status: 'COMPLETED' } : null
       };
 
       const createdOrder = await orderService.createOrder(orderData);
@@ -294,7 +290,7 @@ const CheckoutPage = () => {
                animate={{ opacity: 1, y: 0 }}
                className="bg-white rounded-[3rem] p-8 md:p-14 border border-gray-100 shadow-xl shadow-gray-200/50"
              >
-               <div className="flex items-center justify-between mb-12">
+               <div className="flex items-center justify-between mb-8">
                   <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter flex items-center gap-4">
                     <div className="size-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600">
                       <CreditCard className="size-6" />
@@ -302,6 +298,19 @@ const CheckoutPage = () => {
                     Payment Gateway
                   </h2>
                   <button onClick={() => setStep(1)} className="text-pink-600 text-[10px] font-black uppercase tracking-widest underline underline-offset-4 decoration-2">Back to Address</button>
+               </div>
+
+               {/* Test Mode Notification */}
+               <div className="mb-8 p-4 bg-amber-50 rounded-2xl border border-amber-200/60 flex items-start gap-3">
+                  <div className="p-1.5 bg-amber-500/10 text-amber-600 rounded-xl mt-0.5">
+                     <AlertCircle className="size-4" />
+                  </div>
+                  <div>
+                     <p className="text-xs font-bold text-amber-800 uppercase tracking-wider mb-0.5">🧪 Test Order Mode Active</p>
+                     <p className="text-[11px] text-amber-700/90 leading-relaxed font-medium">
+                       Choose any payment method below to place a test order and verify admin dashboard sync. Real Razorpay payment integration will be activated in production.
+                     </p>
+                  </div>
                </div>
 
                {/* Tabs */}
@@ -436,7 +445,7 @@ const CheckoutPage = () => {
                  <Truck className="size-6" />
                  <div>
                     <p className="text-[10px] font-black uppercase tracking-widest italic leading-none mb-1">Express Delivery</p>
-                    <p className="text-[11px] font-bold text-gray-400 tracking-tight">Delivery by Friday, 21st March</p>
+                    <p className="text-[11px] font-bold text-gray-400 tracking-tight">Estimated delivery in 3–5 business days</p>
                  </div>
               </div>
            </div>

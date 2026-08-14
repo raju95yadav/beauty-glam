@@ -107,11 +107,27 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
                    </div>
                 </div>
                 <p className="text-[8px] opacity-40 leading-relaxed text-center">
-                   This is a dummy payment selection for demonstration purposes only. No real transaction will occur.
+                   ⚠️ TEST MODE — This is a simulated payment for demonstration only. No real transaction will be processed. Real payment integration is ready for production.
                 </p>
              </div>
           </div>
         </motion.div>
+      </div>
+
+      {/* Form Inputs Header */}
+      <div className="flex justify-between items-center px-1">
+         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Card Details</span>
+         <button
+           type="button"
+           onClick={() => {
+             const demo = { number: '4111 1111 1111 1111', name: 'TEST USER', expiry: '12/28', cvv: '123' };
+             setCardData(demo);
+             onValidChange(true, demo);
+           }}
+           className="text-[10px] font-black text-pink-600 uppercase tracking-widest hover:underline bg-pink-50 px-3 py-1.5 rounded-xl border border-pink-100 transition-all"
+         >
+           ⚡ Auto-fill Test Card
+         </button>
       </div>
 
       {/* Form Inputs */}

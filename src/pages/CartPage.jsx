@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../hooks/useAuth';
 import { ShoppingBag, ArrowRight, ShieldCheck } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import Loader from '../components/ui/Loader';
 import { AnimatePresence } from 'framer-motion';
 import CartItem from '../components/cart/CartItem';
 
 const CartPage = () => {
-  const { cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const { cartItems, updateQuantity, removeFromCart, cartTotal, clearCart, loading } = useCart();
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (loading) return <Loader fullScreen />;
 
   const shipping = cartTotal > 299 ? 0 : 50;
   const total = cartTotal + shipping;
@@ -51,7 +58,7 @@ const CartPage = () => {
               <ArrowRight className="size-4 rotate-180" /> Continue Shopping
             </Link>
             <button 
-              onClick={() => alert('Clear Bag functionality')}
+              onClick={() => { if (window.confirm('Are you sure you want to clear your entire bag?')) { clearCart(); toast.success('Bag cleared'); } }}
               className="text-[10px] font-bold text-gray-400 uppercase tracking-widest hover:text-red-500 transition-colors"
             >
               Clear Entire Bag
@@ -102,7 +109,7 @@ const CartPage = () => {
                   <p className="text-3xl font-black text-pink-600">₹{total}</p>
                </div>
                <div className="text-right">
-                  <p className="text-[10px] text-green-600 font-black uppercase tracking-widest">You Saved ₹150</p>
+                  {cartTotal > 299 && <p className="text-[10px] text-green-600 font-black uppercase tracking-widest">Free Shipping Applied!</p>}
                </div>
             </div>
 

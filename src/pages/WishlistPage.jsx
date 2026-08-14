@@ -1,10 +1,30 @@
 import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../hooks/useAuth';
 import ProductGrid from '../components/product/ProductGrid';
+import Loader from '../components/ui/Loader';
 import { Heart, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const WishlistPage = () => {
-  const { wishlistItems } = useWishlist();
+  const { wishlistItems, loading } = useWishlist();
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center container mx-auto px-4">
+        <div className="bg-pink-50 p-10 rounded-full mb-8 text-pink-600">
+          <Heart className="size-20" />
+        </div>
+        <h2 className="text-3xl font-black text-gray-900 mb-4 uppercase tracking-widest text-center">Login to See Your Wishlist</h2>
+        <p className="text-gray-500 mb-10 max-w-sm text-center font-medium">Sign in to save your favorite beauty products and access them from any device.</p>
+        <Link to="/login" className="bg-pink-600 text-white font-black px-12 py-4 rounded-2xl hover:bg-pink-700 transition-all uppercase tracking-widest shadow-2xl shadow-pink-100 transform active:scale-95">
+          Sign In
+        </Link>
+      </div>
+    );
+  }
+
+  if (loading) return <Loader fullScreen />;
 
   if (wishlistItems.length === 0) {
     return (

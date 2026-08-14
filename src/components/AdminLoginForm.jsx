@@ -35,7 +35,7 @@ const AdminLoginForm = () => {
         
         // Final fade-out and redirect
         setTimeout(() => {
-           window.location.href = `http://localhost:5174/dashboard?token=${data.token}&role=${data.user.role}`;
+           window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
         }, 2200);
       }, 1500);
 
@@ -77,6 +77,8 @@ const AdminLoginForm = () => {
               <Mail className="size-4 text-gray-400 group-focus-within/input:text-white dark:group-focus-within/input:text-gray-900 transition-colors" />
             </div>
             <input
+              id="admin-login-email"
+              name="email"
               type="email"
               required
               placeholder="admin@boutique.com"
@@ -88,12 +90,14 @@ const AdminLoginForm = () => {
         </div>
 
         <div className="space-y-3">
-          <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] px-1">Credential</label>
+          <label htmlFor="admin-login-password" className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] px-1">Credential</label>
           <div className="relative group/input">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg group-focus-within/input:bg-gray-900 dark:group-focus-within/input:bg-white transition-all duration-300">
               <Key className="size-4 text-gray-400 group-focus-within/input:text-white dark:group-focus-within/input:text-gray-900 transition-colors" />
             </div>
             <input
+              id="admin-login-password"
+              name="password"
               type="password"
               required
               placeholder="••••••••"

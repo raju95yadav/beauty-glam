@@ -2,17 +2,20 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../hooks/useAuth';
 import productService from '../services/productService';
 import ReviewCard from '../components/product/ReviewCard';
 import WishlistButton from '../components/ui/WishlistButton';
 import Loader from '../components/ui/Loader';
 import { ShoppingBag, Star, ShieldCheck, Truck, RefreshCcw, ChevronRight, Minus, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { isAuthenticated } = useAuth();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
@@ -101,16 +104,16 @@ const ProductDetailsPage = () => {
           <div className="lg:col-span-5 space-y-8">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                 <span className="text-xs font-black text-pink-600 uppercase tracking-[0.3em]">{product.brand?.name || 'Nykaa Luxe'}</span>
+                 <span className="text-xs font-black text-pink-600 uppercase tracking-[0.3em]">{product.brand || 'Brand'}</span>
                  <div className="h-px flex-grow bg-gray-100 translate-y-0.5"></div>
               </div>
               <h1 className="text-4xl font-black text-gray-900 leading-tight mb-4 tracking-tighter uppercase">{product.name}</h1>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1.5 bg-green-50 px-3 py-1 rounded-full text-green-600">
-                  <span className="text-sm font-black">{product.rating || '4.5'}</span>
+                  <span className="text-sm font-black">{product.rating || 0}</span>
                   <Star className="size-3.5 fill-current" />
                 </div>
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest underline cursor-pointer">{product.numReviews || '1,240'} Ratings</span>
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest underline cursor-pointer">{product.numReviews || 0} Ratings</span>
               </div>
             </div>
 
@@ -149,7 +152,17 @@ const ProductDetailsPage = () => {
 
                <div className="flex gap-4 pt-4">
                   <button 
-                    onClick={() => addToCart({ ...product, quantity })}
+                    onClick={async () => {
+                      if (!isAuthenticated) {
+                        toast.error('Please login to add items to your bag');
+                        navigate('/login');
+                        return;
+                      }
+                      const success = await addToCart({ ...product, quantity });
+                      if (success) {
+                        toast.success('Added to bag');
+                      }
+                    }}
                     disabled={product.countInStock === 0}
                     className="flex-grow bg-pink-600 text-white font-black py-5 rounded-2xl uppercase tracking-widest hover:bg-pink-700 transition-all shadow-2xl shadow-pink-100 flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
                   >
@@ -210,23 +223,36 @@ const ProductDetailsPage = () => {
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-8">
                      <div className="flex flex-col md:flex-row justify-between items-center bg-pink-50/50 p-10 rounded-[3rem] gap-8">
                         <div className="text-center">
-                           <p className="text-6xl font-black text-gray-900 mb-2">{product.rating || '4.5'}</p>
+                           <p className="text-6xl font-black text-gray-900 mb-2">{product.rating || 0}</p>
                            <div className="flex justify-center text-green-600 mb-2">
-                              {[1,2,3,4,5].map(i => <Star key={i} className="size-5 fill-current" />)}
+                              {[1,2,3,4,5].map(i => <Star key={i} className={`size-5 ${i <= Math.round(product.rating || 0) ? 'fill-current' : 'text-gray-200'}`} />)}
                            </div>
-                           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Global Ratings</p>
+                           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{product.numReviews || 0} Ratings</p>
                         </div>
                         <div className="flex-grow max-w-md space-y-2">
-                           {[5,4,3,2,1].map(star => (
+                           {[5,4,3,2,1].map(star => {
+                             const totalReviews = product.reviews?.length || 0;
+                             const count = product.reviews?.filter(r => Math.round(r.rating) === star).length || 0;
+                             const percent = totalReviews > 0 ? Math.round((count / totalReviews) * 100) : 0;
+                             return (
                              <div key={star} className="flex items-center gap-4">
                                <span className="text-[10px] font-bold text-gray-400 w-4">{star}★</span>
                                <div className="flex-grow h-1.5 bg-white rounded-full overflow-hidden">
-                                  <div className={`h-full bg-pink-600 rounded-full`} style={{ width: star === 5 ? '80%' : star === 4 ? '15%' : '2%' }}></div>
+                                  <div className={`h-full bg-pink-600 rounded-full`} style={{ width: `${percent}%` }}></div>
                                </div>
                              </div>
-                           ))}
+                             );
+                           })}
                         </div>
-                        <button className="bg-white text-pink-600 font-black px-8 py-4 rounded-2xl uppercase tracking-widest shadow-xl shadow-pink-50 border border-pink-100">Rate Product</button>
+                        <button 
+                           onClick={() => {
+                             if (!isAuthenticated) {
+                               toast.error('Please login to rate this product');
+                               navigate('/login');
+                             }
+                           }}
+                           className="bg-white text-pink-600 font-black px-8 py-4 rounded-2xl uppercase tracking-widest shadow-xl shadow-pink-50 border border-pink-100"
+                        >Rate Product</button>
                      </div>
                      
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

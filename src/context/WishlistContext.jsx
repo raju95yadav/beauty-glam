@@ -1,49 +1,94 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import wishlistService from '../services/wishlistService';
+import { useAuth } from '../hooks/useAuth';
+import { toast } from 'react-hot-toast';
 
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlistItems, setWishlistItems] = useState(() => {
-    try {
-      const savedWishlist = localStorage.getItem('wishlist');
-      if (savedWishlist && savedWishlist !== 'undefined') {
-        return JSON.parse(savedWishlist);
-      }
-      return [];
-    } catch (error) {
-      console.error('Error parsing wishlist from localStorage:', error);
-      return [];
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [wishlistIds, setWishlistIds] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { isAuthenticated } = useAuth();
+
+  // Fetch wishlist from backend when user is authenticated
+  const fetchWishlist = useCallback(async () => {
+    if (!isAuthenticated) {
+      setWishlistItems([]);
+      setWishlistIds([]);
+      return;
     }
-  });
+    try {
+      setLoading(true);
+      const data = await wishlistService.getWishlist();
+      const products = data.products || [];
+      setWishlistItems(products);
+      setWishlistIds(products.map((p) => p._id));
+    } catch (error) {
+      console.error('Error fetching wishlist:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
-  }, [wishlistItems]);
+    fetchWishlist();
+  }, [fetchWishlist]);
 
-  const addToWishlist = (product) => {
-    setWishlistItems((prevItems) => {
-      if (prevItems.find((item) => item._id === product._id)) {
-        return prevItems;
-      }
-      return [...prevItems, product];
-    });
+  const addToWishlist = async (product) => {
+    if (!isAuthenticated) {
+      toast.error('Please login to add items to your wishlist');
+      return false;
+    }
+    try {
+      await wishlistService.addToWishlist(product._id);
+      // Optimistic update
+      setWishlistItems((prev) => {
+        if (prev.find((item) => item._id === product._id)) return prev;
+        return [...prev, product];
+      });
+      setWishlistIds((prev) => {
+        if (prev.includes(product._id)) return prev;
+        return [...prev, product._id];
+      });
+      toast.success('Added to wishlist');
+      return true;
+    } catch (error) {
+      console.error('Error adding to wishlist:', error);
+      toast.error('Failed to add to wishlist');
+      return false;
+    }
   };
 
-  const removeFromWishlist = (productId) => {
-    setWishlistItems((prevItems) =>
-      prevItems.filter((item) => item._id !== productId)
-    );
+  const removeFromWishlist = async (productId) => {
+    if (!isAuthenticated) return false;
+    try {
+      await wishlistService.removeFromWishlist(productId);
+      // Optimistic update
+      setWishlistItems((prev) => prev.filter((item) => item._id !== productId));
+      setWishlistIds((prev) => prev.filter((id) => id !== productId));
+      toast.success('Removed from wishlist');
+      return true;
+    } catch (error) {
+      console.error('Error removing from wishlist:', error);
+      toast.error('Failed to remove from wishlist');
+      return false;
+    }
   };
 
   const isInWishlist = (productId) => {
-    return wishlistItems.some((item) => item._id === productId);
+    return wishlistIds.includes(productId);
   };
 
-  const toggleWishlist = (product) => {
+  const toggleWishlist = async (product) => {
+    if (!isAuthenticated) {
+      toast.error('Please login to use wishlist');
+      return false;
+    }
     if (isInWishlist(product._id)) {
-      removeFromWishlist(product._id);
+      return removeFromWishlist(product._id);
     } else {
-      addToWishlist(product);
+      return addToWishlist(product);
     }
   };
 
@@ -53,6 +98,8 @@ export const WishlistProvider = ({ children }) => {
     removeFromWishlist,
     isInWishlist,
     toggleWishlist,
+    loading,
+    fetchWishlist,
   };
 
   return (

@@ -52,8 +52,9 @@ const SuccessModal = ({ show, loading, orderId }) => {
                  </div>
 
                  <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Transaction ID</p>
-                    <p className="text-xs font-bold text-gray-900 font-mono">NYK-{Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                     <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Order Reference</p>
+                     <p className="text-xs font-bold text-gray-900 font-mono">{orderId ? `#${orderId.toString().slice(-8).toUpperCase()}` : 'Processing...'}</p>
+                     <p className="text-[8px] text-orange-500 font-bold uppercase tracking-widest mt-1">⚠️ Test Mode</p>
                  </div>
 
                  <div className="pt-4 flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-pink-600">

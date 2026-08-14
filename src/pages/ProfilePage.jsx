@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { User, Package, MapPin, Heart, LogOut, ChevronRight, Settings, Bell } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -81,22 +81,14 @@ const ProfilePage = () => {
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-pink-600 to-rose-500 p-8 rounded-2xl text-white shadow-xl shadow-pink-100 relative overflow-hidden">
              <div className="relative z-10">
-               <h3 className="font-bold text-xl mb-2">Nykaa Prive</h3>
-               <p className="text-sm opacity-90 mb-6 font-medium">Enjoy exclusive benefits and early access to sales.</p>
-               <button className="bg-white text-pink-600 px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-pink-50 transition-colors shadow-lg">
-                 Join Now
-               </button>
+               <h3 className="font-bold text-xl mb-2">Welcome Back!</h3>
+               <p className="text-sm opacity-90 mb-6 font-medium">Enjoy your shopping experience with exclusive deals and fast delivery.</p>
+               <Link to="/products" className="bg-white text-pink-600 px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-pink-50 transition-colors shadow-lg inline-block">
+                 Shop Now
+               </Link>
              </div>
              <div className="absolute -bottom-4 -right-4 size-32 bg-white/10 rounded-full blur-2xl"></div>
              <div className="absolute -top-4 -left-4 size-24 bg-white/5 rounded-full blur-xl"></div>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-             <h4 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-widest border-b pb-4">Beauty Wallet</h4>
-             <div className="flex justify-between items-center bg-gray-50 p-4 rounded-xl">
-               <span className="text-xs text-gray-500 font-medium italic">Available Balance</span>
-               <span className="text-xl font-bold text-gray-900">₹0.00</span>
-             </div>
           </div>
         </div>
       </div>

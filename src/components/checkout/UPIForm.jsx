@@ -7,15 +7,22 @@ const UPIForm = ({ onValidChange, onVerify, loading }) => {
   const [isVerifying, setIsVerifying] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
 
-  const handleVerify = () => {
-    if (!upiId.includes('@')) return;
+  const handleVerify = (customId) => {
+    const targetId = customId || upiId;
+    if (!targetId.includes('@')) return;
     
     setIsVerifying(true);
     setTimeout(() => {
       setIsVerifying(false);
       setIsVerified(true);
-      onValidChange(true, { upiId });
-    }, 2000);
+      onValidChange(true, { upiId: targetId });
+    }, 400);
+  };
+
+  const handleAutoFill = () => {
+    const testId = 'testuser@upi';
+    setUpiId(testId);
+    handleVerify(testId);
   };
 
   const handleChange = (e) => {
@@ -36,6 +43,17 @@ const UPIForm = ({ onValidChange, onVerify, loading }) => {
                </p>
             </div>
          </div>
+      </div>
+
+      <div className="flex justify-between items-center px-1">
+         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">UPI Identification</span>
+         <button
+           type="button"
+           onClick={handleAutoFill}
+           className="text-[10px] font-black text-pink-600 uppercase tracking-widest hover:underline bg-pink-50 px-3 py-1.5 rounded-xl border border-pink-100 transition-all"
+         >
+           ⚡ Auto-fill Test UPI
+         </button>
       </div>
 
       <div className="relative group">

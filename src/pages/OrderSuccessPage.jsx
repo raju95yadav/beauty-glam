@@ -5,7 +5,18 @@ import { ShoppingBag, ChevronRight, CheckCircle2, Truck, Star } from 'lucide-rea
 
 const OrderSuccessPage = () => {
   const location = useLocation();
-  const orderId = new URLSearchParams(location.search).get('orderId') || 'NYK-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+  const orderId = new URLSearchParams(location.search).get('orderId') || 'N/A';
+
+  // Calculate estimated delivery date (5 business days from now)
+  const getEstimatedDelivery = () => {
+    const date = new Date();
+    let daysAdded = 0;
+    while (daysAdded < 5) {
+      date.setDate(date.getDate() + 1);
+      if (date.getDay() !== 0 && date.getDay() !== 6) daysAdded++;
+    }
+    return date.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 py-24">
@@ -42,7 +53,7 @@ const OrderSuccessPage = () => {
               </div>
               <div className="text-right space-y-1">
                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Estimated Arrival</p>
-                 <p className="text-sm font-black text-pink-600">Friday, 21st March</p>
+                 <p className="text-sm font-black text-pink-600">{getEstimatedDelivery()}</p>
               </div>
            </div>
         </div>

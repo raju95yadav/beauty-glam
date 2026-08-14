@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../context/CartContext';
 import orderService from '../services/orderService';
 import Loader from '../components/ui/Loader';
 import { Package, ChevronRight, Clock, CheckCircle2, Truck, XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 
 const OrdersPage = () => {
   const { user } = useAuth();
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -117,7 +121,22 @@ const OrdersPage = () => {
                     <Truck className="size-3.5" />
                     Track Order
                   </Link>
-                  <button className="bg-pink-600 text-white text-xs font-bold px-6 py-2.5 rounded-lg hover:bg-pink-700 transition-all uppercase tracking-widest">Buy Again</button>
+                  <button 
+                    onClick={async () => {
+                      try {
+                        for (const item of order.orderItems) {
+                          await addToCart({ _id: item.product, name: item.name, price: item.price, images: item.image ? [{ url: item.image }] : [] }, item.qty);
+                        }
+                        toast.success('Items added to bag!');
+                        navigate('/cart');
+                      } catch (err) {
+                        toast.error('Failed to add items to bag.');
+                      }
+                    }}
+                    className="bg-pink-600 text-white text-xs font-bold px-6 py-2.5 rounded-lg hover:bg-pink-700 transition-all uppercase tracking-widest"
+                  >
+                    Buy Again
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -126,7 +145,7 @@ const OrdersPage = () => {
       ) : (
         <div className="text-center py-24 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
            <p className="text-gray-500 mb-6 font-medium">You haven&apos;t placed any orders yet.</p>
-           <button className="bg-pink-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-pink-700 transition-all uppercase tracking-widest">
+           <button onClick={() => navigate('/products')} className="bg-pink-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-pink-700 transition-all uppercase tracking-widest">
              Start Shopping
            </button>
         </div>

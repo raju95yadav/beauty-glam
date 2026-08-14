@@ -50,7 +50,7 @@ const UserOtpForm = () => {
       toast.success('Welcome to the Boutique!');
       
       if (data.user.role === 'admin') {
-        window.location.href = `/dashboard?token=${data.token}&role=${data.user.role}`;
+        window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
       } else {
         navigate('/');
       }
@@ -80,6 +80,8 @@ const UserOtpForm = () => {
                   <Mail className="size-4 text-gray-400 group-focus-within/input:text-rose-500 transition-colors" />
                 </div>
                 <input
+                  id="user-otp-email"
+                  name="email"
                   type="email"
                   required
                   placeholder="name@example.com"
@@ -115,7 +117,7 @@ const UserOtpForm = () => {
             className="space-y-6"
           >
             <div className="text-center mb-2">
-              <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] text-center">Verification Code</label>
+              <label htmlFor="user-otp-code" className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] text-center">Verification Code</label>
               <p className="text-[10px] text-gray-400 dark:text-gray-600 mt-1">Sent to <span className="text-gray-600 dark:text-gray-300 font-bold">{email}</span></p>
             </div>
             
@@ -124,6 +126,8 @@ const UserOtpForm = () => {
                  <ShieldCheck className="size-4 text-gray-400 group-focus-within/input:text-rose-500 transition-colors" />
               </div>
               <input
+                id="user-otp-code"
+                name="otp"
                 type="text"
                 required
                 maxLength={6}
