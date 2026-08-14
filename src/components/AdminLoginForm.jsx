@@ -35,7 +35,7 @@ const AdminLoginForm = () => {
         
         // Final fade-out and redirect
         setTimeout(() => {
-           window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${data.token}&role=${data.role}`;
+           window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
         }, 2200);
       }, 1500);
 

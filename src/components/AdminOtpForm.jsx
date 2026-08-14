@@ -50,7 +50,7 @@ const AdminOtpForm = () => {
       toast.success('Admin Verified Successfully!');
       
       // Redirect to admin dashboard route
-      window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${data.token}&role=${data.role}`;
+      window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
     } catch (error) {
       toast.error(error.response?.data?.message || 'Invalid OTP');
     } finally {
