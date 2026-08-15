@@ -36,7 +36,8 @@ const OTPVerificationPage = () => {
       if (user.role === 'admin') {
         toast.success('Admin login successful! Redirecting to dashboard...');
         setTimeout(() => {
-          window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${token}&role=${user.role}`;
+          const role = user.role || 'admin';
+          window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${token}&role=${role}`;
         }, 1500);
       } else {
         navigate('/login-success');
