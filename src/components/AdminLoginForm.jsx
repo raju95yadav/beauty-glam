@@ -16,27 +16,26 @@ const AdminLoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (loading || isRedirecting) return;
-
+    
     setLoading(true);
     const loadingToast = toast.loading('Establishing secure administrative session...');
-
+    
     try {
       const { data } = await authApi.adminLogin(email, password);
-
+      
       // Professional delay for UX
       setTimeout(() => {
         setLoading(false);
         setIsRedirecting(true);
-
+        
         // Centralized login state synchronization
         login(data.user, data.token);
-
+        
         toast.success('Access Granted. Welcome, Admin.', { id: loadingToast });
-
+        
         // Final fade-out and redirect
         setTimeout(() => {
-          const role = data.role || data.user?.role || 'admin';
-          window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${data.token}&role=${role}`;
+           window.location.href = `http://localhost:5174/dashboard?token=${data.token}&role=${data.user.role}`;
         }, 2200);
       }, 1500);
 
@@ -61,13 +60,13 @@ const AdminLoginForm = () => {
       >
         <div className="bg-gray-900/5 dark:bg-white/5 border border-gray-100 dark:border-white/5 p-6 rounded-[2rem] shadow-soft">
           <div className="flex items-center gap-4">
-            <div className="size-10 bg-gray-900 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-white shadow-soft">
-              <ShieldCheck size={20} className="text-rose-400" />
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-gray-900 dark:text-gray-100 uppercase tracking-[0.2em]">Authorized Access</p>
-              <p className="text-[9px] text-gray-400 dark:text-gray-500 mt-0.5 uppercase tracking-widest font-medium italic">Administrative Gateway</p>
-            </div>
+             <div className="size-10 bg-gray-900 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-white shadow-soft">
+                <ShieldCheck size={20} className="text-rose-400" />
+             </div>
+             <div>
+               <p className="text-[10px] font-bold text-gray-900 dark:text-gray-100 uppercase tracking-[0.2em]">Authorized Access</p>
+               <p className="text-[9px] text-gray-400 dark:text-gray-500 mt-0.5 uppercase tracking-widest font-medium italic">Administrative Gateway</p>
+             </div>
           </div>
         </div>
 
@@ -78,8 +77,6 @@ const AdminLoginForm = () => {
               <Mail className="size-4 text-gray-400 group-focus-within/input:text-white dark:group-focus-within/input:text-gray-900 transition-colors" />
             </div>
             <input
-              id="admin-login-email"
-              name="email"
               type="email"
               required
               placeholder="admin@boutique.com"
@@ -91,14 +88,12 @@ const AdminLoginForm = () => {
         </div>
 
         <div className="space-y-3">
-          <label htmlFor="admin-login-password" className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] px-1">Credential</label>
+          <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] px-1">Credential</label>
           <div className="relative group/input">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg group-focus-within/input:bg-gray-900 dark:group-focus-within/input:bg-white transition-all duration-300">
               <Key className="size-4 text-gray-400 group-focus-within/input:text-white dark:group-focus-within/input:text-gray-900 transition-colors" />
             </div>
             <input
-              id="admin-login-password"
-              name="password"
               type="password"
               required
               placeholder="••••••••"
@@ -122,13 +117,13 @@ const AdminLoginForm = () => {
           ) : (
             <>
               Secure Authorize <ArrowRight size={16} className="opacity-40" />
-            </>
-          )}
-        </button>
-        <p className="text-center text-[9px] text-gray-400 dark:text-gray-600 uppercase tracking-widest leading-relaxed">
-          Access to this portal is restricted and monitored.
-        </p>
-      </motion.form>
+          </>
+        )}
+      </button>
+      <p className="text-center text-[9px] text-gray-400 dark:text-gray-600 uppercase tracking-widest leading-relaxed">
+        Access to this portal is restricted and monitored.
+      </p>
+    </motion.form>
     </>
   );
 };

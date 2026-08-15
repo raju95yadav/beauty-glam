@@ -43,15 +43,14 @@ const AdminOtpForm = () => {
     setLoading(true);
     try {
       const { data } = await authApi.verifyOTP(email, otp);
-
+      
       // Centralized login state synchronization
       login(data.user, data.token);
-
+      
       toast.success('Admin Verified Successfully!');
-
+      
       // Redirect to admin dashboard route
-      const role = data.role || data.user?.role || 'admin';
-      window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${data.token}&role=${role}`;
+      window.location.href = '/admin-dashboard'; 
     } catch (error) {
       toast.error(error.response?.data?.message || 'Invalid OTP');
     } finally {
@@ -115,7 +114,7 @@ const AdminOtpForm = () => {
             <div className="text-center mb-2">
               <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Enter 6-Digit OTP</label>
             </div>
-
+            
             <div className="relative group">
               <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-300 group-focus-within:text-indigo-600 transition-colors" />
               <input
@@ -147,7 +146,7 @@ const AdminOtpForm = () => {
                 {timer > 0 ? `Resend OTP in ${timer}s` : 'Resend OTP'}
               </button>
             </div>
-
+            
             <div className="text-center mt-2">
               <button
                 type="button"
