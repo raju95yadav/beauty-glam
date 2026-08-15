@@ -16,26 +16,26 @@ const AdminLoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (loading || isRedirecting) return;
-    
+
     setLoading(true);
     const loadingToast = toast.loading('Establishing secure administrative session...');
-    
+
     try {
       const { data } = await authApi.adminLogin(email, password);
-      
+
       // Professional delay for UX
       setTimeout(() => {
         setLoading(false);
         setIsRedirecting(true);
-        
+
         // Centralized login state synchronization
         login(data.user, data.token);
-        
+
         toast.success('Access Granted. Welcome, Admin.', { id: loadingToast });
-        
+
         // Final fade-out and redirect
         setTimeout(() => {
-           window.location.href = `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/dashboard?token=${data.token}&role=${data.user.role}`;
+          window.location.href = `/dashboard?token=${data.token}&role=${data.user.role}`;
         }, 2200);
       }, 1500);
 
@@ -60,13 +60,13 @@ const AdminLoginForm = () => {
       >
         <div className="bg-gray-900/5 dark:bg-white/5 border border-gray-100 dark:border-white/5 p-6 rounded-[2rem] shadow-soft">
           <div className="flex items-center gap-4">
-             <div className="size-10 bg-gray-900 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-white shadow-soft">
-                <ShieldCheck size={20} className="text-rose-400" />
-             </div>
-             <div>
-               <p className="text-[10px] font-bold text-gray-900 dark:text-gray-100 uppercase tracking-[0.2em]">Authorized Access</p>
-               <p className="text-[9px] text-gray-400 dark:text-gray-500 mt-0.5 uppercase tracking-widest font-medium italic">Administrative Gateway</p>
-             </div>
+            <div className="size-10 bg-gray-900 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-white shadow-soft">
+              <ShieldCheck size={20} className="text-rose-400" />
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-gray-900 dark:text-gray-100 uppercase tracking-[0.2em]">Authorized Access</p>
+              <p className="text-[9px] text-gray-400 dark:text-gray-500 mt-0.5 uppercase tracking-widest font-medium italic">Administrative Gateway</p>
+            </div>
           </div>
         </div>
 
@@ -121,13 +121,13 @@ const AdminLoginForm = () => {
           ) : (
             <>
               Secure Authorize <ArrowRight size={16} className="opacity-40" />
-          </>
-        )}
-      </button>
-      <p className="text-center text-[9px] text-gray-400 dark:text-gray-600 uppercase tracking-widest leading-relaxed">
-        Access to this portal is restricted and monitored.
-      </p>
-    </motion.form>
+            </>
+          )}
+        </button>
+        <p className="text-center text-[9px] text-gray-400 dark:text-gray-600 uppercase tracking-widest leading-relaxed">
+          Access to this portal is restricted and monitored.
+        </p>
+      </motion.form>
     </>
   );
 };

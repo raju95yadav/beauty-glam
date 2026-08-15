@@ -18,14 +18,14 @@ const LoginForm = () => {
     setLoading(true);
     try {
       const { data } = await authApi.login(formData.email, formData.password);
-      
+
       // Centralized login state synchronization
       login(data.user, data.token);
-      
+
       toast.success('Login Successful!');
-      
+
       if (data.user.role === 'admin') {
-        window.location.href = `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/dashboard?token=${data.token}&role=${data.user.role}`;
+        window.location.href = `/dashboard?token=${data.token}&role=${data.user.role}`;
       } else {
         navigate('/');
       }

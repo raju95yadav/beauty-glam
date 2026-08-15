@@ -43,14 +43,14 @@ const UserOtpForm = () => {
     setLoading(true);
     try {
       const { data } = await authApi.verifyOTP(email, otp);
-      
+
       // Centralized login state synchronization
       login(data.user, data.token);
-      
+
       toast.success('Welcome to the Boutique!');
-      
+
       if (data.user.role === 'admin') {
-        window.location.href = `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/dashboard?token=${data.token}&role=${data.user.role}`;
+        window.location.href = `/dashboard?token=${data.token}&role=${data.user.role}`;
       } else {
         navigate('/');
       }
@@ -120,10 +120,10 @@ const UserOtpForm = () => {
               <label htmlFor="user-otp-code" className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] text-center">Verification Code</label>
               <p className="text-[10px] text-gray-400 dark:text-gray-600 mt-1">Sent to <span className="text-gray-600 dark:text-gray-300 font-bold">{email}</span></p>
             </div>
-            
+
             <div className="relative group/input">
               <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg group-focus-within/input:bg-rose-50 dark:group-focus-within/input:bg-rose-950/30 transition-colors">
-                 <ShieldCheck className="size-4 text-gray-400 group-focus-within/input:text-rose-500 transition-colors" />
+                <ShieldCheck className="size-4 text-gray-400 group-focus-within/input:text-rose-500 transition-colors" />
               </div>
               <input
                 id="user-otp-code"
@@ -155,7 +155,7 @@ const UserOtpForm = () => {
               >
                 {timer > 0 ? `Resend available in ${timer}s` : 'Resend Verification Code'}
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => setStep(1)}
