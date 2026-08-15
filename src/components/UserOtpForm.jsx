@@ -50,7 +50,7 @@ const UserOtpForm = () => {
       toast.success('Welcome to the Boutique!');
 
       if (data.user.role === 'admin') {
-        window.location.href = `/dashboard?token=${data.token}&role=${data.user.role}`;
+        window.location.href = `https://beauty-admin-five.vercel.app/dashboard?token=${data.token}&role=${data.user.role}`;
       } else {
         navigate('/');
       }
