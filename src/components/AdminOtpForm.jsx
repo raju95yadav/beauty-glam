@@ -50,7 +50,7 @@ const AdminOtpForm = () => {
       toast.success('Admin Verified Successfully!');
       
       // Redirect to admin dashboard route
-      window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
+      window.location.href = `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/dashboard?token=${data.token}&role=${data.user.role}`;
     } catch (error) {
       toast.error(error.response?.data?.message || 'Invalid OTP');
     } finally {

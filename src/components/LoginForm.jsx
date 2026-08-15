@@ -25,7 +25,7 @@ const LoginForm = () => {
       toast.success('Login Successful!');
       
       if (data.user.role === 'admin') {
-        window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
+        window.location.href = `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/dashboard?token=${data.token}&role=${data.user.role}`;
       } else {
         navigate('/');
       }

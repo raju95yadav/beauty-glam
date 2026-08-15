@@ -36,7 +36,7 @@ const OTPVerificationPage = () => {
       if (user.role === 'admin') {
         toast.success('Admin login successful! Redirecting to dashboard...');
         setTimeout(() => {
-          window.location.href = `http://localhost:5173/dashboard?token=${token}&role=${user.role}`;
+          window.location.href = `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/dashboard?token=${token}&role=${user.role}`;
         }, 1500);
       } else {
         navigate('/login-success');

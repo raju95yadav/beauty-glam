@@ -35,7 +35,7 @@ const AdminLoginForm = () => {
         
         // Final fade-out and redirect
         setTimeout(() => {
-           window.location.href = `http://localhost:5173/dashboard?token=${data.token}&role=${data.user.role}`;
+           window.location.href = `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/dashboard?token=${data.token}&role=${data.user.role}`;
         }, 2200);
       }, 1500);
 
