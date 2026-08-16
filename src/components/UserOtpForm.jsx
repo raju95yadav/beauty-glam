@@ -44,13 +44,14 @@ const UserOtpForm = () => {
     try {
       const { data } = await authApi.verifyOTP(email, otp);
       
-      // Centralized login state synchronization
+      const role = data.role || data.user?.role || 'user';
       login(data.user, data.token);
       
       toast.success('Welcome to the Boutique!');
       
-      if (data.user.role === 'admin') {
-        window.location.href = `/dashboard?token=${data.token}&role=${data.user.role}`;
+      if (role === 'admin') {
+        const adminBaseUrl = import.meta.env.VITE_ADMIN_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://beauty-admin-five.vercel.app');
+        window.location.href = `${adminBaseUrl}/dashboard?token=${data.token}&role=${role}`;
       } else {
         navigate('/');
       }

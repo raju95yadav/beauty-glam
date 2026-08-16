@@ -22,6 +22,8 @@ const AdminLoginForm = () => {
     
     try {
       const { data } = await authApi.adminLogin(email, password);
+      const role = data.role || data.user?.role || 'admin';
+      const adminBaseUrl = import.meta.env.VITE_ADMIN_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://beauty-admin-five.vercel.app');
       
       // Professional delay for UX
       setTimeout(() => {
@@ -35,7 +37,7 @@ const AdminLoginForm = () => {
         
         // Final fade-out and redirect
         setTimeout(() => {
-           window.location.href = `http://localhost:5174/dashboard?token=${data.token}&role=${data.user.role}`;
+           window.location.href = `${adminBaseUrl}/dashboard?token=${data.token}&role=${role}`;
         }, 2200);
       }, 1500);
 

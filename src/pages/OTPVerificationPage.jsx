@@ -31,12 +31,14 @@ const OTPVerificationPage = () => {
       const response = await api.post('/auth/verify-otp', { email, otp });
       const { user, token } = response.data;
       
+      const role = user.role || response.data.role || 'user';
       login(user, token);
       
-      if (user.role === 'admin') {
+      if (role === 'admin') {
+        const adminBaseUrl = import.meta.env.VITE_ADMIN_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://beauty-admin-five.vercel.app');
         toast.success('Admin login successful! Redirecting to dashboard...');
         setTimeout(() => {
-          window.location.href = `http://localhost:5174/dashboard?token=${token}&role=${user.role}`;
+          window.location.href = `${adminBaseUrl}/dashboard?token=${token}&role=${role}`;
         }, 1500);
       } else {
         navigate('/login-success');
