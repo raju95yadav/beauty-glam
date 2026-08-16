@@ -25,7 +25,6 @@ const AdminLoginForm = () => {
       const role = data.role || data.user?.role || 'admin';
       const adminBaseUrl = import.meta.env.VITE_ADMIN_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://beauty-admin-pied.vercel.app');
       
-      
       // Professional delay for UX
       setTimeout(() => {
         setLoading(false);
