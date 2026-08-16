@@ -4,28 +4,30 @@ import api from '../services/api';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const getInitialToken = () => {
+    const t = localStorage.getItem('token');
+    return t && t !== 'null' && t !== 'undefined' ? t : null;
+  };
+
+  const getInitialUser = () => {
+    try {
+      const u = localStorage.getItem('user');
+      return u && u !== 'null' && u !== 'undefined' ? JSON.parse(u) : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const [user, setUser] = useState(getInitialUser());
+  const [token, setToken] = useState(getInitialToken());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      // If we have a token but no user, try to load user from localStorage
-      if (token && !user) {
-        try {
-          const savedUser = localStorage.getItem('user');
-          if (savedUser) {
-            setUser(JSON.parse(savedUser));
-          }
-        } catch (error) {
-          console.error('Failed to authenticate:', error);
-          logout();
-        }
-      }
-      setLoading(false);
-    };
-
-    checkAuth();
+    // If token exists but user is missing, or vice versa, clear session
+    if ((token && !user) || (!token && user)) {
+      logout();
+    }
+    setLoading(false);
   }, [token, user]);
 
   const login = (userData, userToken) => {
@@ -57,7 +59,6 @@ export const AuthProvider = ({ children }) => {
       const response = await api.put('/users/profile', data);
       const updatedUser = response.data;
       
-      // Merge with existing user data to preserve fields not returned by API
       const currentUser = JSON.parse(localStorage.getItem('user')) || {};
       const newUserData = { ...currentUser, ...updatedUser };
       
@@ -70,6 +71,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const isAuth = !!(user && token && token !== 'null' && token !== 'undefined');
+
   return (
     <AuthContext.Provider
       value={{
@@ -80,7 +83,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         register,
         updateUser,
-        isAuthenticated: !!token,
+        isAuthenticated: isAuth,
       }}
     >
       {children}

@@ -44,7 +44,7 @@ const OTPVerificationPage = () => {
         navigate('/login-success');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid OTP. Please try again.');
+      setError(err.message || err.response?.data?.message || 'Invalid OTP. Please try again.');
     } finally {
       setLoading(false);
     }

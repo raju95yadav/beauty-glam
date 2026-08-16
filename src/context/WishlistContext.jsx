@@ -32,12 +32,20 @@ export const WishlistProvider = ({ children }) => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    fetchWishlist();
-  }, [fetchWishlist]);
+    if (!isAuthenticated) {
+      setWishlistItems([]);
+      setWishlistIds([]);
+    } else {
+      fetchWishlist();
+    }
+  }, [isAuthenticated, fetchWishlist]);
 
   const addToWishlist = async (product) => {
     if (!isAuthenticated) {
-      toast.error('Please login to add items to your wishlist');
+      setWishlistItems([]);
+      setWishlistIds([]);
+      toast.error('Please sign in to add items to your wishlist');
+      window.location.href = '/login';
       return false;
     }
     try {
@@ -55,13 +63,19 @@ export const WishlistProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Error adding to wishlist:', error);
-      toast.error('Failed to add to wishlist');
+      toast.error(error.message || 'Failed to add to wishlist');
       return false;
     }
   };
 
   const removeFromWishlist = async (productId) => {
-    if (!isAuthenticated) return false;
+    if (!isAuthenticated) {
+      setWishlistItems([]);
+      setWishlistIds([]);
+      toast.error('Please sign in to remove items from your wishlist');
+      window.location.href = '/login';
+      return false;
+    }
     try {
       await wishlistService.removeFromWishlist(productId);
       // Optimistic update
@@ -71,18 +85,22 @@ export const WishlistProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Error removing from wishlist:', error);
-      toast.error('Failed to remove from wishlist');
+      toast.error(error.message || 'Failed to remove from wishlist');
       return false;
     }
   };
 
   const isInWishlist = (productId) => {
+    if (!isAuthenticated) return false;
     return wishlistIds.includes(productId);
   };
 
   const toggleWishlist = async (product) => {
     if (!isAuthenticated) {
-      toast.error('Please login to use wishlist');
+      setWishlistItems([]);
+      setWishlistIds([]);
+      toast.error('Please sign in to use wishlist');
+      window.location.href = '/login';
       return false;
     }
     if (isInWishlist(product._id)) {

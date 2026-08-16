@@ -42,8 +42,12 @@ export const CartProvider = ({ children }) => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    fetchCart();
-  }, [fetchCart]);
+    if (!isAuthenticated) {
+      setCartItems([]);
+    } else {
+      fetchCart();
+    }
+  }, [isAuthenticated, fetchCart]);
 
   const addToCart = async (product, quantity = 1) => {
     if (!isAuthenticated) {
@@ -67,7 +71,7 @@ export const CartProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Error adding to cart:', error);
-      toast.error('Failed to add to bag');
+      toast.error(error.message || 'Failed to add to bag');
       return false;
     }
   };
@@ -81,7 +85,7 @@ export const CartProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Error removing from cart:', error);
-      toast.error('Failed to remove item');
+      toast.error(error.message || 'Failed to remove item');
       return false;
     }
   };
@@ -99,7 +103,7 @@ export const CartProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Error updating quantity:', error);
-      toast.error('Failed to update quantity');
+      toast.error(error.message || 'Failed to update quantity');
       return false;
     }
   };

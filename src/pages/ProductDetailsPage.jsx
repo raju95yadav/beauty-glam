@@ -4,10 +4,11 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useAuth } from '../hooks/useAuth';
 import productService from '../services/productService';
+import reviewService from '../services/reviewService';
 import ReviewCard from '../components/product/ReviewCard';
 import WishlistButton from '../components/ui/WishlistButton';
 import Loader from '../components/ui/Loader';
-import { ShoppingBag, Star, ShieldCheck, Truck, RefreshCcw, ChevronRight, Minus, Plus } from 'lucide-react';
+import { ShoppingBag, Star, ShieldCheck, Truck, RefreshCcw, ChevronRight, Minus, Plus, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast';
 
@@ -21,21 +22,51 @@ const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [activeTab, setActiveTab] = useState('description');
+  
+  // Review Modal State
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [newRating, setNewRating] = useState(5);
+  const [newComment, setNewComment] = useState('');
+  const [submittingReview, setSubmittingReview] = useState(false);
+
+  const fetchProduct = async () => {
+    try {
+      const data = await productService.getProductById(id);
+      setProduct(data);
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      toast.error(error.message || 'Failed to load product details');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const data = await productService.getProductById(id);
-        setProduct(data);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProduct();
     window.scrollTo(0, 0);
   }, [id]);
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!newComment.trim()) {
+      toast.error('Please enter a comment for your review');
+      return;
+    }
+    setSubmittingReview(true);
+    try {
+      await reviewService.addReview(id, { rating: newRating, comment: newComment });
+      toast.success('Thank you! Your review has been submitted.');
+      setShowReviewModal(false);
+      setNewComment('');
+      setNewRating(5);
+      fetchProduct();
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      toast.error(error.message || 'Failed to submit review');
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
 
   if (loading) return <Loader fullScreen />;
 
@@ -247,11 +278,13 @@ const ProductDetailsPage = () => {
                         <button 
                            onClick={() => {
                              if (!isAuthenticated) {
-                               toast.error('Please login to rate this product');
+                               toast.error('Please sign in to rate this product');
                                navigate('/login');
+                             } else {
+                               setShowReviewModal(true);
                              }
                            }}
-                           className="bg-white text-pink-600 font-black px-8 py-4 rounded-2xl uppercase tracking-widest shadow-xl shadow-pink-50 border border-pink-100"
+                           className="bg-white text-pink-600 font-black px-8 py-4 rounded-2xl uppercase tracking-widest shadow-xl shadow-pink-50 border border-pink-100 hover:bg-pink-600 hover:text-white transition-all"
                         >Rate Product</button>
                      </div>
                      
@@ -272,6 +305,77 @@ const ProductDetailsPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Write Review Modal */}
+      <AnimatePresence>
+        {showReviewModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-[2.5rem] p-8 md:p-10 max-w-lg w-full shadow-2xl relative border border-gray-100"
+            >
+              <button 
+                onClick={() => setShowReviewModal(false)}
+                className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-600 rounded-full bg-gray-50 hover:bg-gray-100 transition-all"
+              >
+                <X size={20} />
+              </button>
+
+              <h3 className="text-2xl font-black text-gray-900 uppercase tracking-tight mb-1">Write a Review</h3>
+              <p className="text-xs text-gray-400 font-medium mb-6">Share your experience with <span className="text-pink-600 font-bold">{product.name}</span></p>
+
+              <form onSubmit={handleReviewSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Rating</label>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setNewRating(star)}
+                        className="p-1 text-amber-400 hover:scale-125 transition-transform"
+                      >
+                        <Star className={`size-8 ${star <= newRating ? 'fill-amber-400 text-amber-400' : 'text-gray-200'}`} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Your Review</label>
+                  <textarea
+                    rows={4}
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="What did you like or dislike about this product?"
+                    className="w-full p-4 rounded-2xl border border-gray-200 text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-100 transition-all resize-none"
+                    required
+                  />
+                </div>
+
+                <div className="flex gap-4 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowReviewModal(false)}
+                    className="flex-1 py-4 bg-gray-100 text-gray-600 font-black rounded-2xl uppercase tracking-widest text-xs hover:bg-gray-200 transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={submittingReview}
+                    className="flex-1 py-4 bg-pink-600 text-white font-black rounded-2xl uppercase tracking-widest text-xs shadow-xl shadow-pink-100 hover:bg-pink-700 transition-all disabled:opacity-50"
+                  >
+                    {submittingReview ? 'Submitting...' : 'Submit Review'}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

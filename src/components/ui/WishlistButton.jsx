@@ -10,14 +10,14 @@ const WishlistButton = ({ product, className = '' }) => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
-  const active = isInWishlist(product._id);
+  const active = isAuthenticated ? isInWishlist(product._id) : false;
 
   const handleClick = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      toast.error('Please login to use wishlist');
+      toast.error('Please sign in to add or remove items from your wishlist');
       navigate('/login');
       return;
     }

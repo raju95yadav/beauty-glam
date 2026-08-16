@@ -19,7 +19,7 @@ const LoginPage = () => {
       await api.post('/auth/send-otp', { email });
       navigate('/verify-otp', { state: { email } });
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to send OTP. Please try again.');
+      setError(err.message || err.response?.data?.message || 'Failed to send OTP. Please try again.');
     } finally {
       setLoading(false);
     }

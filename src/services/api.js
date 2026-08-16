@@ -18,4 +18,30 @@ api.interceptors.request.use(
   }
 );
 
+// Response interceptor to format errors and handle auth failures
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const customError = new Error(
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      error.message ||
+      'An unexpected error occurred'
+    );
+    customError.status = error.response?.status;
+    customError.data = error.response?.data;
+
+    // Handle token expiration or unauthorized requests
+    if (error.response?.status === 401) {
+      const isAuthEndpoint = error.config?.url?.includes('/auth/');
+      if (!isAuthEndpoint && localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      }
+    }
+
+    return Promise.reject(customError);
+  }
+);
+
 export default api;
