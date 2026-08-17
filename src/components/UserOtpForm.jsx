@@ -5,6 +5,7 @@ import { authApi } from '../services/authApi';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { GoogleLogin } from '@react-oauth/google';
 
 const UserOtpForm = () => {
   const [email, setEmail] = useState('');
@@ -60,6 +61,36 @@ const UserOtpForm = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    if (!credentialResponse?.credential) {
+      toast.error('Google Sign-In failed: No credential received');
+      return;
+    }
+    setLoading(true);
+    try {
+      const { data } = await authApi.googleLogin(credentialResponse.credential);
+      const role = data.role || data.user?.role || 'user';
+      login(data.user, data.token);
+
+      toast.success('Welcome to the Boutique!');
+
+      if (role === 'admin') {
+        const adminBaseUrl = import.meta.env.VITE_ADMIN_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://beauty-admin-five.vercel.app');
+        window.location.href = `${adminBaseUrl}/dashboard?token=${data.token}&role=${role}`;
+      } else {
+        navigate('/');
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Google Sign-In failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast.error('Google Sign-In failed');
   };
 
   return (
@@ -164,6 +195,26 @@ const UserOtpForm = () => {
           </motion.form>
         )}
       </AnimatePresence>
+
+      {/* Divider and Google Sign-In */}
+      <div className="pt-2">
+        <div className="relative my-4 flex items-center justify-center">
+          <div className="w-full border-t border-gray-200 dark:border-gray-800 absolute"></div>
+          <span className="relative bg-white/80 dark:bg-gray-900/80 px-4 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest backdrop-blur-sm">
+            ── OR ──
+          </span>
+        </div>
+
+        <div className="flex justify-center w-full mt-4">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            useOneTap
+            shape="pill"
+            theme="outline"
+          />
+        </div>
+      </div>
     </div>
   );
 };

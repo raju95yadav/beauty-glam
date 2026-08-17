@@ -11,6 +11,7 @@ export const authApi = {
   // General User OTP Flow
   sendOTP: (email) => api.post('/auth/send-otp', { email }),
   verifyOTP: (email, otp) => api.post('/auth/verify-otp', { email, otp }),
+  googleLogin: (token) => api.post('/auth/google', { token }),
 
   // Admin Password Flow
   adminLogin: (email, password) => api.post('/auth/admin-login', { email, password }),
