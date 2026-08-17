@@ -85,7 +85,7 @@ const AuthPage = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full max-w-md relative z-10"
+          className="w-full max-w-sm sm:max-w-md relative z-10"
         >
           {/* Mobile Header */}
           <div className="md:hidden text-center mb-12">
