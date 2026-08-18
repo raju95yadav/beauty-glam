@@ -19,6 +19,11 @@ const orderService = {
   updateToPaid: async (id, paymentResult) => {
     const response = await api.put(`/orders/${id}/pay`, paymentResult);
     return response.data;
+  },
+
+  cancelOrder: async (id) => {
+    const response = await api.put(`/orders/${id}/cancel`);
+    return response.data;
   }
 };
 

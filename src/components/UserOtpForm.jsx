@@ -90,7 +90,7 @@ const UserOtpForm = () => {
   };
 
   const handleGoogleError = () => {
-    toast.error('Google Sign-In failed');
+    toast.error('Google Sign-In failed: Please ensure http://localhost:5173 is added to Authorized JavaScript Origins in Google Cloud Console.');
   };
 
   return (
