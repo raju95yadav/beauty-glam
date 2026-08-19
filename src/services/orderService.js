@@ -24,6 +24,11 @@ const orderService = {
   cancelOrder: async (id) => {
     const response = await api.put(`/orders/${id}/cancel`);
     return response.data;
+  },
+
+  getOrderTracking: async (id) => {
+    const response = await api.get(`/orders/${id}/tracking`);
+    return response.data;
   }
 };
 

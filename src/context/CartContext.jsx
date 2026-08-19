@@ -15,11 +15,12 @@ export const CartProvider = ({ children }) => {
     if (!backendCart || !backendCart.cartItems) return [];
     return backendCart.cartItems.map((item) => ({
       _id: item.product?._id || item.product,
-      name: item.product?.name || '',
+      name: item.product?.name || item.name || '',
       price: item.product?.price || item.price,
-      images: item.product?.images || [],
-      brand: item.product?.brand || '',
-      category: item.product?.category || '',
+      images: item.product?.images || item.images || [],
+      brand: item.product?.brand || item.brand || '',
+      category: item.product?.category || item.category || '',
+      stock: typeof item.product?.stock === 'number' ? item.product.stock : (typeof item.stock === 'number' ? item.stock : 99),
       quantity: item.qty,
     }));
   };
@@ -54,24 +55,39 @@ export const CartProvider = ({ children }) => {
       toast.error('Please login to add items to your bag');
       return false;
     }
+
+    const availableStock = typeof product.stock === 'number' ? product.stock : 99;
+    const existingItem = cartItems.find((item) => item._id === product._id);
+    const currentQty = existingItem ? existingItem.quantity : 0;
+    const targetQty = currentQty + quantity;
+
+    if (availableStock === 0) {
+      toast.error(`"${product.name}" is OUT OF STOCK.`);
+      return false;
+    }
+
+    if (targetQty > availableStock) {
+      toast.error(`Only ${availableStock} units of "${product.name}" available in stock. You cannot add more than ${availableStock}.`);
+      return false;
+    }
+
     try {
-      await cartService.addToCart(product._id, quantity, product.price);
-      // Optimistic update
+      await cartService.addToCart(product._id, targetQty, product.price);
       setCartItems((prevItems) => {
-        const existingItem = prevItems.find((item) => item._id === product._id);
-        if (existingItem) {
+        const exists = prevItems.find((item) => item._id === product._id);
+        if (exists) {
           return prevItems.map((item) =>
             item._id === product._id
-              ? { ...item, quantity: quantity }
+              ? { ...item, quantity: targetQty, stock: availableStock }
               : item
           );
         }
-        return [...prevItems, { ...product, quantity }];
+        return [...prevItems, { ...product, stock: availableStock, quantity: targetQty }];
       });
       return true;
     } catch (error) {
       console.error('Error adding to cart:', error);
-      toast.error(error.message || 'Failed to add to bag');
+      toast.error(error.response?.data?.message || error.message || 'Failed to add to bag');
       return false;
     }
   };
@@ -93,6 +109,15 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = async (productId, quantity) => {
     if (quantity < 1) return false;
     if (!isAuthenticated) return false;
+
+    const itemInCart = cartItems.find(i => i._id === productId);
+    if (itemInCart && typeof itemInCart.stock === 'number') {
+      if (quantity > itemInCart.stock) {
+        toast.error(`Only ${itemInCart.stock} units of "${itemInCart.name}" are available in stock.`);
+        return false;
+      }
+    }
+
     try {
       await cartService.updateCartItem(productId, quantity);
       setCartItems((prevItems) =>
@@ -103,7 +128,7 @@ export const CartProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Error updating quantity:', error);
-      toast.error(error.message || 'Failed to update quantity');
+      toast.error(error.response?.data?.message || error.message || 'Failed to update quantity');
       return false;
     }
   };
@@ -114,7 +139,6 @@ export const CartProvider = ({ children }) => {
       await cartService.clearCart();
       setCartItems([]);
     } catch (error) {
-      // Even if backend fails, clear locally for checkout flow
       setCartItems([]);
       console.error('Error clearing cart:', error);
     }

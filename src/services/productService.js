@@ -6,6 +6,11 @@ const productService = {
     return response.data;
   },
 
+  getFilterOptions: async () => {
+    const response = await api.get('/products/filters');
+    return response.data;
+  },
+
   getProductById: async (id) => {
     const response = await api.get(`/products/${id}`);
     return response.data;

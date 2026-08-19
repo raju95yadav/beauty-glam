@@ -12,9 +12,14 @@ const ProductCard = ({ product }) => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
+  const isOutOfStock = product.stock === 0;
+  const isLowStock = product.stock > 0 && product.stock <= 5;
+
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (isOutOfStock) return;
+
     if (!isAuthenticated) {
       toast.error('Please login to add items to your bag');
       navigate('/login');
@@ -41,15 +46,26 @@ const ProductCard = ({ product }) => {
             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
             src={product?.images?.[0]?.url || 'https://placehold.co/400x500?text=No+Image'}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover ${isOutOfStock ? 'grayscale opacity-75' : ''}`}
           />
           
-          {/* Discount Badge */}
-          {product.discount > 0 && (
-             <div className="absolute top-4 left-4 bg-rose-600 text-white text-[9px] font-black px-4 py-2 rounded-full shadow-2xl backdrop-blur-md uppercase tracking-[0.2em] z-10">
-                {product.discount}% OFF
-             </div>
-          )}
+          {/* Discount & Stock Badges */}
+          <div className="absolute top-4 left-4 flex flex-col gap-1.5 z-10">
+             {product.discount > 0 && (
+                <div className="bg-rose-600 text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-2xl backdrop-blur-md uppercase tracking-[0.2em]">
+                   {product.discount}% OFF
+                </div>
+             )}
+             {isOutOfStock ? (
+                <div className="bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-full shadow-2xl uppercase tracking-widest animate-pulse">
+                   Out of Stock
+                </div>
+             ) : isLowStock ? (
+                <div className="bg-amber-500 text-white text-[9px] font-black px-3 py-1 rounded-full shadow-2xl uppercase tracking-widest">
+                   Only {product.stock} Left!
+                </div>
+             ) : null}
+          </div>
 
           {/* Quick Actions Overlay */}
           <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 z-10">
@@ -90,8 +106,14 @@ const ProductCard = ({ product }) => {
             </div>
 
             <button 
+              disabled={isOutOfStock}
               onClick={handleAddToCart}
-              className="size-14 bg-gray-900 dark:bg-rose-600 text-white rounded-[1.5rem] flex items-center justify-center group-hover:scale-110 transition-all active:scale-95 shadow-2xl shadow-gray-200 dark:shadow-none relative overflow-hidden group/btn"
+              className={`size-14 rounded-[1.5rem] flex items-center justify-center transition-all shadow-2xl relative overflow-hidden group/btn ${
+                isOutOfStock
+                  ? 'bg-gray-300 dark:bg-gray-800 text-gray-400 cursor-not-allowed shadow-none'
+                  : 'bg-gray-900 dark:bg-rose-600 text-white group-hover:scale-110 active:scale-95 shadow-gray-200 dark:shadow-none'
+              }`}
+              title={isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
             >
               <div className="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-10 transition-opacity" />
               <ShoppingBag className="size-6" />

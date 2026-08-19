@@ -111,6 +111,24 @@ const CheckoutPage = () => {
       return;
     }
 
+    // Pre-flight stock check on cart items
+    for (const item of cartItems) {
+      if (typeof item.stock === 'number') {
+        if (item.stock === 0) {
+          const msg = `"${item.name}" is OUT OF STOCK. Please remove it from your bag.`;
+          toast.error(msg);
+          setError(msg);
+          return;
+        }
+        if (item.quantity > item.stock) {
+          const msg = `Only ${item.stock} units of "${item.name}" available in stock. You requested ${item.quantity}. Please update your bag.`;
+          toast.error(msg);
+          setError(msg);
+          return;
+        }
+      }
+    }
+
     try {
       setPaymentLoading(true);
       setShowSuccess(true);
@@ -158,7 +176,13 @@ const CheckoutPage = () => {
       console.error('Error placing order:', err);
       setShowSuccess(false);
       setPaymentLoading(false);
-      setError(err.response?.data?.message || 'Failed to place order. Please try again.');
+
+      const serverMessage = err.message || err.response?.data?.message || 'Failed to place order. Please try again.';
+      setError(serverMessage);
+      toast.error(serverMessage, { duration: 6000, id: 'order-error-toast' });
+      
+      // Refresh cart to sync live stock levels from MongoDB
+      fetchCart();
     }
   };
 
@@ -207,10 +231,13 @@ const CheckoutPage = () => {
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-red-50 text-red-600 p-6 rounded-3xl flex items-center gap-4 border border-red-100 shadow-sm"
+              className="bg-red-50 text-red-600 p-6 rounded-3xl flex items-start gap-4 border border-red-200 shadow-sm"
             >
-              <AlertCircle className="size-6" />
-              <p className="text-sm font-bold uppercase tracking-widest">{error}</p>
+              <AlertCircle className="size-6 text-red-600 shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <p className="text-xs font-black uppercase tracking-widest text-red-700">Stock & Order Alert</p>
+                <p className="text-sm font-bold text-red-600 leading-snug">{error}</p>
+              </div>
             </motion.div>
           )}
 
