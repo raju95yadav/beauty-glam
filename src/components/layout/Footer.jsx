@@ -79,10 +79,10 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-white text-gray-500 pt-24 pb-12 overflow-hidden border-t border-gray-100">
+    <footer className="relative bg-white dark:bg-gray-950 text-gray-500 dark:text-gray-400 pt-24 pb-12 overflow-hidden border-t border-gray-100 dark:border-gray-900 transition-colors duration-300">
       {/* Decorative Gradient Overlays */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/5 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gray-400/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/5 dark:bg-rose-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gray-400/5 dark:bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
       <motion.div 
         variants={containerVariants}
@@ -96,11 +96,11 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="space-y-8">
             <div className="space-y-4">
               <Link to="/">
-                <h3 className="text-3xl font-black text-gray-900 uppercase tracking-tighter italic">
-                  GLAM Beauty<span className="text-pink-600">.</span>
+                <h3 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic">
+                  GLAM Beauty<span className="text-pink-600 dark:text-rose-500">.</span>
                 </h3>
               </Link>
-              <p className="text-sm leading-relaxed max-w-xs">
+              <p className="text-sm leading-relaxed max-w-xs text-gray-500 dark:text-gray-400">
                 Your premier destination for luxury beauty. Curating the finest makeup, skincare, and wellness products since 2026.
               </p>
             </div>
@@ -116,7 +116,7 @@ const Footer = () => {
                   key={i}
                   href={social.href}
                   whileHover={{ y: -5, scale: 1.1 }}
-                  className="size-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-pink-600 hover:text-white transition-all border border-gray-200"
+                  className="size-10 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-pink-600 dark:hover:bg-rose-600 hover:text-white transition-all border border-gray-200 dark:border-gray-800"
                 >
                   <social.icon className="size-5" />
                 </motion.a>
@@ -127,7 +127,7 @@ const Footer = () => {
           {/* Links Sections */}
           {footerSections.map((section, idx) => (
             <motion.div variants={itemVariants} key={idx} className="space-y-8">
-              <h4 className="text-xs font-black text-gray-900 uppercase tracking-[0.3em] italic border-b border-gray-100 pb-4 inline-block">
+              <h4 className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-[0.3em] italic border-b border-gray-100 dark:border-gray-900 pb-4 inline-block">
                 {section.title}
               </h4>
               <ul className="space-y-4">
@@ -135,14 +135,14 @@ const Footer = () => {
                   <li key={i}>
                     <Link 
                       to={link.path} 
-                      className="group flex items-center gap-4 text-[13px] font-bold text-gray-400 hover:text-gray-900 transition-all duration-300"
+                      className="group flex items-center gap-4 text-[13px] font-bold text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all duration-300"
                     >
                       <div className="relative">
-                        <span className="size-9 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-rose-600 group-hover:text-white group-hover:-rotate-12 transition-all duration-500 border border-gray-100 shadow-sm group-hover:shadow-rose-100 group-hover:shadow-lg">
+                        <span className="size-9 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 group-hover:bg-rose-600 group-hover:text-white group-hover:-rotate-12 transition-all duration-500 border border-gray-100 dark:border-gray-800 shadow-sm group-hover:shadow-rose-100 group-hover:shadow-lg">
                           <link.icon className="size-4" />
                         </span>
                         {/* Subtle Active Indicator */}
-                        <span className="absolute -top-1 -right-1 size-2 bg-rose-500 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 border-2 border-white"></span>
+                        <span className="absolute -top-1 -right-1 size-2 bg-rose-500 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 border-2 border-white dark:border-gray-900"></span>
                       </div>
                       <span className="uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300 decoration-rose-500/30 underline-offset-4 group-hover:underline">
                         {link.label}
@@ -156,11 +156,11 @@ const Footer = () => {
 
           {/* Newsletter Section */}
           <motion.div variants={itemVariants} className="space-y-8">
-            <h4 className="text-xs font-black text-gray-900 uppercase tracking-[0.3em] italic border-b border-gray-100 pb-4 inline-block">
+            <h4 className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-[0.3em] italic border-b border-gray-100 dark:border-gray-900 pb-4 inline-block">
               Join the Circle
             </h4>
             <div className="space-y-6">
-              <p className="text-sm text-gray-500">Subscribe for early access to drops and exclusive beauty tips.</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Subscribe for early access to drops and exclusive beauty tips.</p>
               
               <form onSubmit={handleSubscribe} className="relative group">
                 <input 
@@ -168,12 +168,12 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your Email Address" 
-                  className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 rounded-[2rem] px-8 py-5 text-[11px] font-bold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all pr-14 shadow-sm"
+                  className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[2rem] px-8 py-5 text-[11px] font-bold text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all pr-14 shadow-sm"
                 />
                 <button 
                   type="submit"
                   disabled={loading}
-                  className="absolute right-2.5 top-2.5 bottom-2.5 px-3.5 bg-gray-950 text-white rounded-2xl hover:bg-rose-600 transition-all flex items-center justify-center disabled:opacity-50 shadow-lg"
+                  className="absolute right-2.5 top-2.5 bottom-2.5 px-3.5 bg-gray-950 dark:bg-rose-600 text-white rounded-2xl hover:bg-rose-600 dark:hover:bg-rose-500 transition-all flex items-center justify-center disabled:opacity-50 shadow-lg"
                 >
                   {loading ? (
                     <Loader2 className="size-4 animate-spin" />
@@ -185,8 +185,8 @@ const Footer = () => {
                 </button>
               </form>
               
-              <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
-                 <div className="size-5 rounded-full bg-rose-50 flex items-center justify-center">
+              <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
+                 <div className="size-5 rounded-full bg-rose-50 dark:bg-rose-950/40 flex items-center justify-center">
                     <Heart className="size-2.5 text-rose-600 fill-rose-600" />
                  </div>
                  Join 10M+ beauty lovers
@@ -196,14 +196,14 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400">
+        <div className="pt-10 border-t border-gray-100 dark:border-gray-900 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500">
             &copy; {new Date().getFullYear()} Glam Boutique. All Rights Reserved.
           </p>
-          <div className="flex gap-10 text-[9px] font-black uppercase tracking-[0.4em] text-gray-400">
-             <span className="hover:text-rose-600 cursor-pointer transition-all hover:-translate-y-0.5">Privacy</span>
-             <span className="hover:text-rose-600 cursor-pointer transition-all hover:-translate-y-0.5">Terms</span>
-             <span className="hover:text-rose-600 cursor-pointer transition-all hover:-translate-y-0.5">Legal</span>
+          <div className="flex gap-10 text-[9px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500">
+             <span className="hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer transition-all hover:-translate-y-0.5">Privacy</span>
+             <span className="hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer transition-all hover:-translate-y-0.5">Terms</span>
+             <span className="hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer transition-all hover:-translate-y-0.5">Legal</span>
           </div>
         </div>
       </motion.div>

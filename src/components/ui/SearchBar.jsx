@@ -60,7 +60,7 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
           placeholder="Search for products, brands and more"
-          className="w-full pl-10 pr-12 py-2.5 bg-gray-100 border border-transparent rounded-xl outline-none focus:bg-white focus:border-pink-300 focus:ring-4 focus:ring-pink-50 transition-all font-medium text-sm text-gray-700"
+          className="w-full pl-10 pr-12 py-2.5 bg-gray-100 dark:bg-gray-900 border border-transparent dark:border-gray-800 rounded-xl outline-none focus:bg-white dark:focus:bg-gray-950 focus:border-pink-300 dark:focus:border-rose-500/50 focus:ring-4 focus:ring-pink-50 dark:focus:ring-rose-950/40 transition-all font-medium text-sm text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
         />
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 size-4" />
         
@@ -70,7 +70,7 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
           <button
             type="button"
             onClick={() => setQuery('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
           >
             <X className="size-4" />
           </button>
@@ -83,11 +83,11 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute top-full left-0 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-gray-100 py-4 z-50 overflow-hidden"
+            className="absolute top-full left-0 w-full mt-2 bg-white dark:bg-gray-950 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 py-4 z-50 overflow-hidden"
           >
             {results.length > 0 ? (
               <>
-                <div className="px-4 mb-2 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                <div className="px-4 mb-2 text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
                   Suggested Products
                 </div>
                 <div className="space-y-1">
@@ -95,14 +95,14 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
                     <button
                       key={item._id}
                       onClick={() => handleSelect(item)}
-                      className="w-full px-4 py-3 text-left hover:bg-pink-50 transition-colors flex items-center gap-4 group"
+                      className="w-full px-4 py-3 text-left hover:bg-pink-50 dark:hover:bg-rose-950/20 transition-colors flex items-center gap-4 group"
                     >
-                      <div className="size-10 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
+                      <div className="size-10 bg-gray-50 dark:bg-gray-850 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100 dark:border-gray-800">
                         <img src={item.images?.[0]?.url || 'https://via.placeholder.com/100'} alt="" className="w-full h-full object-cover" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-gray-900 line-clamp-1 group-hover:text-pink-600">{item.name}</p>
-                        <p className="text-[10px] text-gray-400">₹{item.price}</p>
+                        <p className="text-xs font-bold text-gray-900 dark:text-gray-100 line-clamp-1 group-hover:text-pink-600 dark:group-hover:text-rose-400">{item.name}</p>
+                        <p className="text-[10px] text-gray-400 dark:text-gray-500">₹{item.price}</p>
                       </div>
                     </button>
                   ))}

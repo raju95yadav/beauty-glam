@@ -5,7 +5,7 @@ const AnnouncementBar = () => {
     <motion.div 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="bg-pink-50 text-pink-400 py-1.5 text-center text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] border-b border-pink-100"
+      className="bg-pink-50 dark:bg-rose-950/60 text-pink-500 dark:text-rose-300 py-1.5 text-center text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] border-b border-pink-100 dark:border-rose-900/50 transition-colors duration-300"
     >
       <div className="container mx-auto px-4 overflow-hidden whitespace-nowrap">
         <motion.p

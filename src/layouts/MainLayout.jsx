@@ -10,7 +10,7 @@ const MainLayout = () => {
   const { activeModal, closeModal } = useUI();
 
   return (
-    <div className="flex flex-col min-h-screen selection:bg-pink-100 selection:text-pink-600">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 selection:bg-rose-100 dark:selection:bg-rose-950/60 selection:text-rose-600 transition-colors duration-300">
       <AnnouncementBar />
       <Navbar />
       <CategoryMenu />
@@ -42,12 +42,12 @@ const MainLayout = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative bg-white rounded-3xl shadow-2xl overflow-hidden max-w-md w-full p-8"
+              className="relative bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl shadow-2xl overflow-hidden max-w-md w-full p-8 text-gray-900 dark:text-white"
             >
               {/* Modal content based on activeModal */}
                <button 
                   onClick={closeModal}
-                  className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600"
+                  className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
                >✕</button>
                {activeModal === 'login' && <div>Login Flow</div>}
             </motion.div>

@@ -21,25 +21,25 @@ const ProfilePage = () => {
   if (!user) return null;
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-12">
-      <div className="bg-white border-b">
+    <div className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen pb-12 transition-colors duration-300">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-8">
-          <div className="size-24 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 border-4 border-pink-50 shadow-inner">
+          <div className="size-24 rounded-full bg-pink-100 dark:bg-rose-950/50 flex items-center justify-center text-pink-600 dark:text-rose-400 border-4 border-pink-50 dark:border-rose-900/30 shadow-inner">
             <User className="size-12" />
           </div>
           <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">{user.name || 'User'}</h1>
-            <p className="text-gray-500 mb-4">{user.email}</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{user.name || 'User'}</h1>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">{user.email}</p>
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
                <button 
                  onClick={() => setIsEditModalOpen(true)}
-                 className="px-4 py-1.5 border border-pink-600 text-pink-600 text-xs font-bold rounded-full hover:bg-pink-600 hover:text-white transition-all uppercase tracking-tighter"
+                 className="px-4 py-1.5 border border-pink-600 dark:border-rose-500 text-pink-600 dark:text-rose-400 text-xs font-bold rounded-full hover:bg-pink-600 hover:text-white transition-all uppercase tracking-tighter"
                >
                  Edit Profile
                </button>
                <button 
                  onClick={logout}
-                 className="px-4 py-1.5 border border-gray-200 text-gray-400 text-xs font-bold rounded-full hover:border-red-500 hover:text-red-500 transition-all uppercase tracking-tighter flex items-center gap-2"
+                 className="px-4 py-1.5 border border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-400 text-xs font-bold rounded-full hover:border-red-500 hover:text-red-500 transition-all uppercase tracking-tighter flex items-center gap-2"
                >
                  <LogOut className="size-3" /> Logout
                </button>
@@ -50,7 +50,7 @@ const ProfilePage = () => {
 
       <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-4">
-          <h2 className="text-lg font-bold text-gray-800 uppercase tracking-widest mb-6">Account Dashboard</h2>
+          <h2 className="text-lg font-bold text-gray-800 dark:text-white uppercase tracking-widest mb-6">Account Dashboard</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {menuItems.map((item, i) => (
               <motion.button
@@ -63,16 +63,16 @@ const ProfilePage = () => {
                     navigate(item.path);
                   }
                 }}
-                className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all text-left flex items-start gap-5 group"
+                className="p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-all text-left flex items-start gap-5 group"
               >
-                <div className="p-3 bg-pink-50 rounded-xl text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-colors">
+                <div className="p-3 bg-pink-50 dark:bg-rose-950/40 rounded-xl text-pink-600 dark:text-rose-400 group-hover:bg-pink-600 group-hover:text-white transition-colors">
                   <item.icon className="size-6" />
                 </div>
                 <div className="flex-grow">
-                  <h3 className="font-bold text-gray-800 mb-1">{item.label}</h3>
-                  <p className="text-xs text-gray-400 leading-relaxed">{item.desc}</p>
+                  <h3 className="font-bold text-gray-800 dark:text-gray-100 mb-1">{item.label}</h3>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed">{item.desc}</p>
                 </div>
-                <ChevronRight className="size-5 text-gray-300 group-hover:text-pink-600 transition-colors" />
+                <ChevronRight className="size-5 text-gray-300 dark:text-gray-600 group-hover:text-pink-600 dark:group-hover:text-rose-400 transition-colors" />
               </motion.button>
             ))}
           </div>

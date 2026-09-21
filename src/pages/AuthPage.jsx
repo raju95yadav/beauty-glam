@@ -3,37 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ToggleTabs from '../components/ToggleTabs';
 import UserOtpForm from '../components/UserOtpForm';
 import AdminLoginForm from '../components/AdminLoginForm';
-import { ShoppingBag, Sparkles, ShieldCheck, Moon, Sun, ArrowLeft } from 'lucide-react';
+import { ShoppingBag, Sparkles, ShieldCheck, ArrowLeft } from 'lucide-react';
 import influencerImg from '../assets/beauty_influencer_login.png';
+import { useTheme } from '../context/ThemeContext';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 const AuthPage = () => {
   const [activeTab, setActiveTab] = useState('user');
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark' || 
-           (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+  const { isDark } = useTheme();
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-[#FDFCF0] dark:bg-gray-950 transition-colors duration-700 font-sans selection:bg-pink-100 dark:selection:bg-pink-900 overflow-hidden">
       {/* Theme Toggle */}
-      <button
-        onClick={toggleDarkMode}
-        className="fixed top-8 right-8 z-50 p-3 bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl rounded-full border border-white/20 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:scale-110 active:scale-95 transition-all shadow-soft"
-      >
-        {isDarkMode ? <Sun size={20} className="fill-yellow-400 text-yellow-500" /> : <Moon size={20} className="fill-indigo-600 text-indigo-700" />}
-      </button>
+      <div className="fixed top-8 right-8 z-50">
+        <ThemeToggle variant="icon" className="!size-12 !rounded-full shadow-lg" />
+      </div>
 
       {/* Left Section: Influencer Branding (Desktop) */}
       <div className="hidden md:flex flex-1 relative group overflow-hidden">

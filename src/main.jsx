@@ -7,19 +7,22 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { UIProvider } from './context/UIContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <UIProvider>
-        <AuthProvider>
-          <CartProvider>
-            <WishlistProvider>
-              <App />
-            </WishlistProvider>
-          </CartProvider>
-        </AuthProvider>
-      </UIProvider>
+      <ThemeProvider>
+        <UIProvider>
+          <AuthProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <App />
+              </WishlistProvider>
+            </CartProvider>
+          </AuthProvider>
+        </UIProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

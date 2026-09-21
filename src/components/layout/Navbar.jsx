@@ -3,6 +3,7 @@ import { ShoppingBag, Heart, User, LogOut, Package, UserCircle, Search, Menu, X,
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../hooks/useAuth';
 import SearchBar from '../ui/SearchBar';
+import ThemeToggle from '../ui/ThemeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -51,7 +52,11 @@ const Navbar = () => {
           </div>
 
           {/* Elevated Actions */}
-          <div className="flex items-center gap-1 md:gap-4 lg:gap-6">
+          <div className="flex items-center gap-2 md:gap-3 lg:gap-5">
+            {/* Theme Toggle in Customer Navbar (Placed between search and user profile) */}
+            <ThemeToggle className="hidden sm:inline-flex" />
+            <ThemeToggle variant="icon" className="sm:hidden" />
+
             <div 
               className="relative"
               onMouseEnter={() => user && setIsUserMenuOpen(true)}
@@ -156,8 +161,13 @@ const Navbar = () => {
                   </button>
                 </div>
 
-                <div className="mb-10 bg-gray-50 dark:bg-gray-900 rounded-[2rem] p-4 border border-gray-100 dark:border-gray-800 focus-within:ring-2 focus-within:ring-rose-500 transition-all">
+                <div className="mb-6 bg-gray-50 dark:bg-gray-900 rounded-[2rem] p-4 border border-gray-100 dark:border-gray-800 focus-within:ring-2 focus-within:ring-rose-500 transition-all">
                   <SearchBar onSearchSuccess={() => setIsMobileMenuOpen(false)} />
+                </div>
+
+                {/* Mobile Drawer Theme Switch */}
+                <div className="mb-8">
+                  <ThemeToggle variant="row" />
                 </div>
 
                 <nav className="space-y-8">
