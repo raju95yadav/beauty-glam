@@ -28,37 +28,37 @@ const SearchResultsPage = () => {
   }, [query]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
-          <Search className="text-pink-600" />
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+          <Search className="text-rose-600 dark:text-rose-400 size-6" />
           Search Results for &quot;{query}&quot;
         </h1>
-        <p className="text-sm text-gray-500 mt-1">{products.length} items found</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{products.length} items found</p>
       </div>
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24">
-          <Loader2 className="size-12 text-pink-600 animate-spin mb-4" />
-          <p className="text-gray-500 font-medium">Searching for your beauty favorites...</p>
+          <Loader2 className="size-12 text-rose-600 dark:text-rose-400 animate-spin mb-4" />
+          <p className="text-gray-500 dark:text-gray-400 font-medium text-sm">Searching for your beauty favorites...</p>
         </div>
       ) : products.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
       ) : (
-        <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
-          <p className="text-gray-500 mb-6">We couldn&apos;t find any matches for &quot;{query}&quot;</p>
+        <div className="text-center py-24 bg-white dark:bg-gray-900/80 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800 shadow-sm p-6">
+          <p className="text-gray-500 dark:text-gray-400 mb-6 text-sm">We couldn&apos;t find any matches for &quot;{query}&quot;</p>
           <div className="max-w-md mx-auto">
-             <h3 className="font-bold text-gray-800 mb-4 uppercase tracking-widest text-sm">Try searching for:</h3>
+             <h3 className="font-bold text-gray-800 dark:text-gray-200 mb-4 uppercase tracking-wider text-xs">Try searching for:</h3>
              <div className="flex flex-wrap justify-center gap-2">
                {['Lipstick', 'Face Wash', 'Moisturizer', 'Perfume', 'Mascara'].map((tag) => (
                  <button 
                    key={tag}
                    onClick={() => navigate(`/search?q=${tag}`)}
-                   className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-medium hover:border-pink-500 hover:text-pink-600 transition-all shadow-sm"
+                   className="px-4 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 hover:border-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-all shadow-sm cursor-pointer"
                  >
                    {tag}
                  </button>

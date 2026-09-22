@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, ShoppingBag, Heart, Sparkles } from 'lucide-react';
+import { Star, ShoppingBag, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../hooks/useAuth';
@@ -15,6 +15,14 @@ const ProductCard = ({ product }) => {
   const isOutOfStock = product.stock === 0;
   const isLowStock = product.stock > 0 && product.stock <= 5;
 
+  const originalMRP = product.mrp || (product.discount > 0 
+    ? Math.round(product.price * (1 + product.discount / 100)) 
+    : null);
+
+  const ratingValue = Number(product.rating || 0);
+  const reviewCount = Number(product.numReviews || 0);
+  const hasReviews = reviewCount > 0 || ratingValue > 0;
+
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -27,96 +35,138 @@ const ProductCard = ({ product }) => {
     }
     const success = await addToCart(product, 1);
     if (success) {
-      toast.success('Added to collection');
+      toast.success('Added to bag');
     }
   };
 
   return (
     <motion.div
       layout
-      whileHover={{ y: -12 }}
-      transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      className="group relative bg-white dark:bg-gray-900 rounded-[3rem] p-3 md:p-4 border border-gray-50 dark:border-gray-800 shadow-soft hover:shadow-2xl transition-all duration-700 overflow-hidden"
+      className="group relative bg-white dark:bg-gray-900/80 rounded-2xl md:rounded-3xl p-3 md:p-3.5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-rose-300/50 dark:hover:border-rose-500/30 transition-all duration-300 overflow-hidden flex flex-col justify-between"
     >
-      <Link to={`/product/${product._id}`} className="block">
-        {/* Elite Image Container */}
-        <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-gray-50 dark:bg-gray-800 mb-6 group-hover:shadow-xl transition-all duration-700">
-          <motion.img
-            whileHover={{ scale: 1.15 }}
-            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-            src={product?.images?.[0]?.url || 'https://placehold.co/400x500?text=No+Image'}
+      <Link to={`/product/${product._id}`} className="block flex-grow">
+        {/* Luxury 3:4 Portrait Image Container */}
+        <div className="relative aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-800/50 mb-3.5">
+          <img
+            src={product?.images?.[0]?.url || 'https://placehold.co/400x533?text=No+Image'}
             alt={product.name}
-            className={`w-full h-full object-cover ${isOutOfStock ? 'grayscale opacity-75' : ''}`}
+            loading="lazy"
+            className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out ${
+              isOutOfStock ? 'grayscale opacity-75' : ''
+            }`}
           />
-          
-          {/* Discount & Stock Badges */}
-          <div className="absolute top-4 left-4 flex flex-col gap-1.5 z-10">
-             {product.discount > 0 && (
-                <div className="bg-rose-600 text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-2xl backdrop-blur-md uppercase tracking-[0.2em]">
-                   {product.discount}% OFF
-                </div>
-             )}
-             {isOutOfStock ? (
-                <div className="bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-full shadow-2xl uppercase tracking-widest animate-pulse">
-                   Out of Stock
-                </div>
-             ) : isLowStock ? (
-                <div className="bg-amber-500 text-white text-[9px] font-black px-3 py-1 rounded-full shadow-2xl uppercase tracking-widest">
-                   Only {product.stock} Left!
-                </div>
-             ) : null}
+
+          {/* Badges Overlay */}
+          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10">
+            {product.discount > 0 && (
+              <span className="bg-rose-50 text-rose-600 dark:bg-rose-950/70 dark:text-rose-400 text-[11px] font-bold px-2 py-0.5 rounded-full border border-rose-200/60 dark:border-rose-900/50 shadow-sm">
+                {product.discount}% OFF
+              </span>
+            )}
+            {isOutOfStock ? (
+              <span className="bg-gray-900/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider backdrop-blur-sm shadow-sm">
+                Out of Stock
+              </span>
+            ) : isLowStock ? (
+              <span className="bg-amber-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider backdrop-blur-sm shadow-sm">
+                Only {product.stock} Left
+              </span>
+            ) : null}
           </div>
 
-          {/* Quick Actions Overlay */}
-          <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 z-10">
-             <WishlistButton 
-               product={product} 
-               className="!size-11 !rounded-[1.25rem] bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl !border-white/20 shadow-2xl" 
-             />
+          {/* Top-Right Floating Wishlist Icon */}
+          <div className="absolute top-2.5 right-2.5 z-20">
+            <WishlistButton 
+              product={product} 
+              className="size-8 md:size-9 shadow-md"
+            />
           </div>
-          
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+          {/* Bottom Gradient for Contrast on Hover */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+          {/* Slide-Up Action Bar from Bottom of Card */}
+          <div className="absolute inset-x-2.5 bottom-2.5 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-20">
+            <button
+              type="button"
+              disabled={isOutOfStock}
+              onClick={handleAddToCart}
+              className={`w-full py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-lg ${
+                isOutOfStock
+                  ? 'bg-gray-200 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                  : 'bg-white dark:bg-gray-900 hover:bg-rose-600 hover:text-white dark:hover:bg-rose-600 text-gray-900 dark:text-white border border-gray-100 dark:border-gray-700 active:scale-95'
+              }`}
+              title={isOutOfStock ? 'Out of Stock' : 'Quick Add to Bag'}
+            >
+              <ShoppingBag className="size-3.5" />
+              <span>{isOutOfStock ? 'Out of Stock' : 'Quick Add'}</span>
+            </button>
+          </div>
         </div>
 
         {/* Editorial Content */}
-        <div className="px-4 pb-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[9px] font-black uppercase text-rose-600 tracking-[0.2em] px-3 py-1 bg-rose-50 dark:bg-rose-950/20 rounded-full flex items-center gap-1.5">
-               <Sparkles size={10} /> {product.category}
+        <div className="px-1 pt-1 pb-1">
+          {/* Category & Rating Row */}
+          <div className="flex items-center justify-between gap-2 mb-1.5">
+            <span className="text-[10px] font-bold uppercase text-rose-600 dark:text-rose-400 tracking-wider truncate">
+              {product.category || 'Beauty'}
             </span>
-            <div className="flex items-center text-amber-400 gap-1 bg-amber-50 dark:bg-amber-950/20 px-2.5 py-1 rounded-full">
-               <Star className="size-3 fill-current" />
-               <span className="text-[10px] font-black text-amber-600">{product.rating}</span>
-            </div>
+
+            {hasReviews ? (
+              <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-950/30 px-1.5 py-0.5 rounded-full shrink-0">
+                <Star className="size-3 fill-amber-400 text-amber-400" />
+                <span className="text-[11px] font-bold text-amber-800 dark:text-amber-300">
+                  {ratingValue.toFixed(1)}
+                </span>
+                {reviewCount > 0 && (
+                  <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                    ({reviewCount})
+                  </span>
+                )}
+              </div>
+            ) : (
+              <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                <Sparkles className="size-2.5" /> New
+              </span>
+            )}
           </div>
 
-          <h3 className="text-sm md:text-base font-light text-gray-900 dark:text-gray-100 group-hover:text-rose-600 transition-colors line-clamp-1 mb-1 tracking-tight">
+          {/* Product Title */}
+          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors line-clamp-1 mb-0.5">
             {product.name}
           </h3>
-          <p className="text-[10px] text-gray-400 line-clamp-1 mb-5 italic font-serif">
+
+          {/* Brand */}
+          <p className="text-[11px] text-gray-400 dark:text-gray-500 line-clamp-1 mb-3">
             {product.brand}
           </p>
 
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex flex-col">
-               <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tighter">₹{product.price}</span>
-               {product.discount > 0 && (
-                  <span className="text-[10px] text-gray-400 line-through font-bold opacity-50">₹{Math.round(product.price * (1 + product.discount/100))}</span>
-               )}
+          {/* Price & Action Row */}
+          <div className="flex items-center justify-between gap-2 pt-1 border-t border-gray-50 dark:border-gray-800/60">
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <span className="text-base md:text-lg font-bold text-gray-900 dark:text-white tracking-tight">
+                ₹{product.price}
+              </span>
+              {originalMRP && originalMRP > product.price && (
+                <span className="text-xs text-gray-400 dark:text-gray-500 line-through">
+                  ₹{originalMRP}
+                </span>
+              )}
             </div>
 
-            <button 
+            {/* Mobile / Direct Bag Button */}
+            <button
+              type="button"
               disabled={isOutOfStock}
               onClick={handleAddToCart}
-              className={`size-14 rounded-[1.5rem] flex items-center justify-center transition-all shadow-2xl relative overflow-hidden group/btn ${
+              className={`p-2 rounded-xl flex items-center justify-center transition-all ${
                 isOutOfStock
-                  ? 'bg-gray-300 dark:bg-gray-800 text-gray-400 cursor-not-allowed shadow-none'
-                  : 'bg-gray-900 dark:bg-rose-600 text-white group-hover:scale-110 active:scale-95 shadow-gray-200 dark:shadow-none'
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
+                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-rose-600 hover:text-white dark:hover:bg-rose-600 text-gray-700 dark:text-gray-200 active:scale-90 md:opacity-0 md:group-hover:opacity-100'
               }`}
               title={isOutOfStock ? 'Out of Stock' : 'Add to Bag'}
             >
-              <div className="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-10 transition-opacity" />
-              <ShoppingBag className="size-6" />
+              <ShoppingBag className="size-4" />
             </button>
           </div>
         </div>

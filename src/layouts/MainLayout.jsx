@@ -11,9 +11,12 @@ const MainLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 selection:bg-rose-100 dark:selection:bg-rose-950/60 selection:text-rose-600 transition-colors duration-300">
-      <AnnouncementBar />
-      <Navbar />
-      <CategoryMenu />
+      {/* Unified Luxury Glassmorphic Header Stack */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-white/90 dark:bg-gray-950/90 border-b border-gray-200/50 dark:border-gray-800/50 transition-colors duration-300">
+        <AnnouncementBar />
+        <Navbar />
+        <CategoryMenu />
+      </header>
       
       <main className="flex-grow">
         <motion.div

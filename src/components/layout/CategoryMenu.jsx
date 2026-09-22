@@ -48,10 +48,10 @@ const CategoryMenu = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-900 sticky top-16 md:top-20 z-40 shadow-sm transition-colors duration-300"
+      className="bg-transparent transition-colors duration-300"
     >
       <div className="max-w-[1240px] mx-auto px-4">
-        <ul className="flex items-center justify-between h-12 overflow-x-auto no-scrollbar gap-6 md:gap-8">
+        <ul className="flex items-center justify-between h-11 overflow-x-auto no-scrollbar gap-5 md:gap-7">
           {categories.map((category) => (
             <motion.li 
               key={category.name} 
@@ -60,13 +60,13 @@ const CategoryMenu = () => {
             >
               <Link
                 to={`/category/${category.name.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')}`}
-                className="flex items-center gap-2 text-[11px] md:text-[12px] font-bold text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors duration-200 uppercase tracking-widest py-3 block whitespace-nowrap"
+                className="flex items-center gap-2 text-[11px] md:text-[12px] font-semibold text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors duration-200 uppercase tracking-wider py-2.5 block whitespace-nowrap"
               >
-                <category.icon className="size-3.5 md:size-4 text-gray-400 dark:text-gray-500 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors" strokeWidth={2.5} />
+                <category.icon className="size-3.5 text-gray-400 dark:text-gray-500 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors" strokeWidth={2} />
                 {category.name}
               </Link>
               <motion.div 
-                className="absolute bottom-1 left-0 h-[2.5px] bg-rose-600 rounded-full"
+                className="absolute bottom-0 left-0 h-[2px] bg-rose-600 dark:bg-rose-400 rounded-full"
                 initial={{ width: 0 }}
                 whileHover={{ width: '100%' }}
                 transition={{ duration: 0.2 }}

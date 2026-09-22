@@ -23,16 +23,22 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const getInitials = (name) => {
+    if (!name) return 'GB';
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    return name.slice(0, 2).toUpperCase();
+  };
+
   return (
-    <nav className={`sticky top-0 z-[60] transition-all duration-500 ${
-      isScrolled ? 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl shadow-soft py-2' : 'bg-white dark:bg-gray-950 py-4'
-    } border-b border-gray-100 dark:border-gray-900`}>
+    <nav className="relative transition-all duration-300 border-b border-gray-100/70 dark:border-gray-800/70">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20 gap-4">
+        <div className="flex items-center justify-between h-16 md:h-18 gap-4">
           {/* Mobile Menu Trigger */}
           <button 
             onClick={() => setIsMobileMenuOpen(true)}
-            className="md:hidden p-2.5 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 transition-all hover:scale-105 active:scale-95"
+            className="md:hidden p-2.5 bg-gray-100/80 dark:bg-gray-900/80 rounded-2xl text-gray-700 dark:text-gray-300 transition-all hover:scale-105 active:scale-95"
+            aria-label="Open navigation menu"
           >
             <Menu className="size-5" />
           </button>
@@ -40,40 +46,53 @@ const Navbar = () => {
           {/* Luxury Logo */}
           <Link to="/" className="flex items-baseline gap-0.5 group shrink-0">
              <span className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white tracking-tighter transition-colors group-hover:text-rose-600">GLAM</span>
-             <span className="text-rose-600 font-serif italic text-2xl md:text-3xl tracking-tight transition-transform group-hover:-translate-y-1 block">Beauty</span>
+             <span className="text-rose-600 font-serif italic text-2xl md:text-3xl tracking-tight transition-transform group-hover:-translate-y-0.5 block">Beauty</span>
           </Link>
 
           {/* Premium Search Container */}
-          <div className="hidden md:flex flex-grow max-w-2xl px-12">
+          <div className="hidden md:flex flex-grow max-w-2xl px-6 lg:px-12">
              <div className="w-full relative group">
-                <div className="absolute inset-0 bg-rose-500/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity" />
                 <SearchBar />
              </div>
           </div>
 
           {/* Elevated Actions */}
-          <div className="flex items-center gap-2 md:gap-3 lg:gap-5">
-            {/* Theme Toggle in Customer Navbar (Placed between search and user profile) */}
+          <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
+            {/* Theme Toggle in Customer Navbar */}
             <ThemeToggle className="hidden sm:inline-flex" />
             <ThemeToggle variant="icon" className="sm:hidden" />
 
+            {/* Profile Menu Trigger & Floating Glass Card */}
             <div 
               className="relative"
               onMouseEnter={() => user && setIsUserMenuOpen(true)}
               onMouseLeave={() => user && setIsUserMenuOpen(false)}
             >
               <button 
-                onClick={() => !user && navigate('/login')}
-                className="flex items-center gap-3 p-1.5 md:p-2 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-[1.25rem] transition-all group"
+                onClick={() => {
+                  if (!user) {
+                    navigate('/login');
+                  } else {
+                    setIsUserMenuOpen(prev => !prev);
+                  }
+                }}
+                className="flex items-center gap-2.5 p-1.5 md:p-2 hover:bg-gray-100/80 dark:hover:bg-gray-900/80 rounded-2xl transition-all group cursor-pointer"
+                aria-label="User account menu"
               >
-                <div className="size-10 rounded-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:bg-rose-50 dark:group-hover:bg-rose-950/30 group-hover:text-rose-600 transition-colors">
-                  <User className="size-5" />
-                </div>
-                <div className="hidden xl:block text-left">
+                {user ? (
+                  <div className="size-9 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-bold text-xs flex items-center justify-center shadow-sm shrink-0">
+                    {getInitials(user.name)}
+                  </div>
+                ) : (
+                  <div className="size-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-rose-50 dark:group-hover:bg-rose-950/40 group-hover:text-rose-600 transition-colors">
+                    <User className="size-4.5" />
+                  </div>
+                )}
+                <div className="hidden xl:block text-left min-w-0">
                   <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-0.5">
-                    {user ? 'My Profile' : 'Access'}
+                    {user ? 'Member' : 'Access'}
                   </p>
-                  <p className="text-[11px] font-black text-gray-900 dark:text-gray-100 uppercase tracking-widest break-all line-clamp-1">
+                  <p className="text-[11px] font-black text-gray-900 dark:text-gray-100 uppercase tracking-wider truncate max-w-[100px]">
                     {user ? (user.name?.split(' ')[0] || 'Member') : 'Sign In'}
                   </p>
                 </div>
@@ -81,49 +100,86 @@ const Navbar = () => {
 
               <AnimatePresence>
                 {user && isUserMenuOpen && (
-                  <>
-                    <motion.div
-                      initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                      className="absolute right-0 mt-3 w-64 bg-white dark:bg-gray-950 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-gray-900 py-4 z-50 overflow-hidden"
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 mt-2 w-64 backdrop-blur-lg bg-white/95 dark:bg-gray-900/95 border border-gray-100 dark:border-gray-800 shadow-xl rounded-2xl p-2 z-50 overflow-hidden"
+                  >
+                    {/* User Details Header Card */}
+                    <div className="p-3 bg-gradient-to-r from-rose-50/80 to-amber-50/40 dark:from-rose-950/40 dark:to-gray-900/60 rounded-xl mb-1.5 flex items-center gap-3 border border-rose-100/50 dark:border-rose-900/30">
+                      <div className="size-10 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-bold text-xs flex items-center justify-center shadow-md shrink-0">
+                        {getInitials(user.name)}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider truncate">
+                          {user.name || 'Member'}
+                        </p>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 truncate">
+                          {user.email}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Menu Items with Icons */}
+                    <div className="space-y-0.5">
+                      <Link 
+                        to="/profile" 
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl transition-colors"
+                      >
+                        <UserCircle className="size-4 text-gray-400 group-hover:text-rose-600" />
+                        Account Details
+                      </Link>
+                      <Link 
+                        to="/orders" 
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl transition-colors"
+                      >
+                        <Package className="size-4 text-gray-400 group-hover:text-rose-600" />
+                        Order History
+                      </Link>
+                      <Link 
+                        to="/wishlist" 
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl transition-colors"
+                      >
+                        <Heart className="size-4 text-gray-400 group-hover:text-rose-600" />
+                        My Wishlist
+                      </Link>
+                    </div>
+
+                    <div className="my-1.5 border-t border-gray-100 dark:border-gray-800" />
+
+                    <button 
+                      onClick={() => { logout(); navigate('/'); setIsUserMenuOpen(false); }}
+                      className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-xl transition-colors uppercase tracking-wider cursor-pointer"
                     >
-                       <div className="px-6 py-4 border-b border-gray-50 dark:border-gray-900 mb-2">
-                          <p className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-widest leading-normal mb-0.5">{user.name || 'Boutique Member'}</p>
-                          <p className="text-[10px] text-gray-400 font-medium truncate italic">{user.email}</p>
-                       </div>
-                       <Link to="/profile" className="flex items-center gap-4 px-6 py-3 text-[11px] font-bold text-gray-600 dark:text-gray-400 uppercase tracking-widest hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:text-rose-600 transition-all">
-                          <UserCircle className="size-4" /> Account Details
-                       </Link>
-                       <Link to="/orders" className="flex items-center gap-4 px-6 py-3 text-[11px] font-bold text-gray-600 dark:text-gray-400 uppercase tracking-widest hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:text-rose-600 transition-all">
-                          <Package className="size-4" /> Order History
-                       </Link>
-                       <Link to="/wishlist" className="flex items-center gap-4 px-6 py-3 text-[11px] font-bold text-gray-600 dark:text-gray-400 uppercase tracking-widest hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:text-rose-600 transition-all">
-                          <Heart className="size-4" /> My Wishlist
-                       </Link>
-                       <div className="border-t border-gray-50 dark:border-gray-900 mt-2 pt-2 px-3">
-                          <button 
-                            onClick={() => { logout(); navigate('/'); setIsUserMenuOpen(false); }}
-                            className="w-full flex items-center gap-4 px-4 py-3 text-[11px] font-black text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-2xl transition-all uppercase tracking-[0.2em]"
-                          >
-                             <LogOut className="size-4" /> Signed Out
-                          </button>
-                       </div>
-                    </motion.div>
-                  </>
+                      <LogOut className="size-4" />
+                      Sign Out
+                    </button>
+                  </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            <Link to="/wishlist" className="p-3 text-gray-700 dark:text-gray-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 rounded-full transition-all relative group hidden md:flex">
+            <Link 
+              to="/wishlist" 
+              className="p-2.5 text-gray-700 dark:text-gray-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 rounded-full transition-all relative group hidden md:flex"
+              aria-label="View Wishlist"
+            >
               <Heart className="size-5 group-hover:fill-current" />
             </Link>
 
-            <Link to="/cart" className="relative p-3 bg-gray-900 dark:bg-rose-600 text-white rounded-[1.25rem] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-gray-200 dark:shadow-none group overflow-hidden">
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
+            <Link 
+              to="/cart" 
+              className="relative p-2.5 bg-gray-900 dark:bg-rose-600 hover:bg-black dark:hover:bg-rose-500 text-white rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-md group overflow-hidden"
+              aria-label="View Shopping Bag"
+            >
               <ShoppingBag className="size-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-white text-rose-600 text-[10px] font-black size-5 flex items-center justify-center rounded-full shadow-lg ring-2 ring-gray-900 dark:ring-rose-600 animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-white text-rose-600 text-[10px] font-black size-5 flex items-center justify-center rounded-full shadow-md ring-2 ring-gray-900 dark:ring-rose-600 animate-pulse">
                   {cartCount}
                 </span>
               )}

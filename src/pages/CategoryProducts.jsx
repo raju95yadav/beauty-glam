@@ -43,36 +43,36 @@ const CategoryProducts = () => {
     };
 
     return (
-        <div className="bg-gray-50/50 min-h-screen pb-20">
+        <div className="bg-gray-50/50 dark:bg-gray-950 min-h-screen pb-20 transition-colors duration-300">
             {/* Header / Breadcrumbs */}
-            <div className="bg-white border-b sticky top-20 z-40">
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
-                        <Link to="/" className="hover:text-pink-600 transition-colors">Home</Link>
+            <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+                <div className="container mx-auto px-4 py-3.5 max-w-7xl">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
+                        <Link to="/" className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Home</Link>
                         <ChevronRight className="size-3" />
-                        <span className="text-pink-600">{categoryName}</span>
+                        <span className="text-rose-600 dark:text-rose-400">{displayName}</span>
                     </div>
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 pt-12 max-w-7xl">
+            <div className="container mx-auto px-4 pt-10 max-w-7xl">
                 {/* Title Section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                     >
-                        <h1 className="text-5xl md:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-4">
-                            {displayName}<span className="text-pink-600 px-2 italic">Collection</span>
+                        <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white uppercase tracking-tight leading-none mb-3">
+                            {displayName}<span className="text-rose-600 dark:text-rose-400 px-2 italic font-serif">Collection</span>
                         </h1>
-                        <p className="text-gray-400 text-sm font-medium">
+                        <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">
                             Exploring {products.length} premium {displayName} products curated for you
                         </p>
                     </motion.div>
                     
                     <Link 
                         to="/products"
-                        className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-100 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-600 hover:text-pink-600 hover:border-pink-100 transition-all shadow-sm"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl text-[11px] font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-200 dark:hover:border-rose-900 transition-all shadow-sm w-fit"
                     >
                         <ArrowLeft className="size-4" /> View All Products
                     </Link>
@@ -86,7 +86,7 @@ const CategoryProducts = () => {
                             variants={containerVariants}
                             initial="hidden"
                             animate="show"
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
                         >
                             {[...Array(8)].map((_, i) => <ProductSkeleton key={i} />)}
                         </motion.div>
@@ -96,7 +96,7 @@ const CategoryProducts = () => {
                             variants={containerVariants}
                             initial="hidden"
                             animate="show"
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
                         >
                             {products.map((product) => (
                                 <ProductCard key={product._id} product={product} />
@@ -107,26 +107,21 @@ const CategoryProducts = () => {
                             key="empty"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="flex flex-col items-center justify-center py-32 bg-white rounded-[3rem] border border-dashed border-gray-200"
+                            className="flex flex-col items-center justify-center py-28 bg-white/80 dark:bg-gray-900/80 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800 shadow-sm"
                         >
-                            <div className="size-24 bg-pink-50 rounded-full flex items-center justify-center text-pink-200 mb-8 blur-sm animate-pulse">
-                                <ShoppingBag className="size-12" />
+                            <div className="size-20 bg-rose-50 dark:bg-rose-950/40 rounded-full flex items-center justify-center text-rose-600 dark:text-rose-400 mb-6 shadow-inner">
+                                <ShoppingBag className="size-10" />
                             </div>
-                            <div className="relative -mt-20 flex flex-col items-center">
-                                <div className="size-20 bg-white rounded-2xl shadow-2xl flex items-center justify-center text-gray-300 mb-6 border border-gray-50">
-                                    <ShoppingBag className="size-10" />
-                                </div>
-                                <h3 className="text-2xl font-black text-gray-900 uppercase tracking-widest mb-2">No Products Found</h3>
-                                <p className="text-gray-400 text-sm mb-10 text-center max-w-xs">
-                                    We're currently updating our {categoryName} inventory. Please check back soon!
-                                </p>
-                                <Link 
-                                    to="/products" 
-                                    className="bg-gray-900 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest shadow-2xl shadow-gray-200 hover:scale-105 transition-all"
-                                >
-                                    Explore Other Categories
-                                </Link>
-                            </div>
+                            <h3 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white uppercase tracking-wider mb-2">No Products Found</h3>
+                            <p className="text-gray-500 dark:text-gray-400 text-sm mb-8 text-center max-w-xs">
+                                We're currently updating our {displayName} inventory. Please check back soon!
+                            </p>
+                            <Link 
+                                to="/products" 
+                                className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-rose-200 dark:shadow-none hover:scale-105 transition-all"
+                            >
+                                Explore Other Categories
+                            </Link>
                         </motion.div>
                     )}
                 </AnimatePresence>
