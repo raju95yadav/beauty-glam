@@ -29,15 +29,40 @@ const Footer = () => {
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !email.trim()) {
+      toast.error('Please enter your email address');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      toast.error('Please enter a valid email (e.g. name@gmail.com)');
+      return;
+    }
+
     setLoading(true);
     try {
-      await api.post('/main/newsletter', { email });
-      setSubscribed(true);
-      toast.success('Welcome to the Beauty Circle!');
+      const { data } = await api.post('/main/newsletter', { 
+        email: email.trim(), 
+        source: 'footer' 
+      });
+
+      if (data?.alreadySubscribed) {
+        toast('You are already subscribed to the Beauty Circle!', {
+          icon: '✨',
+          style: {
+            borderRadius: '12px',
+            background: '#18181b',
+            color: '#f43f5e',
+          },
+        });
+      } else {
+        toast.success(data?.message || 'Welcome to the Beauty Circle!');
+        setSubscribed(true);
+      }
       setEmail('');
     } catch (error) {
-      toast.error('Subscription failed. Try again.');
+      toast.error(error.response?.data?.message || 'Subscription failed. Try again.');
     } finally {
       setLoading(false);
     }
@@ -107,16 +132,51 @@ const Footer = () => {
             
             <div className="flex gap-4">
               {[
-                { icon: Instagram, href: '#' },
-                { icon: Facebook, href: '#' },
-                { icon: Twitter, href: '#' },
-                { icon: Mail, href: 'mailto:info@nykaaclone.com' }
+                { 
+                  name: 'Instagram',
+                  icon: Instagram, 
+                  href: 'https://www.instagram.com/rajuyd.94', // Developer personal Instagram; change to official store IG in future
+                  isExternal: true,
+                  title: 'Instagram (@rajuyd.94)'
+                },
+                { 
+                  name: 'Facebook',
+                  icon: Facebook, 
+                  href: '#',
+                  onClick: (e) => {
+                    e.preventDefault();
+                    toast.error('Admin has not attached Facebook and Twitter link.');
+                  },
+                  title: 'Facebook'
+                },
+                { 
+                  name: 'Twitter',
+                  icon: Twitter, 
+                  href: '#',
+                  onClick: (e) => {
+                    e.preventDefault();
+                    toast.error('Admin has not attached Facebook and Twitter link.');
+                  },
+                  title: 'Twitter'
+                },
+                { 
+                  name: 'Email',
+                  icon: Mail, 
+                  href: 'mailto:ridexplateform2026@gmail.com',
+                  isExternal: false,
+                  title: 'ridexplateform2026@gmail.com'
+                }
               ].map((social, i) => (
                 <motion.a 
                   key={i}
                   href={social.href}
+                  onClick={social.onClick}
+                  target={social.isExternal ? "_blank" : undefined}
+                  rel={social.isExternal ? "noopener noreferrer" : undefined}
+                  title={social.title}
                   whileHover={{ y: -5, scale: 1.1 }}
-                  className="size-10 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-pink-600 dark:hover:bg-rose-600 hover:text-white transition-all border border-gray-200 dark:border-gray-800"
+                  whileTap={{ scale: 0.95 }}
+                  className="size-10 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-pink-600 dark:hover:bg-rose-600 hover:text-white transition-all border border-gray-200 dark:border-gray-800 cursor-pointer shadow-sm"
                 >
                   <social.icon className="size-5" />
                 </motion.a>
@@ -178,12 +238,19 @@ const Footer = () => {
                   {loading ? (
                     <Loader2 className="size-4 animate-spin" />
                   ) : subscribed ? (
-                    <CheckCircle2 className="size-4" />
+                    <CheckCircle2 className="size-4 text-emerald-400" />
                   ) : (
                     <ArrowRight className="size-4" />
                   )}
                 </button>
               </form>
+
+              {subscribed && (
+                <p className="text-xs text-rose-600 dark:text-rose-400 font-bold flex items-center gap-1.5 animate-fade-in">
+                  <CheckCircle2 className="size-3.5 flex-shrink-0 text-rose-600 dark:text-rose-400" />
+                  You're in! Welcome to the Beauty Circle.
+                </p>
+              )}
               
               <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
                  <div className="size-5 rounded-full bg-rose-50 dark:bg-rose-950/40 flex items-center justify-center">
