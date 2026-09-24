@@ -24,6 +24,8 @@ import SuccessModal from '../components/checkout/SuccessModal';
 import AddressModal from '../components/checkout/AddressModal';
 import { useAuth } from '../hooks/useAuth';
 import { toast } from 'react-hot-toast';
+import { loadRazorpayScript } from '../utils/razorpay';
+import paymentService from '../services/paymentService';
 
 const CheckoutPage = () => {
   const { cartItems, cartTotal, clearCart } = useCart();
@@ -39,8 +41,8 @@ const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
 
-  const [paymentMethod, setPaymentMethod] = useState('card'); // card, upi, cod
-  const [isPaymentValid, setIsPaymentValid] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('razorpay'); // 'razorpay', 'cod'
+  const [isPaymentValid, setIsPaymentValid] = useState(true);
   const [paymentData, setPaymentData] = useState(null);
 
   const shipping = cartTotal > 299 ? 0 : 50;
@@ -104,10 +106,9 @@ const CheckoutPage = () => {
   };
 
   const handlePlaceOrder = async () => {
-    if (!isPaymentValid) return;
-
     if (!addresses || addresses.length === 0) {
       toast.error('Please add a shipping address first.');
+      setStep(1);
       return;
     }
 
@@ -129,60 +130,161 @@ const CheckoutPage = () => {
       }
     }
 
-    try {
-      setPaymentLoading(true);
-      setShowSuccess(true);
-      setError(null);
+    const selectedAddress = addresses[selectedAddressIndex] || {
+      street: user?.address || 'Street address',
+      city: 'Mumbai',
+      state: 'Maharashtra',
+      zip: '400001',
+      country: 'India',
+      phone: user?.phone || '9999999999'
+    };
 
-      const selectedAddress = addresses[selectedAddressIndex];
+    const orderPayload = {
+      orderItems: cartItems.map(item => ({
+        name: item.name,
+        qty: item.quantity,
+        image: item.images?.[0]?.url || item.images?.[0],
+        price: item.price,
+        product: item._id
+      })),
+      shippingAddress: {
+        street: selectedAddress.street,
+        city: selectedAddress.city || 'Mumbai',
+        state: selectedAddress.state || 'Maharashtra',
+        zip: selectedAddress.zip || '400001',
+        country: selectedAddress.country || 'India'
+      },
+      itemsPrice: cartTotal,
+      shippingPrice: shipping,
+      taxPrice: 0,
+      totalPrice: total,
+      amount: total
+    };
 
-      const orderData = {
-        orderItems: cartItems.map(item => ({
-          name: item.name,
-          qty: item.quantity,
-          image: item.images?.[0]?.url || item.images?.[0],
-          price: item.price,
-          product: item._id
-        })),
-        shippingAddress: {
-          street: selectedAddress.street,
-          city: selectedAddress.city,
-          state: selectedAddress.state,
-          zip: selectedAddress.zip,
-          country: selectedAddress.country || 'India'
-        },
-        paymentMethod: paymentMethod === 'card' ? 'Credit Card' : 
-                       paymentMethod === 'upi' ? 'UPI' : 'Cash on Delivery',
-        itemsPrice: cartTotal,
-        shippingPrice: shipping,
-        taxPrice: 0,
-        totalPrice: total,
-        isPaid: paymentMethod !== 'cod',
-        paidAt: paymentMethod !== 'cod' ? new Date().toISOString() : null,
-        paymentResult: paymentMethod !== 'cod' ? { id: 'TEST-' + Date.now(), status: 'COMPLETED' } : null
-      };
+    // --- Path A: Razorpay Sandbox Payment ---
+    if (paymentMethod === 'razorpay') {
+      try {
+        setPaymentLoading(true);
+        setError(null);
 
-      const createdOrder = await orderService.createOrder(orderData);
-      
-      setPaymentLoading(false);
-      
-      // Delay to show success state before redirect
-      setTimeout(() => {
-        clearCart();
-        navigate(`/order-success?orderId=${createdOrder._id}`);
-      }, 3000);
+        // 1. Ensure Razorpay SDK script is loaded
+        const scriptLoaded = await loadRazorpayScript();
+        if (!scriptLoaded) {
+          toast.error('Unable to load Razorpay checkout script. Please check your network.');
+          setPaymentLoading(false);
+          return;
+        }
 
-    } catch (err) {
-      console.error('Error placing order:', err);
-      setShowSuccess(false);
-      setPaymentLoading(false);
+        // 2. Call backend to create Razorpay Order & Initialize Pending DB Order
+        const orderRes = await paymentService.createRazorpayOrder(orderPayload);
 
-      const serverMessage = err.message || err.response?.data?.message || 'Failed to place order. Please try again.';
-      setError(serverMessage);
-      toast.error(serverMessage, { duration: 6000, id: 'order-error-toast' });
-      
-      // Refresh cart to sync live stock levels from MongoDB
-      fetchCart();
+        if (!orderRes.success) {
+          throw new Error(orderRes.message || 'Failed to initiate Razorpay order');
+        }
+
+        // 3. Initialize Razorpay Modal Options
+        const options = {
+          key: orderRes.keyId,
+          amount: orderRes.amount,
+          currency: orderRes.currency || 'INR',
+          name: 'Glam Beauty',
+          description: 'Luxury Boutique Cosmetics Order',
+          order_id: orderRes.orderId,
+          prefill: {
+            name: selectedAddress.name || user?.name || 'Customer',
+            email: user?.email || '',
+            contact: selectedAddress.phone || user?.phone || '9999999999'
+          },
+          theme: {
+            color: '#E11D48' // Rose-600
+          },
+          handler: async function (response) {
+            try {
+              setPaymentLoading(true);
+              setShowSuccess(true);
+
+              // 4. Verify Payment Signature on backend
+              const verifyRes = await paymentService.verifyPayment({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                dbOrderId: orderRes.dbOrderId
+              });
+
+              if (verifyRes.success) {
+                toast.success('Payment verified successfully!');
+                clearCart();
+                setTimeout(() => {
+                  navigate(`/order-success?orderId=${orderRes.dbOrderId}`);
+                }, 1500);
+              } else {
+                setShowSuccess(false);
+                toast.error(verifyRes.message || 'Payment verification failed');
+              }
+            } catch (vErr) {
+              console.error('Verification error:', vErr);
+              setShowSuccess(false);
+              toast.error(vErr.message || 'Error verifying signature');
+            } finally {
+              setPaymentLoading(false);
+            }
+          },
+          modal: {
+            ondismiss: function () {
+              toast('Payment cancelled by user', { icon: '⚠️' });
+              setPaymentLoading(false);
+            }
+          }
+        };
+
+        const rzp = new window.Razorpay(options);
+        rzp.on('payment.failed', function (resp) {
+          console.error('Payment failed event:', resp.error);
+          toast.error(resp.error?.description || 'Payment failed. Please retry.');
+          setPaymentLoading(false);
+        });
+
+        rzp.open();
+      } catch (err) {
+        console.error('Razorpay checkout initiation error:', err);
+        setPaymentLoading(false);
+        const serverMessage = err.message || err.response?.data?.message || 'Failed to initialize payment.';
+        setError(serverMessage);
+        toast.error(serverMessage);
+      }
+      return;
+    }
+
+    // --- Path B: Cash on Delivery ---
+    if (paymentMethod === 'cod') {
+      try {
+        setPaymentLoading(true);
+        setShowSuccess(true);
+        setError(null);
+
+        const codOrderData = {
+          ...orderPayload,
+          paymentMethod: 'Cash on Delivery',
+          isPaid: false,
+          paidAt: null,
+          paymentResult: { id: `COD-${Date.now()}`, status: 'PENDING' }
+        };
+
+        const createdOrder = await orderService.createOrder(codOrderData);
+        setPaymentLoading(false);
+
+        setTimeout(() => {
+          clearCart();
+          navigate(`/order-success?orderId=${createdOrder._id}`);
+        }, 1500);
+      } catch (err) {
+        console.error('Error placing COD order:', err);
+        setShowSuccess(false);
+        setPaymentLoading(false);
+        const serverMessage = err.message || err.response?.data?.message || 'Failed to place COD order.';
+        setError(serverMessage);
+        toast.error(serverMessage);
+      }
     }
   };
 
@@ -327,100 +429,143 @@ const CheckoutPage = () => {
                   <button onClick={() => setStep(1)} className="text-pink-600 text-[10px] font-black uppercase tracking-widest underline underline-offset-4 decoration-2">Back to Address</button>
                </div>
 
-               {/* Test Mode Notification */}
-               <div className="mb-8 p-4 bg-amber-50 rounded-2xl border border-amber-200/60 flex items-start gap-3">
-                  <div className="p-1.5 bg-amber-500/10 text-amber-600 rounded-xl mt-0.5">
-                     <AlertCircle className="size-4" />
-                  </div>
-                  <div>
-                     <p className="text-xs font-bold text-amber-800 uppercase tracking-wider mb-0.5">🧪 Test Order Mode Active</p>
-                     <p className="text-[11px] text-amber-700/90 leading-relaxed font-medium">
-                       Choose any payment method below to place a test order and verify admin dashboard sync. Real Razorpay payment integration will be activated in production.
-                     </p>
-                  </div>
-               </div>
+                {/* Security Trust Banner */}
+                <div className="mb-8 p-4 bg-emerald-50/80 rounded-2xl border border-emerald-100 flex items-center justify-between">
+                   <div className="flex items-center gap-3">
+                      <div className="p-2 bg-emerald-500/10 text-emerald-600 rounded-xl">
+                         <ShieldCheck className="size-5" />
+                      </div>
+                      <div>
+                         <p className="text-xs font-black text-emerald-950 uppercase tracking-wider">Razorpay Sandbox Gateway</p>
+                         <p className="text-[11px] text-emerald-700 font-medium">PCI-DSS Level 1 Compliant • 256-Bit SSL Encryption</p>
+                      </div>
+                   </div>
+                   <span className="hidden sm:inline-block px-3 py-1 bg-white text-[10px] font-black uppercase tracking-widest text-emerald-700 rounded-full border border-emerald-200 shadow-xs">
+                      Test Mode Active
+                   </span>
+                </div>
 
-               {/* Tabs */}
-               <div className="flex p-2 bg-gray-50 rounded-[2rem] gap-2 mb-12 overflow-x-auto no-scrollbar">
-                  {[
-                    { id: 'card', name: 'Card', icon: CreditCard },
-                    { id: 'upi', name: 'UPI', icon: Smartphone },
-                    { id: 'cod', name: 'COD', icon: Banknote },
-                  ].map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => {
-                        setPaymentMethod(tab.id);
-                        setIsPaymentValid(tab.id === 'cod');
-                      }}
-                      className={`flex items-center gap-3 px-8 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap ${
-                        paymentMethod === tab.id 
-                        ? 'bg-white text-pink-600 shadow-lg shadow-pink-100/50 border border-pink-100' 
-                        : 'text-gray-400 hover:text-gray-600'
-                      }`}
-                    >
-                      <tab.icon className="size-4" />
-                      {tab.name}
-                    </button>
-                  ))}
-               </div>
+                {/* Payment Selection Tabs */}
+                <div className="grid grid-cols-2 p-2 bg-gray-50 rounded-[2rem] gap-2 mb-10">
+                   {[
+                     { id: 'razorpay', name: 'Razorpay Online', subtitle: 'UPI / Cards / Netbanking', icon: CreditCard },
+                     { id: 'cod', name: 'Cash on Delivery', subtitle: 'Pay when delivered', icon: Banknote },
+                   ].map((tab) => (
+                     <button
+                       key={tab.id}
+                       onClick={() => {
+                         setPaymentMethod(tab.id);
+                         setIsPaymentValid(true);
+                       }}
+                       className={`flex flex-col sm:flex-row items-center justify-center gap-3 px-6 py-4 rounded-[1.5rem] transition-all text-center sm:text-left ${
+                         paymentMethod === tab.id 
+                         ? 'bg-white text-pink-600 shadow-lg shadow-pink-100/50 border border-pink-100' 
+                         : 'text-gray-400 hover:text-gray-600'
+                       }`}
+                     >
+                       <tab.icon className="size-5 shrink-0" />
+                       <div>
+                         <p className="text-[11px] font-black uppercase tracking-[0.15em]">{tab.name}</p>
+                         <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider hidden sm:block">{tab.subtitle}</p>
+                       </div>
+                     </button>
+                   ))}
+                </div>
 
-               {/* Form Area */}
-               <div className="mb-12">
-                  <AnimatePresence mode="wait">
-                     {paymentMethod === 'card' && (
-                        <motion.div 
-                          key="card" 
-                          initial={{ opacity: 0, x: -10 }} 
-                          animate={{ opacity: 1, x: 0 }} 
-                          exit={{ opacity: 0, x: 10 }}
-                        >
-                           <CardForm onValidChange={(v, data) => {
-                             setIsPaymentValid(v);
-                             setPaymentData(data);
-                           }} />
-                        </motion.div>
-                     )}
-                     {paymentMethod === 'upi' && (
-                        <motion.div 
-                          key="upi" 
-                          initial={{ opacity: 0, x: -10 }} 
-                          animate={{ opacity: 1, x: 0 }} 
-                          exit={{ opacity: 0, x: 10 }}
-                        >
-                           <UPIForm onValidChange={(v, data) => {
-                             setIsPaymentValid(v);
-                             setPaymentData(data);
-                           }} />
-                        </motion.div>
-                     )}
-                     {paymentMethod === 'cod' && (
-                        <motion.div 
-                          key="cod" 
-                          initial={{ opacity: 0, x: -10 }} 
-                          animate={{ opacity: 1, x: 0 }} 
-                          exit={{ opacity: 0, x: 10 }}
-                        >
-                           <CODOption onValidChange={(v) => setIsPaymentValid(v)} />
-                        </motion.div>
-                     )}
-                  </AnimatePresence>
-               </div>
+                {/* Payment Method Content */}
+                <div className="mb-10">
+                   <AnimatePresence mode="wait">
+                      {paymentMethod === 'razorpay' && (
+                         <motion.div 
+                           key="razorpay" 
+                           initial={{ opacity: 0, y: 10 }} 
+                           animate={{ opacity: 1, y: 0 }} 
+                           exit={{ opacity: 0, y: -10 }}
+                           className="space-y-6"
+                         >
+                            <div className="p-8 rounded-[2.5rem] bg-gradient-to-br from-rose-50/50 via-white to-pink-50/30 border border-pink-100 shadow-sm space-y-6">
+                               <div className="flex items-center justify-between border-b border-pink-100/60 pb-6">
+                                  <div>
+                                     <span className="text-[10px] font-black text-pink-600 uppercase tracking-widest block mb-1">Standard Gateway</span>
+                                     <h3 className="text-xl font-black text-gray-900 uppercase tracking-tight">Razorpay Instant Checkout</h3>
+                                  </div>
+                                  <div className="px-3 py-1.5 bg-pink-100/70 text-pink-700 text-[10px] font-black uppercase tracking-widest rounded-xl">
+                                     Zero Surcharge
+                                  </div>
+                               </div>
 
-               <button 
-                 onClick={handlePlaceOrder}
-                 disabled={!isPaymentValid || paymentLoading}
-                 className="w-full bg-pink-600 text-white font-black py-6 rounded-[2rem] flex items-center justify-center gap-4 hover:bg-pink-700 transition-all uppercase tracking-[0.2em] shadow-2xl shadow-pink-200 active:scale-[0.98] disabled:opacity-30 disabled:grayscale disabled:scale-[0.98]"
-               >
-                 Confirm Payment ₹{total}
-                 <ShieldCheck className="size-6" />
-               </button>
-               
-               <p className="text-center mt-8 text-gray-400 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                  <ShieldCheck className="size-3.5" />
-                  Norton Secured • 256-bit SSL Encryption
-               </p>
-            </motion.div>
+                               <p className="text-sm text-gray-600 leading-relaxed font-medium">
+                                  Clicking <span className="font-bold text-gray-900">"Pay Now"</span> will launch Razorpay's secure checkout modal supporting:
+                               </p>
+
+                               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900">UPI</p>
+                                     <p className="text-[9px] text-gray-400 font-bold uppercase">GPay, PhonePe, Paytm</p>
+                                  </div>
+                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900">Cards</p>
+                                     <p className="text-[9px] text-gray-400 font-bold uppercase">Visa, MC, RuPay</p>
+                                  </div>
+                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900">Net Banking</p>
+                                     <p className="text-[9px] text-gray-400 font-bold uppercase">50+ Major Banks</p>
+                                  </div>
+                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900">Wallets</p>
+                                     <p className="text-[9px] text-gray-400 font-bold uppercase">Paytm, Mobikwik</p>
+                                  </div>
+                               </div>
+
+                               <div className="p-4 bg-white/80 rounded-2xl border border-pink-100/60 flex items-center justify-between text-[11px] text-gray-500 font-medium">
+                                  <span>Automated PDF Tax Invoice</span>
+                                  <span className="text-pink-600 font-bold">Generated upon payment</span>
+                               </div>
+                            </div>
+                         </motion.div>
+                      )}
+
+                      {paymentMethod === 'cod' && (
+                         <motion.div 
+                           key="cod" 
+                           initial={{ opacity: 0, y: 10 }} 
+                           animate={{ opacity: 1, y: 0 }} 
+                           exit={{ opacity: 0, y: -10 }}
+                         >
+                            <CODOption onValidChange={(v) => setIsPaymentValid(v)} />
+                         </motion.div>
+                      )}
+                   </AnimatePresence>
+                </div>
+
+                <button 
+                  onClick={handlePlaceOrder}
+                  disabled={!isPaymentValid || paymentLoading}
+                  className="w-full bg-pink-600 text-white font-black py-6 rounded-[2rem] flex items-center justify-center gap-4 hover:bg-pink-700 transition-all uppercase tracking-[0.2em] shadow-2xl shadow-pink-200 active:scale-[0.98] disabled:opacity-30 disabled:grayscale disabled:scale-[0.98]"
+                >
+                  {paymentLoading ? (
+                     <>
+                        <div className="size-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Processing Order...</span>
+                     </>
+                  ) : paymentMethod === 'razorpay' ? (
+                     <>
+                        <span>Pay Now ₹{total}</span>
+                        <ShieldCheck className="size-6" />
+                     </>
+                  ) : (
+                     <>
+                        <span>Confirm Order (COD) ₹{total}</span>
+                        <ShieldCheck className="size-6" />
+                     </>
+                  )}
+                </button>
+                
+                <p className="text-center mt-8 text-gray-400 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                   <ShieldCheck className="size-3.5 text-emerald-500" />
+                   Razorpay Secure • 256-bit SSL Encryption • RBI Authorized
+                </p>
+             </motion.div>
           )}
         </div>
 

@@ -96,29 +96,12 @@ const AuthPage = () => {
             <ToggleTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
             <div className="px-6 pb-8">
-              <AnimatePresence mode="wait">
-                {activeTab === 'user' ? (
-                  <motion.div
-                    key="user-form"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <UserOtpForm />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="admin-form"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <AdminLoginForm />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div className={activeTab === 'user' ? 'block' : 'hidden'}>
+                <UserOtpForm />
+              </div>
+              <div className={activeTab === 'admin' ? 'block' : 'hidden'}>
+                <AdminLoginForm />
+              </div>
             </div>
           </div>
 

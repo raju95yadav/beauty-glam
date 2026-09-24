@@ -19,9 +19,11 @@ import {
   RefreshCw,
   Box,
   FileText,
-  HelpCircle
+  HelpCircle,
+  Download
 } from 'lucide-react';
 import orderService from '../services/orderService';
+import paymentService from '../services/paymentService';
 import Loader from '../components/ui/Loader';
 import { toast } from 'react-hot-toast';
 
@@ -31,6 +33,7 @@ const OrderTrackingPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [downloadingInvoice, setDownloadingInvoice] = useState(false);
 
   const fetchTracking = async () => {
     try {
@@ -56,6 +59,22 @@ const OrderTrackingPage = () => {
       setCopied(true);
       toast.success('Tracking code copied to clipboard!');
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleDownloadInvoice = async () => {
+    const targetOrderId = trackingData?.orderId || id;
+    if (!targetOrderId) return;
+    try {
+      setDownloadingInvoice(true);
+      toast.loading('Generating your official PDF tax invoice...', { id: 'invoice-gen' });
+      await paymentService.downloadInvoice(targetOrderId);
+      toast.success('Invoice downloaded successfully!', { id: 'invoice-gen' });
+    } catch (err) {
+      console.error('Invoice download error:', err);
+      toast.error('Failed to download invoice. Please try again.', { id: 'invoice-gen' });
+    } finally {
+      setDownloadingInvoice(false);
     }
   };
 
@@ -148,6 +167,20 @@ const OrderTrackingPage = () => {
                    {copied ? <Check className="size-3.5 text-green-600" /> : <Copy className="size-3.5" />}
                  </button>
               </div>
+
+              <button
+                onClick={handleDownloadInvoice}
+                disabled={downloadingInvoice}
+                className="bg-white hover:bg-gray-950 hover:text-white text-gray-900 px-5 py-2.5 rounded-2xl border border-gray-200/80 shadow-sm flex items-center gap-2.5 transition-all text-xs font-black uppercase tracking-wider disabled:opacity-50 cursor-pointer"
+                title="Download PDF Tax Invoice"
+              >
+                {downloadingInvoice ? (
+                  <div className="size-3.5 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Download className="size-4 text-pink-600" />
+                )}
+                <span>Invoice (PDF)</span>
+              </button>
            </div>
         </div>
 
@@ -396,6 +429,20 @@ const OrderTrackingPage = () => {
                       <div className="flex justify-between items-center text-xs pt-2 border-t border-gray-200/60">
                          <span className="font-black text-gray-900">Total Charged</span>
                          <span className="font-black text-pink-600 text-sm">₹{totalPrice}</span>
+                      </div>
+                      <div className="pt-1">
+                         <button
+                           onClick={handleDownloadInvoice}
+                           disabled={downloadingInvoice}
+                           className="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-white hover:bg-gray-900 hover:text-white text-gray-800 border border-gray-200 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shadow-xs disabled:opacity-50 cursor-pointer"
+                         >
+                            {downloadingInvoice ? (
+                              <div className="size-3 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                              <Download className="size-3.5 text-pink-600" />
+                            )}
+                            <span>Download Tax Invoice (PDF)</span>
+                         </button>
                       </div>
                    </div>
                 </div>

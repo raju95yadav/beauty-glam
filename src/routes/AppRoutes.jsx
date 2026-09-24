@@ -127,6 +127,7 @@ const AppRoutes = () => {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/support/:type" element={<SupportPage />} />
           <Route path="/order-success" element={<OrderSuccessPage />} />
+          <Route path="/order-success/:orderId" element={<OrderSuccessPage />} />
           
           {/* 404 */}
           <Route path="*" element={<NotFoundPage />} />
