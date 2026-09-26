@@ -63,7 +63,7 @@ const UserOtpForm = () => {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
+  const handleGoogleSuccess = React.useCallback(async (credentialResponse) => {
     if (!credentialResponse?.credential) {
       toast.error('Google Sign-In failed: No credential received');
       return;
@@ -87,11 +87,11 @@ const UserOtpForm = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [login, navigate]);
 
-  const handleGoogleError = () => {
+  const handleGoogleError = React.useCallback(() => {
     toast.error('Google Sign-In failed: Please ensure http://localhost:5173 is added to Authorized JavaScript Origins in Google Cloud Console.');
-  };
+  }, []);
 
   return (
     <div className="space-y-4">
@@ -198,25 +198,31 @@ const UserOtpForm = () => {
       </AnimatePresence>
 
       {/* Divider and Google Sign-In */}
-      <div className="pt-2 space-y-4">
-        <div className="relative flex items-center justify-center">
-          <div className="w-full border-t border-gray-200 dark:border-gray-800 absolute"></div>
-          <span className="relative bg-white/80 dark:bg-gray-900/80 px-4 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest backdrop-blur-sm">
-            ── OR ──
-          </span>
-        </div>
-
-        <div className="flex justify-center w-full">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-            shape="pill"
-            theme="outline"
-          />
-        </div>
-      </div>
+      <GoogleSection onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
     </div>
   );
 };
+
+const GoogleSection = React.memo(({ onSuccess, onError }) => {
+  return (
+    <div className="pt-2 space-y-4">
+      <div className="relative flex items-center justify-center">
+        <div className="w-full border-t border-gray-200 dark:border-gray-800 absolute"></div>
+        <span className="relative bg-white/80 dark:bg-gray-900/80 px-4 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest backdrop-blur-sm">
+          ── OR ──
+        </span>
+      </div>
+
+      <div className="flex justify-center w-full">
+        <GoogleLogin
+          onSuccess={onSuccess}
+          onError={onError}
+          shape="pill"
+          theme="outline"
+        />
+      </div>
+    </div>
+  );
+});
 
 export default UserOtpForm;

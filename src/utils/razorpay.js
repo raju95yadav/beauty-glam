@@ -24,7 +24,6 @@ export const loadRazorpayScript = () => {
     const script = document.createElement('script');
     script.src = scriptSrc;
     script.async = true;
-    script.crossOrigin = 'anonymous';
 
     script.onload = () => {
       resolve(true);
