@@ -5,20 +5,12 @@ import UserOtpForm from '../components/UserOtpForm';
 import AdminLoginForm from '../components/AdminLoginForm';
 import { ShoppingBag, Sparkles, ShieldCheck, ArrowLeft } from 'lucide-react';
 import influencerImg from '../assets/beauty_influencer_login.png';
-import { useTheme } from '../context/ThemeContext';
-import ThemeToggle from '../components/ui/ThemeToggle';
 
 const AuthPage = () => {
   const [activeTab, setActiveTab] = useState('user');
-  const { isDark } = useTheme();
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-[#FDFCF0] dark:bg-gray-950 transition-colors duration-700 font-sans selection:bg-pink-100 dark:selection:bg-pink-900 overflow-hidden">
-      {/* Theme Toggle */}
-      <div className="fixed top-8 right-8 z-50">
-        <ThemeToggle variant="icon" className="!size-12 !rounded-full shadow-lg" />
-      </div>
-
       {/* Left Section: Influencer Branding (Desktop) */}
       <div className="hidden md:flex flex-1 relative group overflow-hidden">
         <motion.img 

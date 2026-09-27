@@ -58,8 +58,13 @@ const AdminLoginForm = () => {
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
         onSubmit={handleLogin}
+        autoComplete="off"
         className={loading || isRedirecting ? "space-y-6 opacity-40 pointer-events-none grayscale blur-md transition-all duration-1000" : "space-y-6 transition-all duration-500"}
       >
+        {/* Anti-autofill dummy honeypots to absorb Chrome autofill */}
+        <input type="text" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" autoComplete="off" />
+        <input type="password" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" autoComplete="off" />
+
         <div className="bg-gray-900/5 dark:bg-white/5 border border-gray-100 dark:border-white/5 p-6 rounded-[2rem] shadow-soft">
           <div className="flex items-center gap-4">
              <div className="size-10 bg-gray-900 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-white shadow-soft">
@@ -80,11 +85,16 @@ const AdminLoginForm = () => {
             </div>
             <input
               type="email"
+              name="mgmt_admin_identity_email"
+              id="mgmt_admin_identity_email"
+              autoComplete="off"
+              autoCapitalize="off"
+              spellCheck="false"
               required
-              placeholder="admin@boutique.com"
+              placeholder="Enter admin email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-14 pr-4 py-5 bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-gray-900 dark:focus:border-white outline-none transition-all font-medium text-gray-700 dark:text-gray-200 placeholder:text-gray-300 dark:placeholder:text-gray-700 shadow-sm"
+              className="w-full pl-14 pr-4 py-5 bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-gray-900 dark:focus:border-white outline-none transition-all font-medium text-gray-700 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-sm"
             />
           </div>
         </div>
@@ -97,11 +107,14 @@ const AdminLoginForm = () => {
             </div>
             <input
               type="password"
+              name="mgmt_admin_credential_key"
+              id="mgmt_admin_credential_key"
+              autoComplete="new-password"
               required
-              placeholder="••••••••"
+              placeholder="Enter admin security password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-14 pr-4 py-5 bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-gray-900 dark:focus:border-white outline-none transition-all font-medium text-gray-700 dark:text-gray-200 placeholder:text-gray-300 dark:placeholder:text-gray-700 shadow-sm"
+              className="w-full pl-14 pr-4 py-5 bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-gray-900 dark:focus:border-white outline-none transition-all font-medium text-gray-700 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-sm"
             />
           </div>
         </div>

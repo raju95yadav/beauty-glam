@@ -26,10 +26,16 @@ const UserOtpForm = () => {
 
   const handleSendOTP = async (e) => {
     if (e) e.preventDefault();
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
     setLoading(true);
     try {
-      await authApi.sendOTP(email);
-      toast.success('OTP sent to your email!');
+      await authApi.sendOTP(cleanEmail);
+      toast.success('OTP sent! Please check your Inbox and Spam/Promotions folder.', { duration: 5000 });
       setStep(2);
       setTimer(60); // 1 minute cooldown
     } catch (error) {
@@ -147,9 +153,14 @@ const UserOtpForm = () => {
             onSubmit={handleVerifyOTP}
             className="space-y-4"
           >
-            <div className="text-center mb-1">
+            <div className="text-center mb-2">
               <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] text-center">Verification Code</label>
-              <p className="text-[10px] text-gray-400 dark:text-gray-600 mt-1">Sent to <span className="text-gray-600 dark:text-gray-300 font-bold">{email}</span></p>
+              <p className="text-[11px] text-gray-600 dark:text-gray-300 mt-1">
+                Sent to <span className="font-bold text-gray-900 dark:text-white">{email.trim().toLowerCase()}</span>
+              </p>
+              <p className="text-[10px] font-medium text-amber-600 dark:text-amber-400 mt-0.5">
+                (Please check both your <b>Inbox</b> &amp; <b>Spam/Promotions</b> folder)
+              </p>
             </div>
             
             <div className="relative group/input">

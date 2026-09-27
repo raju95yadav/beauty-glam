@@ -166,23 +166,24 @@ const Navbar = () => {
 
             <Link 
               to="/wishlist" 
-              className="p-2.5 text-gray-700 dark:text-gray-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 rounded-full transition-all relative group hidden md:flex"
+              className="size-10 md:size-11 rounded-2xl flex items-center justify-center text-gray-700 dark:text-gray-300 bg-gray-50/80 dark:bg-gray-900/80 border border-gray-100 dark:border-gray-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 hover:border-rose-200 dark:hover:border-rose-900/50 transition-all duration-300 hover:scale-105 active:scale-95 group relative hidden md:flex cursor-pointer"
               aria-label="View Wishlist"
             >
-              <Heart className="size-5 group-hover:fill-current" />
+              <Heart className="size-4.5 transition-transform duration-300 group-hover:scale-110 group-hover:fill-rose-500 group-hover:text-rose-500" />
             </Link>
 
             <Link 
               to="/cart" 
-              className="relative p-2.5 bg-gray-900 dark:bg-rose-600 hover:bg-black dark:hover:bg-rose-500 text-white rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-md group overflow-hidden"
+              className="relative flex items-center gap-2 h-10 md:h-11 px-3 md:px-3.5 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-700 hover:to-pink-700 text-white font-medium shadow-md shadow-rose-500/20 hover:shadow-lg hover:shadow-rose-500/35 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] group cursor-pointer"
               aria-label="View Shopping Bag"
             >
-              <ShoppingBag className="size-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-white text-rose-600 text-[10px] font-black size-5 flex items-center justify-center rounded-full shadow-md ring-2 ring-gray-900 dark:ring-rose-600 animate-pulse">
-                  {cartCount}
-                </span>
-              )}
+              <ShoppingBag className="size-4.5 transition-transform duration-300 group-hover:-rotate-6" />
+              <span className="hidden sm:inline-block text-[11px] font-black uppercase tracking-wider">
+                Bag
+              </span>
+              <span className="px-1.5 py-0.5 min-w-[20px] h-5 rounded-full bg-white text-rose-600 dark:bg-gray-950 dark:text-rose-400 text-[10px] font-black flex items-center justify-center shadow-sm">
+                {cartCount}
+              </span>
             </Link>
           </div>
         </div>
