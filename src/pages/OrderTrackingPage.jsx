@@ -82,18 +82,18 @@ const OrderTrackingPage = () => {
 
   if (error || !trackingData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4 transition-colors duration-300">
         <div className="text-center space-y-6 max-w-sm">
-           <div className="size-20 bg-red-50 rounded-3xl flex items-center justify-center mx-auto text-red-500 shadow-sm border border-red-100">
+           <div className="size-20 bg-red-50 dark:bg-red-950/40 rounded-3xl flex items-center justify-center mx-auto text-red-500 dark:text-red-400 shadow-sm border border-red-100 dark:border-red-900/50">
               <Search className="size-10" />
            </div>
-           <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter italic">Order Not Found</h2>
-           <p className="text-gray-500 text-xs font-medium leading-relaxed">{error || "We couldn't track that order ID. Please verify the link or try again."}</p>
+           <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic">Order Not Found</h2>
+           <p className="text-gray-500 dark:text-gray-400 text-xs font-medium leading-relaxed">{error || "We couldn't track that order ID. Please verify the link or try again."}</p>
            <div className="space-y-3">
-             <button onClick={fetchTracking} className="w-full bg-pink-600 text-white font-black py-3.5 rounded-2xl uppercase tracking-widest text-[10px] hover:bg-pink-700 transition-all flex items-center justify-center gap-2">
+             <button onClick={fetchTracking} className="w-full bg-pink-600 hover:bg-pink-700 text-white font-black py-3.5 rounded-2xl uppercase tracking-widest text-[10px] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md">
                <RefreshCw className="size-3.5 animate-spin" /> Retry Fetch
              </button>
-             <Link to="/orders" className="block w-full bg-gray-900 text-white font-black py-3.5 rounded-2xl uppercase tracking-widest text-[10px] hover:bg-black transition-all">Go to My Orders</Link>
+             <Link to="/orders" className="block w-full bg-gray-900 dark:bg-gray-800 hover:bg-black dark:hover:bg-gray-700 text-white font-black py-3.5 rounded-2xl uppercase tracking-widest text-[10px] transition-all text-center">Go to My Orders</Link>
            </div>
         </div>
       </div>
@@ -131,53 +131,53 @@ const OrderTrackingPage = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-pink-50/40 via-gray-50/60 to-white min-h-screen pb-24 border-t border-gray-100">
+    <div className="bg-gradient-to-b from-pink-50/40 via-gray-50/60 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 min-h-screen pb-24 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 max-w-5xl py-8 md:py-12 space-y-8">
         
         {/* Header Navigation */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
            <div className="space-y-1">
-              <Link to="/orders" className="flex items-center gap-2 text-pink-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-[-4px] transition-transform">
+              <Link to="/orders" className="flex items-center gap-2 text-pink-600 dark:text-pink-400 font-black text-[10px] uppercase tracking-widest hover:translate-x-[-4px] transition-transform">
                  <ChevronLeft className="size-4" />
                  Back to Order History
               </Link>
-              <h1 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tighter italic">
-                Track Order <span className="text-pink-600">.</span>
+              <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic">
+                Track Order <span className="text-pink-600 dark:text-pink-500">.</span>
               </h1>
            </div>
            
            <div className="flex flex-wrap items-center gap-3">
-              <div className="bg-white px-5 py-2.5 rounded-2xl border border-gray-200/80 shadow-sm flex items-center gap-3">
+              <div className="bg-white dark:bg-gray-900 px-5 py-2.5 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-center gap-3">
                  <div>
-                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-400">Order Ref</p>
-                    <p className="text-xs font-black text-gray-900 font-mono">#{orderId.substring(orderId.length - 8).toUpperCase()}</p>
+                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">Order Ref</p>
+                    <p className="text-xs font-black text-gray-900 dark:text-gray-100 font-mono">#{orderId.substring(orderId.length - 8).toUpperCase()}</p>
                  </div>
               </div>
 
-              <div className="bg-white px-5 py-2.5 rounded-2xl border border-gray-200/80 shadow-sm flex items-center gap-3">
+              <div className="bg-white dark:bg-gray-900 px-5 py-2.5 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-center gap-3">
                  <div>
-                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-400">Tracking Code</p>
-                    <p className="text-xs font-black text-pink-600 font-mono">{trackingNumber}</p>
+                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">Tracking Code</p>
+                    <p className="text-xs font-black text-pink-600 dark:text-pink-400 font-mono">{trackingNumber}</p>
                  </div>
                  <button 
                    onClick={handleCopyTrackingNumber}
-                   className="p-1.5 rounded-lg bg-pink-50 text-pink-600 hover:bg-pink-100 transition-colors"
+                   className="p-1.5 rounded-lg bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400 hover:bg-pink-100 dark:hover:bg-pink-900/50 transition-colors cursor-pointer"
                    title="Copy Tracking Number"
                  >
-                   {copied ? <Check className="size-3.5 text-green-600" /> : <Copy className="size-3.5" />}
+                   {copied ? <Check className="size-3.5 text-green-600 dark:text-green-400" /> : <Copy className="size-3.5" />}
                  </button>
               </div>
 
               <button
                 onClick={handleDownloadInvoice}
                 disabled={downloadingInvoice}
-                className="bg-white hover:bg-gray-950 hover:text-white text-gray-900 px-5 py-2.5 rounded-2xl border border-gray-200/80 shadow-sm flex items-center gap-2.5 transition-all text-xs font-black uppercase tracking-wider disabled:opacity-50 cursor-pointer"
+                className="bg-white dark:bg-gray-900 hover:bg-gray-950 hover:text-white dark:hover:bg-pink-600 dark:hover:text-white text-gray-900 dark:text-gray-100 px-5 py-2.5 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-center gap-2.5 transition-all text-xs font-black uppercase tracking-wider disabled:opacity-50 cursor-pointer"
                 title="Download PDF Tax Invoice"
               >
                 {downloadingInvoice ? (
                   <div className="size-3.5 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  <Download className="size-4 text-pink-600" />
+                  <Download className="size-4 text-pink-600 dark:text-pink-400" />
                 )}
                 <span>Invoice (PDF)</span>
               </button>
@@ -189,7 +189,7 @@ const OrderTrackingPage = () => {
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-red-500 text-white rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-red-200 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
+            className="bg-red-500 dark:bg-red-900/80 text-white rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-red-200 dark:shadow-none border border-red-400/20 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
           >
              <div className="flex items-center gap-5">
                 <div className="size-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0">
@@ -205,7 +205,7 @@ const OrderTrackingPage = () => {
              </div>
              <Link 
                to="/products"
-               className="bg-white text-red-600 px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-red-50 transition-all shrink-0 shadow-lg"
+               className="bg-white text-red-600 dark:bg-gray-950 dark:text-red-400 px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-red-50 dark:hover:bg-gray-900 transition-all shrink-0 shadow-lg"
              >
                Re-Order Items
              </Link>
@@ -218,24 +218,24 @@ const OrderTrackingPage = () => {
              <motion.div 
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
-               className="bg-white rounded-[3rem] p-8 md:p-12 border border-gray-100 shadow-xl shadow-pink-100/20 space-y-12"
+               className="bg-white dark:bg-gray-900/90 rounded-[3rem] p-8 md:p-12 border border-gray-100 dark:border-gray-800 shadow-xl shadow-pink-100/20 dark:shadow-none space-y-12 backdrop-blur-md transition-colors duration-300"
              >
                 {/* Header info */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-gray-100">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-gray-100 dark:border-gray-800">
                    <div className="space-y-1.5">
-                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-pink-600 flex items-center gap-2">
+                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-pink-600 dark:text-pink-400 flex items-center gap-2">
                         <Clock className="size-3.5" /> Estimated Delivery Arrival
                       </p>
-                      <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tighter">
+                      <h2 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">
                         {new Date(estimatedDelivery).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}
                       </h2>
                    </div>
                    
-                   <div className="flex items-center gap-3 bg-pink-50/80 px-4 py-2.5 rounded-2xl border border-pink-100">
+                   <div className="flex items-center gap-3 bg-pink-50/80 dark:bg-pink-950/40 px-4 py-2.5 rounded-2xl border border-pink-100 dark:border-pink-900/50">
                       <div className="size-3 rounded-full bg-emerald-500 animate-ping"></div>
                       <div>
-                        <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Current Status</p>
-                        <p className="text-xs font-black text-pink-600 uppercase tracking-wider">{orderStatus}</p>
+                        <p className="text-[9px] font-black text-gray-400 dark:text-gray-400 uppercase tracking-widest">Current Status</p>
+                        <p className="text-xs font-black text-pink-600 dark:text-pink-400 uppercase tracking-wider">{orderStatus}</p>
                       </div>
                    </div>
                 </div>
@@ -243,7 +243,7 @@ const OrderTrackingPage = () => {
                 {/* Multi-Step Visual Progress Bar */}
                 <div className="relative pt-6 pb-8">
                    {/* Background Track Line */}
-                   <div className="absolute top-11 left-6 right-6 h-2 bg-gray-100 rounded-full overflow-hidden z-0">
+                   <div className="absolute top-11 left-6 right-6 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden z-0">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: isCancelled ? '0%' : `${progressPercentage}%` }}
@@ -268,7 +268,7 @@ const OrderTrackingPage = () => {
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="absolute -top-10 bg-gray-900 text-white text-[8px] font-black px-2.5 py-1 rounded-lg whitespace-nowrap uppercase tracking-widest shadow-md z-20"
+                                    className="absolute -top-10 bg-gray-900 dark:bg-pink-600 text-white text-[8px] font-black px-2.5 py-1 rounded-lg whitespace-nowrap uppercase tracking-widest shadow-md z-20"
                                   >
                                      Active Stage
                                   </motion.div>
@@ -280,23 +280,23 @@ const OrderTrackingPage = () => {
                                animate={{ scale: isCurrent ? 1.15 : 1 }}
                                className={`size-11 sm:size-12 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-md ${
                                  isCancelled
-                                  ? 'bg-gray-100 text-gray-400 border border-gray-200'
+                                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700'
                                   : isCompleted 
-                                    ? 'bg-gradient-to-tr from-pink-600 to-purple-600 text-white shadow-pink-200' 
-                                    : 'bg-white text-gray-300 border-2 border-gray-200'
-                               } ${isCurrent ? 'ring-4 ring-pink-100 shadow-xl' : ''}`}
+                                    ? 'bg-gradient-to-tr from-pink-600 to-purple-600 text-white shadow-pink-200 dark:shadow-none' 
+                                    : 'bg-white dark:bg-gray-800 text-gray-300 dark:text-gray-600 border-2 border-gray-200 dark:border-gray-700'
+                               } ${isCurrent ? 'ring-4 ring-pink-100 dark:ring-pink-950/60 shadow-xl' : ''}`}
                              >
                                 <Icon className={`size-5 ${isCurrent ? 'animate-bounce text-white' : ''}`} />
                              </motion.div>
 
                              <div className="mt-3 space-y-0.5">
                                 <p className={`text-[9px] sm:text-[10px] font-black uppercase tracking-tighter leading-tight ${
-                                  isCompleted ? 'text-gray-900 font-extrabold' : 'text-gray-400'
+                                  isCompleted ? 'text-gray-900 dark:text-gray-100 font-extrabold' : 'text-gray-400 dark:text-gray-500'
                                 }`}>
                                    {stage.label}
                                 </p>
                                 {stage.date && (
-                                  <p className="text-[8px] font-bold text-gray-400 hidden sm:block">
+                                  <p className="text-[8px] font-bold text-gray-400 dark:text-gray-500 hidden sm:block">
                                     {new Date(stage.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                   </p>
                                 )}
@@ -308,27 +308,27 @@ const OrderTrackingPage = () => {
                 </div>
 
                 {/* Route & Courier Card */}
-                <div className="bg-gradient-to-br from-gray-50 to-pink-50/30 rounded-[2.5rem] p-6 md:p-8 border border-gray-100 space-y-6">
+                <div className="bg-gradient-to-br from-gray-50 to-pink-50/30 dark:from-gray-800/40 dark:to-pink-950/20 rounded-[2.5rem] p-6 md:p-8 border border-gray-100 dark:border-gray-800 space-y-6">
                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                       <div className="flex items-center gap-4 flex-1 w-full">
-                         <div className="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 text-pink-600 font-black text-xs flex items-center gap-2">
+                         <div className="bg-white dark:bg-gray-800 p-3.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-pink-600 dark:text-pink-400 font-black text-xs flex items-center gap-2">
                             <MapPin className="size-4" />
                             <span>{dispatchCity}</span>
                          </div>
-                         <div className="h-0.5 flex-1 bg-pink-300/50 bg-dashed relative min-w-[50px]">
-                            <Navigation className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 size-4 text-pink-600 rotate-90 animate-pulse" />
+                         <div className="h-0.5 flex-1 bg-pink-300/50 dark:bg-pink-900/50 bg-dashed relative min-w-[50px]">
+                            <Navigation className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 size-4 text-pink-600 dark:text-pink-400 rotate-90 animate-pulse" />
                          </div>
-                         <div className="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 text-pink-600 font-black text-xs flex items-center gap-2">
+                         <div className="bg-white dark:bg-gray-800 p-3.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-pink-600 dark:text-pink-400 font-black text-xs flex items-center gap-2">
                             <MapPin className="size-4" />
                             <span>{destinationCity}</span>
                          </div>
                       </div>
 
-                      <div className="flex items-center gap-3 bg-white px-5 py-3 rounded-2xl border border-gray-100 shadow-sm w-full md:w-auto">
-                         <Truck className="size-5 text-pink-600 shrink-0" />
+                      <div className="flex items-center gap-3 bg-white dark:bg-gray-800 px-5 py-3 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm w-full md:w-auto">
+                         <Truck className="size-5 text-pink-600 dark:text-pink-400 shrink-0" />
                          <div>
-                            <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Partner</p>
-                            <p className="text-xs font-black text-gray-900">{courierPartner}</p>
+                            <p className="text-[9px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Partner</p>
+                            <p className="text-xs font-black text-gray-900 dark:text-white">{courierPartner}</p>
                          </div>
                       </div>
                    </div>
@@ -336,17 +336,17 @@ const OrderTrackingPage = () => {
 
                 {/* Real-time Status History Logs Tree */}
                 <div className="space-y-6">
-                   <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900 flex items-center gap-2">
-                         <Activity className="size-4 text-pink-600" />
+                   <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-3">
+                      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white flex items-center gap-2">
+                         <Activity className="size-4 text-pink-600 dark:text-pink-400" />
                          Real-Time Tracking History
                       </h3>
-                      <span className="text-[10px] font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">
+                      <span className="text-[10px] font-bold text-gray-400 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full">
                          {statusLogs.length} Events Recorded
                       </span>
                    </div>
 
-                   <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-pink-200">
+                   <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-pink-200 dark:before:bg-pink-900/60">
                       {statusLogs.map((log, idx) => (
                          <motion.div 
                            key={idx}
@@ -355,17 +355,17 @@ const OrderTrackingPage = () => {
                            transition={{ delay: idx * 0.05 }}
                            className="relative group"
                          >
-                            <div className="absolute -left-6 top-1.5 size-3.5 rounded-full bg-pink-600 ring-4 ring-pink-100 group-first:bg-gradient-to-r group-first:from-pink-600 group-first:to-purple-600"></div>
-                            <div className="bg-gray-50/80 p-4 rounded-2xl border border-gray-100 hover:border-pink-200 transition-colors">
+                            <div className="absolute -left-6 top-1.5 size-3.5 rounded-full bg-pink-600 ring-4 ring-pink-100 dark:ring-pink-950 group-first:bg-gradient-to-r group-first:from-pink-600 group-first:to-purple-600"></div>
+                            <div className="bg-gray-50/80 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-750 hover:border-pink-200 dark:hover:border-pink-800/60 transition-colors">
                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
-                                  <h4 className="text-xs font-black text-gray-900 uppercase tracking-wide">{log.title || log.status}</h4>
-                                  <span className="text-[10px] font-bold text-pink-600 font-mono">
+                                  <h4 className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-wide">{log.title || log.status}</h4>
+                                  <span className="text-[10px] font-bold text-pink-600 dark:text-pink-400 font-mono">
                                      {new Date(log.timestamp).toLocaleString()}
                                   </span>
                                </div>
-                               <p className="text-xs text-gray-600 font-medium mb-2">{log.description}</p>
+                               <p className="text-xs text-gray-600 dark:text-gray-300 font-medium mb-2">{log.description}</p>
                                {log.location && (
-                                  <span className="inline-flex items-center gap-1 text-[9px] font-bold text-gray-400 bg-white px-2.5 py-1 rounded-lg border border-gray-100">
+                                  <span className="inline-flex items-center gap-1 text-[9px] font-bold text-gray-400 dark:text-gray-400 bg-white dark:bg-gray-900 px-2.5 py-1 rounded-lg border border-gray-100 dark:border-gray-800">
                                      <MapPin className="size-3 text-pink-500" /> {log.location}
                                   </span>
                                )}
@@ -377,18 +377,18 @@ const OrderTrackingPage = () => {
              </motion.div>
 
              {/* Package Items Card */}
-             <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 space-y-6 shadow-sm">
-                <h3 className="text-xs font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+             <div className="bg-white dark:bg-gray-900/90 rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-800 space-y-6 shadow-sm">
+                <h3 className="text-xs font-black uppercase tracking-widest text-gray-400 dark:text-gray-400 flex items-center gap-2">
                    <Package className="size-4 text-pink-500" /> Items In This Shipment ({orderItems.length})
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                    {orderItems.map((item, idx) => (
-                     <div key={idx} className="flex gap-4 p-4 border border-gray-100 rounded-2xl group hover:border-pink-200 transition-all bg-gray-50/50">
-                        <img src={item.image} alt={item.name} className="size-16 rounded-xl object-cover bg-white border border-gray-100 shrink-0" />
+                     <div key={idx} className="flex gap-4 p-4 border border-gray-100 dark:border-gray-800 rounded-2xl group hover:border-pink-200 dark:hover:border-pink-900 transition-all bg-gray-50/50 dark:bg-gray-800/40">
+                        <img src={item.image} alt={item.name} className="size-16 rounded-xl object-cover bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shrink-0" />
                         <div className="min-w-0 flex-1">
-                           <p className="text-xs font-black uppercase tracking-tight text-gray-900 truncate">{item.name}</p>
-                           <p className="text-[10px] font-bold text-pink-600 mt-1 uppercase">Qty: {item.qty} × ₹{item.price}</p>
-                           <span className="inline-block mt-2 text-[8px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase">Quality Checked</span>
+                           <p className="text-xs font-black uppercase tracking-tight text-gray-900 dark:text-white truncate">{item.name}</p>
+                           <p className="text-[10px] font-bold text-pink-600 dark:text-pink-400 mt-1 uppercase">Qty: {item.qty} × ₹{item.price}</p>
+                           <span className="inline-block mt-2 text-[8px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full uppercase">Quality Checked</span>
                         </div>
                      </div>
                    ))}
@@ -398,13 +398,13 @@ const OrderTrackingPage = () => {
 
           {/* Right Sidebar Info */}
           <aside className="space-y-8">
-             <div className="bg-white p-8 rounded-[3rem] border border-gray-100 shadow-xl shadow-pink-100/20 space-y-8">
+             <div className="bg-white dark:bg-gray-900/90 p-8 rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-xl shadow-pink-100/20 dark:shadow-none space-y-8 backdrop-blur-md transition-colors duration-300">
                 {/* Destination Details */}
                 <div className="space-y-4">
-                   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-100 pb-3">Delivery Destination</h3>
+                   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-800 pb-3">Delivery Destination</h3>
                    <div className="space-y-2">
-                      <p className="text-xs font-black text-gray-900 uppercase italic">Shipping Address</p>
-                      <p className="text-xs font-medium text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                      <p className="text-xs font-black text-gray-900 dark:text-white uppercase italic">Shipping Address</p>
+                      <p className="text-xs font-medium text-gray-600 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-800">
                          {shippingAddress?.street},<br />
                          {shippingAddress?.city}, {shippingAddress?.state} - {shippingAddress?.zip}<br />
                          {shippingAddress?.country}
@@ -414,32 +414,32 @@ const OrderTrackingPage = () => {
 
                 {/* Payment Summary */}
                 <div className="space-y-4">
-                   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-100 pb-3">Payment Summary</h3>
-                   <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 space-y-3">
+                   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-800 pb-3">Payment Summary</h3>
+                   <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 space-y-3">
                       <div className="flex justify-between items-center text-xs">
-                         <span className="font-bold text-gray-500">Method</span>
-                         <span className="font-black text-gray-900 uppercase">{paymentMethod}</span>
+                         <span className="font-bold text-gray-500 dark:text-gray-400">Method</span>
+                         <span className="font-black text-gray-900 dark:text-white uppercase">{paymentMethod}</span>
                       </div>
                       <div className="flex justify-between items-center text-xs">
-                         <span className="font-bold text-gray-500">Payment Status</span>
-                         <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase ${isPaid ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                         <span className="font-bold text-gray-500 dark:text-gray-400">Payment Status</span>
+                         <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase ${isPaid ? 'bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-300' : 'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300'}`}>
                             {isPaid ? 'Paid' : 'Pending COD'}
                          </span>
                       </div>
-                      <div className="flex justify-between items-center text-xs pt-2 border-t border-gray-200/60">
-                         <span className="font-black text-gray-900">Total Charged</span>
-                         <span className="font-black text-pink-600 text-sm">₹{totalPrice}</span>
+                      <div className="flex justify-between items-center text-xs pt-2 border-t border-gray-200/60 dark:border-gray-700/60">
+                         <span className="font-black text-gray-900 dark:text-white">Total Charged</span>
+                         <span className="font-black text-pink-600 dark:text-pink-400 text-sm">₹{totalPrice}</span>
                       </div>
                       <div className="pt-1">
                          <button
                            onClick={handleDownloadInvoice}
                            disabled={downloadingInvoice}
-                           className="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-white hover:bg-gray-900 hover:text-white text-gray-800 border border-gray-200 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shadow-xs disabled:opacity-50 cursor-pointer"
+                           className="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-white dark:bg-gray-800 hover:bg-gray-900 hover:text-white dark:hover:bg-pink-600 dark:hover:text-white text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shadow-xs disabled:opacity-50 cursor-pointer"
                          >
                             {downloadingInvoice ? (
                               <div className="size-3 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
                             ) : (
-                              <Download className="size-3.5 text-pink-600" />
+                              <Download className="size-3.5 text-pink-600 dark:text-pink-400" />
                             )}
                             <span>Download Tax Invoice (PDF)</span>
                          </button>
@@ -449,9 +449,9 @@ const OrderTrackingPage = () => {
 
                 {/* Customer Support */}
                 <div className="space-y-4">
-                   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-100 pb-3">Order Support</h3>
+                   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-800 pb-3">Order Support</h3>
                    <div className="space-y-2.5">
-                      <Link to="/contact" className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-gray-50 hover:bg-pink-50 text-gray-800 hover:text-pink-600 text-xs font-black uppercase tracking-wider transition-all border border-gray-100">
+                      <Link to="/contact" className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-gray-50 dark:bg-gray-800/60 hover:bg-pink-50 dark:hover:bg-pink-950/30 text-gray-800 dark:text-gray-200 hover:text-pink-600 dark:hover:text-pink-400 text-xs font-black uppercase tracking-wider transition-all border border-gray-100 dark:border-gray-750">
                          <span className="flex items-center gap-2"><HelpCircle className="size-4 text-pink-500" /> Need Help?</span>
                          <ChevronLeft className="size-4 rotate-180 text-gray-400" />
                       </Link>
