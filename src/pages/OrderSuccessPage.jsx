@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShoppingBag, ChevronRight, CheckCircle2, Truck, Star, Download, FileText, ShieldCheck } from 'lucide-react';
@@ -10,6 +10,12 @@ const OrderSuccessPage = () => {
   const params = useParams();
   const orderId = params.orderId || new URLSearchParams(location.search).get('orderId') || 'N/A';
   const [downloading, setDownloading] = useState(false);
+
+  useEffect(() => {
+    try {
+      console.clear();
+    } catch (e) {}
+  }, []);
 
   // Calculate estimated delivery date (5 business days from now)
   const getEstimatedDelivery = () => {

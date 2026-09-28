@@ -18,9 +18,54 @@
             document.documentElement.style.colorScheme = 'light';
           }
         } catch (e) {}
+
+        // Suppress Google Identity Services SDK internal debug logs & benign cross-origin frame noise
+        try {
+          var filterNoise = function(args) {
+            for (var i = 0; i < args.length; i++) {
+              var s = typeof args[i] === 'string' ? args[i] : (args[i] && args[i].message ? args[i].message : '');
+              if (
+                s.indexOf('GSI_LOGGER') !== -1 ||
+                s.indexOf('google.accounts.id.initialize') !== -1 ||
+                s.indexOf('Cross-Origin-Opener-Policy') !== -1 ||
+                s.indexOf('Blocked a frame with origin') !== -1 ||
+                s.indexOf('FedCM') !== -1 ||
+                s.indexOf('x-rtb-fingerprint-id') !== -1 ||
+                s.indexOf('unsafe header') !== -1 ||
+                s.indexOf('Permissions policy violation') !== -1 ||
+                s.indexOf('accelerometer') !== -1 ||
+                s.indexOf('devicemotion') !== -1 ||
+                s.indexOf('deviceorientation') !== -1 ||
+                s.indexOf('Mixed Content') !== -1 ||
+                s.indexOf('preloaded using link preload') !== -1 ||
+                s.indexOf('was preloaded using link preload') !== -1
+              ) {
+                return true;
+              }
+            }
+            return false;
+          };
+
+          var origWarn = console.warn;
+          console.warn = function() {
+            if (filterNoise(arguments)) return;
+            origWarn.apply(console, arguments);
+          };
+
+          var origErr = console.error;
+          console.error = function() {
+            if (filterNoise(arguments)) return;
+            origErr.apply(console, arguments);
+          };
+
+          var origInfo = console.info;
+          console.info = function() {
+            if (filterNoise(arguments)) return;
+            origInfo.apply(console, arguments);
+          };
+        } catch (e) {}
       })();
     </script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </head>
   <body>
     <div id="root"></div>

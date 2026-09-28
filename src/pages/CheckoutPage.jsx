@@ -214,6 +214,7 @@ const CheckoutPage = () => {
               if (verifyRes.success) {
                 toast.success('Payment verified successfully!');
                 clearCart();
+                try { console.clear(); } catch (e) {}
                 setTimeout(() => {
                   navigate(`/order-success?orderId=${orderRes.dbOrderId}`);
                 }, 1500);

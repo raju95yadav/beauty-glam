@@ -60,6 +60,7 @@ const UserOtpForm = () => {
         const adminBaseUrl = import.meta.env.VITE_ADMIN_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://beauty-admin-five.vercel.app');
         window.location.href = `${adminBaseUrl}/dashboard?token=${data.token}&role=${role}`;
       } else {
+        try { console.clear(); } catch (e) {}
         navigate('/');
       }
     } catch (error) {
@@ -86,6 +87,7 @@ const UserOtpForm = () => {
         const adminBaseUrl = import.meta.env.VITE_ADMIN_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://beauty-admin-five.vercel.app');
         window.location.href = `${adminBaseUrl}/dashboard?token=${data.token}&role=${role}`;
       } else {
+        try { console.clear(); } catch (e) {}
         navigate('/');
       }
     } catch (error) {
