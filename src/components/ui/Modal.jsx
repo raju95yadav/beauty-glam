@@ -25,13 +25,13 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className={`w-full ${sizeClasses[size]} bg-white rounded-3xl shadow-2xl overflow-hidden pointer-events-auto`}
+              className={`w-full ${sizeClasses[size]} bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden pointer-events-auto border border-gray-100 dark:border-gray-800 transition-colors duration-300`}
             >
-              <div className="px-6 py-4 border-b flex items-center justify-between">
-                <h3 className="text-lg font-bold text-gray-800 uppercase tracking-widest">{title}</h3>
+              <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white uppercase tracking-widest">{title}</h3>
                 <button 
                   onClick={onClose}
-                  className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600"
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                 >
                   <X className="size-5" />
                 </button>

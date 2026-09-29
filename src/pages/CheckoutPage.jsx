@@ -295,7 +295,7 @@ const CheckoutPage = () => {
   ];
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-24">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen pb-24 transition-colors duration-300">
       {loading && <Loader fullScreen />}
       <SuccessModal show={showSuccess} loading={paymentLoading} />
       <AddressModal 
@@ -305,23 +305,23 @@ const CheckoutPage = () => {
       />
       
       {/* Checkout Header */}
-      <div className="bg-white border-b py-8 sticky top-0 z-30">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 py-8 sticky top-0 z-30 transition-colors duration-300">
         <div className="container mx-auto px-4 max-w-4xl">
            <div className="flex items-center justify-between gap-4">
-              <h1 className="text-xl font-black text-gray-900 uppercase tracking-tighter italic">Checkout</h1>
+              <h1 className="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic">Checkout</h1>
               <div className="flex items-center gap-4 md:gap-12">
                 {steps.map((s) => (
                   <div key={s.id} className="flex items-center gap-3">
-                    <div className={`size-7 rounded-full flex items-center justify-center text-[10px] font-black transition-all ${step >= s.id ? 'bg-pink-600 text-white shadow-lg shadow-pink-100' : 'bg-gray-100 text-gray-400'}`}>
+                    <div className={`size-7 rounded-full flex items-center justify-center text-[10px] font-black transition-all ${step >= s.id ? 'bg-pink-600 text-white shadow-lg shadow-pink-100 dark:shadow-none' : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500'}`}>
                       {s.id}
                     </div>
-                    <span className={`text-[10px] font-black uppercase tracking-widest hidden sm:inline ${step >= s.id ? 'text-gray-900' : 'text-gray-400'}`}>{s.name}</span>
+                    <span className={`text-[10px] font-black uppercase tracking-widest hidden sm:inline ${step >= s.id ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'}`}>{s.name}</span>
                   </div>
                 ))}
               </div>
               <div className="text-right">
-                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Amount</p>
-                 <p className="text-sm font-black text-pink-600 tracking-tighter">₹{total}</p>
+                 <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Total Amount</p>
+                 <p className="text-sm font-black text-pink-600 dark:text-pink-400 tracking-tighter">₹{total}</p>
               </div>
            </div>
         </div>
@@ -334,12 +334,12 @@ const CheckoutPage = () => {
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-red-50 text-red-600 p-6 rounded-3xl flex items-start gap-4 border border-red-200 shadow-sm"
+              className="bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 p-6 rounded-3xl flex items-start gap-4 border border-red-200 dark:border-red-900/50 shadow-sm"
             >
-              <AlertCircle className="size-6 text-red-600 shrink-0 mt-0.5" />
+              <AlertCircle className="size-6 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <p className="text-xs font-black uppercase tracking-widest text-red-700">Stock & Order Alert</p>
-                <p className="text-sm font-bold text-red-600 leading-snug">{error}</p>
+                <p className="text-xs font-black uppercase tracking-widest text-red-700 dark:text-red-300">Stock & Order Alert</p>
+                <p className="text-sm font-bold text-red-600 dark:text-red-400 leading-snug">{error}</p>
               </div>
             </motion.div>
           )}
@@ -348,11 +348,11 @@ const CheckoutPage = () => {
              <motion.div 
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
-               className="bg-white rounded-[3rem] p-10 md:p-14 border border-gray-100 shadow-xl shadow-gray-200/50"
+               className="bg-white dark:bg-gray-900 rounded-[3rem] p-10 md:p-14 border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none transition-colors duration-300"
              >
                <div className="flex items-center justify-between mb-12">
-                  <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter flex items-center gap-4">
-                    <div className="size-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600">
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tighter flex items-center gap-4">
+                    <div className="size-12 bg-pink-50 dark:bg-pink-950/40 rounded-2xl flex items-center justify-center text-pink-600 dark:text-pink-400">
                       <MapPin className="size-6" />
                     </div>
                     Shipping Location
@@ -366,24 +366,24 @@ const CheckoutPage = () => {
                        onClick={() => setSelectedAddressIndex(idx)}
                        className={`p-8 border-2 rounded-[2.5rem] relative transition-all group cursor-pointer shadow-lg ${
                          selectedAddressIndex === idx 
-                         ? 'border-pink-600 bg-pink-50/20 shadow-pink-100/50' 
-                         : 'border-gray-100 hover:border-gray-300 bg-white'
+                         ? 'border-pink-600 bg-pink-50/20 dark:bg-pink-950/20 shadow-pink-100/50 dark:shadow-none' 
+                         : 'border-gray-100 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 bg-white dark:bg-gray-900/80 shadow-gray-100/30 dark:shadow-none'
                        }`}
                      >
-                       <div className="absolute top-6 right-6 text-pink-600 bg-white rounded-full p-2 ring-1 ring-pink-100 shadow-md">
-                         {selectedAddressIndex === idx ? <ShieldCheck className="size-5" /> : <div className="size-5 rounded-full border border-gray-100" />}
+                       <div className="absolute top-6 right-6 text-pink-600 dark:text-pink-400 bg-white dark:bg-gray-800 rounded-full p-2 ring-1 ring-pink-100 dark:ring-pink-900/40 shadow-md">
+                         {selectedAddressIndex === idx ? <ShieldCheck className="size-5" /> : <div className="size-5 rounded-full border border-gray-100 dark:border-gray-700" />}
                        </div>
                        <div className="space-y-1 mb-6">
-                          <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${selectedAddressIndex === idx ? 'text-pink-600' : 'text-gray-400'}`}>
+                          <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${selectedAddressIndex === idx ? 'text-pink-600 dark:text-pink-400' : 'text-gray-400 dark:text-gray-500'}`}>
                             {addr.label || 'Saved Address'}
                           </p>
-                          <p className="text-xl font-bold text-gray-900">{addr.name || 'Recipient'}</p>
+                          <p className="text-xl font-bold text-gray-900 dark:text-white">{addr.name || 'Recipient'}</p>
                        </div>
-                       <p className="text-sm text-gray-500 mb-6 leading-relaxed font-medium">
+                       <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 leading-relaxed font-medium">
                          {addr.street}, {addr.city},<br />
                          {addr.state} - {addr.zip}, {addr.country || 'India'}
                        </p>
-                       <p className="text-xs font-black text-gray-900 uppercase tracking-widest bg-white/60 inline-block px-3 py-1.5 rounded-lg border border-white">
+                       <p className="text-xs font-black text-gray-900 dark:text-gray-200 uppercase tracking-widest bg-white/60 dark:bg-gray-800/60 inline-block px-3 py-1.5 rounded-lg border border-white dark:border-gray-700">
                          {addr.phone}
                        </p>
                      </div>
@@ -391,10 +391,10 @@ const CheckoutPage = () => {
 
                    <button 
                      onClick={() => setShowAddressModal(true)}
-                     className="p-8 border-2 border-dashed border-gray-200 rounded-[2.5rem] flex flex-col items-center justify-center gap-4 text-gray-400 hover:border-pink-600 hover:text-pink-600 transition-all group bg-gray-50/50 min-h-[250px]"
+                     className="p-8 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-[2.5rem] flex flex-col items-center justify-center gap-4 text-gray-400 dark:text-gray-500 hover:border-pink-600 dark:hover:border-pink-500 hover:text-pink-600 dark:hover:text-pink-400 transition-all group bg-gray-50/50 dark:bg-gray-900/40 min-h-[250px]"
                    >
-                     <div className="size-14 rounded-full bg-white flex items-center justify-center group-hover:bg-pink-50 shadow-sm border border-gray-100 transition-all">
-                       <span className="text-3xl font-light">+</span>
+                     <div className="size-14 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center group-hover:bg-pink-50 dark:group-hover:bg-pink-950/40 shadow-sm border border-gray-100 dark:border-gray-700 transition-all">
+                       <span className="text-3xl font-light text-gray-600 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400">+</span>
                      </div>
                      <span className="text-xs font-black uppercase tracking-[0.2em]">Add New Address</span>
                    </button>
@@ -408,7 +408,7 @@ const CheckoutPage = () => {
                    }
                    setStep(2);
                  }}
-                 className="w-full bg-gray-950 text-white font-black py-6 rounded-[2rem] flex items-center justify-center gap-4 hover:bg-black transition-all uppercase tracking-widest shadow-2xl shadow-gray-200 active:scale-[0.98]"
+                 className="w-full bg-gray-950 dark:bg-pink-600 text-white font-black py-6 rounded-[2rem] flex items-center justify-center gap-4 hover:bg-black dark:hover:bg-pink-700 transition-all uppercase tracking-widest shadow-2xl shadow-gray-200 dark:shadow-none active:scale-[0.98]"
                >
                  Proceed to Payment
                  <ChevronRight className="size-5" />
@@ -418,36 +418,36 @@ const CheckoutPage = () => {
             <motion.div 
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
-               className="bg-white rounded-[3rem] p-8 md:p-14 border border-gray-100 shadow-xl shadow-gray-200/50"
+               className="bg-white dark:bg-gray-900 rounded-[3rem] p-8 md:p-14 border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none transition-colors duration-300"
              >
                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter flex items-center gap-4">
-                    <div className="size-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600">
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tighter flex items-center gap-4">
+                    <div className="size-12 bg-pink-50 dark:bg-pink-950/40 rounded-2xl flex items-center justify-center text-pink-600 dark:text-pink-400">
                       <CreditCard className="size-6" />
                     </div>
                     Payment Gateway
                   </h2>
-                  <button onClick={() => setStep(1)} className="text-pink-600 text-[10px] font-black uppercase tracking-widest underline underline-offset-4 decoration-2">Back to Address</button>
+                  <button onClick={() => setStep(1)} className="text-pink-600 dark:text-pink-400 text-[10px] font-black uppercase tracking-widest underline underline-offset-4 decoration-2">Back to Address</button>
                </div>
 
                 {/* Security Trust Banner */}
-                <div className="mb-8 p-4 bg-emerald-50/80 rounded-2xl border border-emerald-100 flex items-center justify-between">
+                <div className="mb-8 p-4 bg-emerald-50/80 dark:bg-emerald-950/20 rounded-2xl border border-emerald-100 dark:border-emerald-900/40 flex items-center justify-between">
                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-emerald-500/10 text-emerald-600 rounded-xl">
+                      <div className="p-2 bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-xl">
                          <ShieldCheck className="size-5" />
                       </div>
                       <div>
-                         <p className="text-xs font-black text-emerald-950 uppercase tracking-wider">Razorpay Sandbox Gateway</p>
-                         <p className="text-[11px] text-emerald-700 font-medium">PCI-DSS Level 1 Compliant • 256-Bit SSL Encryption</p>
+                         <p className="text-xs font-black text-emerald-950 dark:text-emerald-300 uppercase tracking-wider">Razorpay Sandbox Gateway</p>
+                         <p className="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">PCI-DSS Level 1 Compliant • 256-Bit SSL Encryption</p>
                       </div>
                    </div>
-                   <span className="hidden sm:inline-block px-3 py-1 bg-white text-[10px] font-black uppercase tracking-widest text-emerald-700 rounded-full border border-emerald-200 shadow-xs">
+                   <span className="hidden sm:inline-block px-3 py-1 bg-white dark:bg-gray-800 text-[10px] font-black uppercase tracking-widest text-emerald-700 dark:text-emerald-400 rounded-full border border-emerald-200 dark:border-emerald-800 shadow-xs">
                       Test Mode Active
                    </span>
                 </div>
 
                 {/* Payment Selection Tabs */}
-                <div className="grid grid-cols-2 p-2 bg-gray-50 rounded-[2rem] gap-2 mb-10">
+                <div className="grid grid-cols-2 p-2 bg-gray-50 dark:bg-gray-950 rounded-[2rem] gap-2 mb-10 border border-gray-100/50 dark:border-gray-800">
                    {[
                      { id: 'razorpay', name: 'Razorpay Online', subtitle: 'UPI / Cards / Netbanking', icon: CreditCard },
                      { id: 'cod', name: 'Cash on Delivery', subtitle: 'Pay when delivered', icon: Banknote },
@@ -460,14 +460,14 @@ const CheckoutPage = () => {
                        }}
                        className={`flex flex-col sm:flex-row items-center justify-center gap-3 px-6 py-4 rounded-[1.5rem] transition-all text-center sm:text-left ${
                          paymentMethod === tab.id 
-                         ? 'bg-white text-pink-600 shadow-lg shadow-pink-100/50 border border-pink-100' 
-                         : 'text-gray-400 hover:text-gray-600'
+                         ? 'bg-white dark:bg-gray-900 text-pink-600 dark:text-pink-400 shadow-lg shadow-pink-100/50 dark:shadow-none border border-pink-100 dark:border-pink-950' 
+                         : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
                        }`}
                      >
                        <tab.icon className="size-5 shrink-0" />
                        <div>
                          <p className="text-[11px] font-black uppercase tracking-[0.15em]">{tab.name}</p>
-                         <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider hidden sm:block">{tab.subtitle}</p>
+                         <p className="text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider hidden sm:block">{tab.subtitle}</p>
                        </div>
                      </button>
                    ))}
@@ -484,43 +484,43 @@ const CheckoutPage = () => {
                            exit={{ opacity: 0, y: -10 }}
                            className="space-y-6"
                          >
-                            <div className="p-8 rounded-[2.5rem] bg-gradient-to-br from-rose-50/50 via-white to-pink-50/30 border border-pink-100 shadow-sm space-y-6">
-                               <div className="flex items-center justify-between border-b border-pink-100/60 pb-6">
+                            <div className="p-8 rounded-[2.5rem] bg-gradient-to-br from-rose-50/50 via-white to-pink-50/30 dark:from-gray-900/90 dark:via-gray-900 dark:to-rose-950/20 border border-pink-100 dark:border-gray-800 shadow-sm space-y-6">
+                               <div className="flex items-center justify-between border-b border-pink-100/60 dark:border-gray-800 pb-6">
                                   <div>
-                                     <span className="text-[10px] font-black text-pink-600 uppercase tracking-widest block mb-1">Standard Gateway</span>
-                                     <h3 className="text-xl font-black text-gray-900 uppercase tracking-tight">Razorpay Instant Checkout</h3>
+                                     <span className="text-[10px] font-black text-pink-600 dark:text-pink-400 uppercase tracking-widest block mb-1">Standard Gateway</span>
+                                     <h3 className="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tight">Razorpay Instant Checkout</h3>
                                   </div>
-                                  <div className="px-3 py-1.5 bg-pink-100/70 text-pink-700 text-[10px] font-black uppercase tracking-widest rounded-xl">
+                                  <div className="px-3 py-1.5 bg-pink-100/70 dark:bg-pink-950/50 text-pink-700 dark:text-pink-300 text-[10px] font-black uppercase tracking-widest rounded-xl border border-pink-200/50 dark:border-pink-900/50">
                                      Zero Surcharge
                                   </div>
                                </div>
 
-                               <p className="text-sm text-gray-600 leading-relaxed font-medium">
-                                  Clicking <span className="font-bold text-gray-900">"Pay Now"</span> will launch Razorpay's secure checkout modal supporting:
-                               </p>
+                               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
+                                  Clicking <span className="font-bold text-gray-900 dark:text-white">"Pay Now"</span> will launch Razorpay's secure checkout modal supporting:
+                                </p>
 
                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
-                                     <p className="text-xs font-black text-gray-900">UPI</p>
-                                     <p className="text-[9px] text-gray-400 font-bold uppercase">GPay, PhonePe, Paytm</p>
+                                  <div className="p-3 bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700/60 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900 dark:text-white">UPI</p>
+                                     <p className="text-[9px] text-gray-400 dark:text-gray-400 font-bold uppercase">GPay, PhonePe, Paytm</p>
                                   </div>
-                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
-                                     <p className="text-xs font-black text-gray-900">Cards</p>
-                                     <p className="text-[9px] text-gray-400 font-bold uppercase">Visa, MC, RuPay</p>
+                                  <div className="p-3 bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700/60 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900 dark:text-white">Cards</p>
+                                     <p className="text-[9px] text-gray-400 dark:text-gray-400 font-bold uppercase">Visa, MC, RuPay</p>
                                   </div>
-                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
-                                     <p className="text-xs font-black text-gray-900">Net Banking</p>
-                                     <p className="text-[9px] text-gray-400 font-bold uppercase">50+ Major Banks</p>
+                                  <div className="p-3 bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700/60 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900 dark:text-white">Net Banking</p>
+                                     <p className="text-[9px] text-gray-400 dark:text-gray-400 font-bold uppercase">50+ Major Banks</p>
                                   </div>
-                                  <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-xs text-center space-y-1">
-                                     <p className="text-xs font-black text-gray-900">Wallets</p>
-                                     <p className="text-[9px] text-gray-400 font-bold uppercase">Paytm, Mobikwik</p>
+                                  <div className="p-3 bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700/60 shadow-xs text-center space-y-1">
+                                     <p className="text-xs font-black text-gray-900 dark:text-white">Wallets</p>
+                                     <p className="text-[9px] text-gray-400 dark:text-gray-400 font-bold uppercase">Paytm, Mobikwik</p>
                                   </div>
                                </div>
 
-                               <div className="p-4 bg-white/80 rounded-2xl border border-pink-100/60 flex items-center justify-between text-[11px] text-gray-500 font-medium">
+                               <div className="p-4 bg-white/80 dark:bg-gray-800/60 rounded-2xl border border-pink-100/60 dark:border-gray-700/60 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400 font-medium">
                                   <span>Automated PDF Tax Invoice</span>
-                                  <span className="text-pink-600 font-bold">Generated upon payment</span>
+                                  <span className="text-pink-600 dark:text-pink-400 font-bold">Generated upon payment</span>
                                </div>
                             </div>
                          </motion.div>
@@ -542,7 +542,7 @@ const CheckoutPage = () => {
                 <button 
                   onClick={handlePlaceOrder}
                   disabled={!isPaymentValid || paymentLoading}
-                  className="w-full bg-pink-600 text-white font-black py-6 rounded-[2rem] flex items-center justify-center gap-4 hover:bg-pink-700 transition-all uppercase tracking-[0.2em] shadow-2xl shadow-pink-200 active:scale-[0.98] disabled:opacity-30 disabled:grayscale disabled:scale-[0.98]"
+                  className="w-full bg-pink-600 hover:bg-pink-700 text-white font-black py-6 rounded-[2rem] flex items-center justify-center gap-4 transition-all uppercase tracking-[0.2em] shadow-2xl shadow-pink-200 dark:shadow-none active:scale-[0.98] disabled:opacity-30 disabled:grayscale disabled:scale-[0.98]"
                 >
                   {paymentLoading ? (
                      <>
@@ -562,7 +562,7 @@ const CheckoutPage = () => {
                   )}
                 </button>
                 
-                <p className="text-center mt-8 text-gray-400 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                <p className="text-center mt-8 text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2">
                    <ShieldCheck className="size-3.5 text-emerald-500" />
                    Razorpay Secure • 256-bit SSL Encryption • RBI Authorized
                 </p>
@@ -572,53 +572,53 @@ const CheckoutPage = () => {
 
         {/* Sidebar Summary */}
         <aside className="space-y-8 sticky top-32 h-fit">
-           <div className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-xl shadow-gray-200/50">
-             <h3 className="text-sm font-black text-gray-900 mb-8 uppercase tracking-[0.3em] border-b border-gray-50 pb-6 italic">Checkout Summary</h3>
+           <div className="bg-white dark:bg-gray-900 p-10 rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none transition-colors duration-300">
+             <h3 className="text-sm font-black text-gray-900 dark:text-white mb-8 uppercase tracking-[0.3em] border-b border-gray-50 dark:border-gray-800 pb-6 italic">Checkout Summary</h3>
              <div className="space-y-6 max-h-[400px] overflow-y-auto no-scrollbar mb-8 pr-2">
                 {cartItems.map((item) => (
                   <div key={item._id} className="flex gap-6 group">
-                    <div className="size-16 rounded-2xl bg-gray-50 overflow-hidden flex-shrink-0 border border-gray-100 group-hover:scale-105 transition-all">
+                    <div className="size-16 rounded-2xl bg-gray-50 dark:bg-gray-800 overflow-hidden flex-shrink-0 border border-gray-100 dark:border-gray-700 group-hover:scale-105 transition-all">
                       <img src={item.images?.[0]?.url || item.images?.[0]} alt="" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-grow space-y-1">
-                      <p className="text-xs font-black text-gray-800 line-clamp-1 uppercase tracking-tight">{item.name}</p>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{item.brand?.name}</p>
-                      <p className="text-[10px] font-black text-pink-600">QTY: {item.quantity}</p>
+                      <p className="text-xs font-black text-gray-800 dark:text-gray-100 line-clamp-1 uppercase tracking-tight">{item.name}</p>
+                      <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{item.brand?.name}</p>
+                      <p className="text-[10px] font-black text-pink-600 dark:text-pink-400">QTY: {item.quantity}</p>
                     </div>
-                    <p className="text-xs font-black text-gray-900 whitespace-nowrap pt-1">₹{item.price * item.quantity}</p>
+                    <p className="text-xs font-black text-gray-900 dark:text-white whitespace-nowrap pt-1">₹{item.price * item.quantity}</p>
                   </div>
                 ))}
              </div>
 
-             <div className="space-y-4 text-[10px] font-black uppercase tracking-[0.2em] mb-8 border-t border-gray-50 pt-8 text-gray-400">
+             <div className="space-y-4 text-[10px] font-black uppercase tracking-[0.2em] mb-8 border-t border-gray-50 dark:border-gray-800 pt-8 text-gray-400 dark:text-gray-500">
                 <div className="flex justify-between">
                    <span>Bag Subtotal</span>
-                   <span className="text-gray-900">₹{cartTotal}</span>
+                   <span className="text-gray-900 dark:text-gray-200">₹{cartTotal}</span>
                 </div>
                 <div className="flex justify-between">
                    <span>Shipping Fee</span>
-                   <span className={shipping === 0 ? "text-green-600" : "text-gray-900"}>{shipping === 0 ? 'WAVED OFF' : `₹${shipping}`}</span>
+                   <span className={shipping === 0 ? "text-green-600 dark:text-green-400 font-bold" : "text-gray-900 dark:text-gray-200"}>{shipping === 0 ? 'WAIVED OFF' : `₹${shipping}`}</span>
                 </div>
-                <div className="flex justify-between items-center bg-gray-50 -mx-4 px-4 py-4 rounded-2xl mt-4">
-                   <span className="text-gray-900 text-[11px]">Total Tax</span>
-                   <span className="text-gray-400 text-[11px]">Included</span>
+                <div className="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 -mx-4 px-4 py-4 rounded-2xl mt-4 border border-gray-100 dark:border-gray-800">
+                   <span className="text-gray-900 dark:text-gray-200 text-[11px]">Total Tax</span>
+                   <span className="text-gray-400 dark:text-gray-400 text-[11px]">Included</span>
                 </div>
              </div>
 
              <div className="flex justify-between items-end mb-4">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Total Payable</p>
+                <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">Total Payable</p>
                 <div className="text-right">
-                   <span className="text-3xl font-black text-pink-600 tracking-tighter italic block">₹{total}</span>
+                   <span className="text-3xl font-black text-pink-600 dark:text-pink-400 tracking-tighter italic block">₹{total}</span>
                 </div>
              </div>
            </div>
 
-           <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-lg shadow-gray-100/50 space-y-4">
-              <div className="flex items-center gap-4 text-green-600">
+           <div className="bg-white dark:bg-gray-900 p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-lg shadow-gray-100/50 dark:shadow-none space-y-4 transition-colors duration-300">
+              <div className="flex items-center gap-4 text-green-600 dark:text-green-400">
                  <Truck className="size-6" />
                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest italic leading-none mb-1">Express Delivery</p>
-                    <p className="text-[11px] font-bold text-gray-400 tracking-tight">Estimated delivery in 3–5 business days</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest italic leading-none mb-1 text-green-700 dark:text-green-400">Express Delivery</p>
+                    <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 tracking-tight">Estimated delivery in 3–5 business days</p>
                  </div>
               </div>
            </div>

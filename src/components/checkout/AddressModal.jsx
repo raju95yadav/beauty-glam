@@ -39,8 +39,8 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
     }, 800);
   };
 
-  const inputClasses = "w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-xs font-bold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all uppercase tracking-widest";
-  const labelClasses = "text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2 block ml-1";
+  const inputClasses = "w-full bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700/60 rounded-2xl px-5 py-4 text-xs font-bold text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all uppercase tracking-widest";
+  const labelClasses = "text-[10px] font-black text-gray-400 dark:text-gray-400 uppercase tracking-[0.2em] mb-2 block ml-1";
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Add New Shipping Address" size="md">
@@ -163,18 +163,18 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-gray-50 flex gap-4">
+        <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex gap-4">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-8 py-5 border border-gray-100 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:bg-gray-50 transition-all"
+            className="flex-1 px-8 py-5 border border-gray-100 dark:border-gray-700 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="flex-[2] bg-gray-950 text-white px-8 py-5 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-rose-600 transition-all shadow-xl shadow-gray-200 hover:shadow-rose-100 flex items-center justify-center disabled:opacity-50"
+            className="flex-[2] bg-gray-950 dark:bg-pink-600 text-white px-8 py-5 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-rose-600 dark:hover:bg-pink-700 transition-all shadow-xl shadow-gray-200 dark:shadow-none hover:shadow-rose-100 flex items-center justify-center disabled:opacity-50"
           >
             {loading ? 'Processing...' : 'Save & Select Address'}
           </button>
