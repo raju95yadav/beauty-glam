@@ -126,33 +126,47 @@ const SupportPage = () => {
             </div>
 
             <div className="lg:col-span-4 space-y-8">
-               <div className="bg-gray-950 dark:bg-gray-900 rounded-[3rem] p-10 text-white space-y-8 sticky top-32 border border-transparent dark:border-gray-800">
-                  <div className="space-y-4">
-                     <h3 className="text-xs font-black uppercase tracking-[0.4em] text-rose-500">Need more help?</h3>
-                     <p className="text-2xl font-black leading-tight tracking-tighter uppercase italic">Our concierge is here for you.</p>
+               <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="bg-white dark:bg-gray-900 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 text-gray-900 dark:text-white space-y-8 sticky top-32 border border-rose-100 dark:border-gray-800 shadow-2xl shadow-rose-100/40 dark:shadow-none relative overflow-hidden transition-all duration-300"
+               >
+                  {/* Subtle decorative glow */}
+                  <div className="absolute top-0 right-0 size-48 bg-rose-100/50 dark:bg-rose-900/10 rounded-full blur-3xl pointer-events-none"></div>
+                  
+                  <div className="space-y-3 relative z-10">
+                     <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.35em] text-rose-600 dark:text-rose-400 inline-block px-3 py-1 bg-rose-50 dark:bg-rose-500/10 rounded-full border border-rose-200/60 dark:border-rose-500/20">
+                        Need more help?
+                     </span>
+                     <p className="text-2xl md:text-3xl font-black leading-tight tracking-tighter uppercase italic pt-2">
+                        Our concierge <br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 dark:from-rose-500 dark:to-pink-400">is here for you.</span>
+                     </p>
                   </div>
                   
-                  <div className="space-y-4">
-                     <button className="w-full bg-white/10 hover:bg-white/20 text-white py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-4 border border-white/5">
-                        <MessageCircle size={18} /> Live Chat Now
+                  <div className="space-y-3 relative z-10">
+                     <button className="w-full bg-gray-50 dark:bg-white/10 hover:bg-rose-50/50 dark:hover:bg-white/20 text-gray-800 dark:text-white py-4 md:py-5 rounded-2xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all flex items-center justify-center gap-3 border border-gray-200 dark:border-white/5 shadow-sm hover:shadow hover:border-rose-200 active:scale-[0.98]">
+                        <MessageCircle size={18} className="text-rose-600 dark:text-rose-400" /> Live Chat Now
                      </button>
-                     <Link to="/contact" className="w-full bg-rose-600 hover:bg-rose-700 text-white py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-4 shadow-xl shadow-rose-950/20">
+                     <Link to="/contact" className="w-full bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white py-4 md:py-5 rounded-2xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl shadow-rose-500/25 active:scale-[0.98]">
                         Submit a Ticket <ChevronRight size={18} />
                      </Link>
                   </div>
 
-                  <div className="pt-8 border-t border-white/5 space-y-4">
-                     <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic">Average Response Times</p>
+                  <div className="pt-6 border-t border-gray-100 dark:border-white/10 space-y-4 relative z-10">
+                     <p className="text-[10px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-widest italic">Average Response Times</p>
                      <div className="flex justify-between items-center text-[11px] font-black uppercase tracking-widest">
-                        <span className="text-gray-400">Chat</span>
-                        <span className="text-rose-500">2 Mins</span>
+                        <span className="text-gray-500 dark:text-gray-400">Chat</span>
+                        <span className="text-rose-600 dark:text-rose-400 font-black">2 Mins</span>
                      </div>
                      <div className="flex justify-between items-center text-[11px] font-black uppercase tracking-widest">
-                        <span className="text-gray-400">Email</span>
-                        <span className="text-white">4 Hours</span>
+                        <span className="text-gray-500 dark:text-gray-400">Email</span>
+                        <span className="text-gray-900 dark:text-white font-black">4 Hours</span>
                      </div>
                   </div>
-               </div>
+               </motion.div>
             </div>
          </div>
       </div>

@@ -67,7 +67,7 @@ const TermsPage = () => {
              {/* Sidebar Info */}
              <div className="md:w-1/3 space-y-8 md:space-y-10">
                 <div className="space-y-4 md:space-y-6">
-                   <div className="size-16 md:size-20 bg-gray-950 dark:bg-gray-800 rounded-2xl md:rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-gray-200 dark:shadow-none border border-transparent dark:border-gray-700 mx-auto md:mx-0">
+                   <div className="size-16 md:size-20 bg-rose-50 dark:bg-gray-800 rounded-2xl md:rounded-[2rem] flex items-center justify-center text-rose-600 dark:text-rose-400 shadow-xl shadow-rose-100/50 dark:shadow-none border border-rose-100 dark:border-gray-700 mx-auto md:mx-0">
                       <Gavel className="size-8 md:size-10" />
                    </div>
                    <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white uppercase tracking-tighter leading-none italic text-center md:text-left">Legal <br className="hidden md:block"/> <span className="text-rose-600 dark:text-rose-500">Framework</span></h1>

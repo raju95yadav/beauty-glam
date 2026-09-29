@@ -49,28 +49,39 @@ const ContactPage = () => {
   return (
     <div className="bg-white dark:bg-gray-950 min-h-screen transition-colors duration-300">
       {/* Hero Section */}
-      <div className="bg-gray-950 pt-24 pb-16 md:pt-40 md:pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-rose-500/10 to-transparent"></div>
+      <div className="relative pt-28 pb-20 md:pt-44 md:pb-36 bg-gradient-to-b from-rose-50/70 via-pink-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 overflow-hidden border-b border-rose-100/60 dark:border-gray-800 transition-colors duration-500">
+        <div className="absolute inset-0 pointer-events-none">
+           <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-rose-400/15 dark:from-rose-500/10 to-transparent"></div>
+           <div className="absolute -top-24 left-1/4 size-72 bg-rose-300/25 dark:bg-rose-600/15 rounded-full blur-[100px]"></div>
+           <div className="absolute bottom-0 right-1/4 size-72 bg-purple-300/20 dark:bg-purple-600/10 rounded-full blur-[100px]"></div>
+        </div>
         
         <div className="container mx-auto px-4 max-w-6xl relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-block px-4 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-full mb-6 md:mb-8"
+            transition={{ duration: 0.5 }}
+            className="inline-block px-4 py-1.5 bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 dark:border-rose-500/30 rounded-full mb-6 md:mb-8 shadow-sm"
           >
-            <span className="text-rose-500 text-[10px] font-black uppercase tracking-[0.4em]">Always Available</span>
+            <span className="text-rose-600 dark:text-rose-400 text-[10px] md:text-xs font-black uppercase tracking-[0.4em]">Always Available</span>
           </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter italic mb-6 md:mb-10 leading-none"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-4xl md:text-8xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic mb-6 md:mb-10 leading-none drop-shadow-sm"
           >
-            Let's Start a <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">Conversation</span>
+            Let's Start a <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 dark:from-rose-500 dark:to-purple-600">Conversation</span>
           </motion.h1>
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed"
+          >
             Whether you have a question about our products, orders, or just want to share some love, we're here for you.
-          </p>
+          </motion.p>
         </div>
       </div>
 
@@ -149,52 +160,58 @@ const ContactPage = () => {
            <motion.div 
              initial={{ opacity: 0, scale: 0.95 }}
              animate={{ opacity: 1, scale: 1 }}
-             className="bg-gray-900 dark:bg-gray-900/90 p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl shadow-rose-200/20 dark:shadow-none text-white space-y-8 md:space-y-10 border border-transparent dark:border-gray-800"
+             transition={{ duration: 0.5, delay: 0.2 }}
+             className="bg-white dark:bg-gray-900 p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl shadow-rose-100/60 dark:shadow-none text-gray-900 dark:text-white space-y-8 md:space-y-10 border border-rose-100 dark:border-gray-800 transition-all duration-300 relative overflow-hidden"
            >
-              <div className="space-y-2">
-                 <h2 className="text-xl md:text-2xl font-black uppercase tracking-tighter">Send a Message</h2>
-                 <p className="text-[9px] md:text-xs text-gray-400 font-medium uppercase tracking-widest italic decoration-rose-500 underline decoration-2 underline-offset-4">We'll get back in 2 hours</p>
+              {/* Decorative subtle ambient highlight */}
+              <div className="absolute top-0 right-0 size-48 bg-rose-100/40 dark:bg-rose-900/10 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div className="space-y-2 relative z-10">
+                 <h2 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-gray-900 dark:text-white">Send a Message</h2>
+                 <p className="text-[9px] md:text-xs text-rose-600 dark:text-gray-400 font-bold uppercase tracking-widest italic decoration-rose-500 underline decoration-2 underline-offset-4">We'll get back in 2 hours</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6 relative z-10">
                  <div className="space-y-2">
-                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Identifier</label>
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 ml-4">Identifier</label>
                     <input 
                       type="text" 
                       required
                       placeholder="Your Full Name"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full px-6 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2rem] bg-white/5 border border-white/10 focus:bg-white/10 focus:border-rose-500 outline-none transition-all font-bold text-sm"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2rem] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:bg-white dark:focus:bg-white/10 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 outline-none transition-all font-bold text-sm shadow-sm"
                     />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Digital Mail</label>
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 ml-4">Digital Mail</label>
                     <input 
                       type="email" 
                       required
                       placeholder="Email Address"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full px-6 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2rem] bg-white/5 border border-white/10 focus:bg-white/10 focus:border-rose-500 outline-none transition-all font-bold text-sm"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2rem] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:bg-white dark:focus:bg-white/10 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 outline-none transition-all font-bold text-sm shadow-sm"
                     />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">The Inquiry</label>
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 ml-4">The Inquiry</label>
                     <textarea 
                       required
                       rows="4"
                       placeholder="Share your thoughts..."
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      className="w-full px-6 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2rem] bg-white/5 border border-white/10 focus:bg-white/10 focus:border-rose-500 outline-none transition-all font-bold text-sm resize-none"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2rem] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:bg-white dark:focus:bg-white/10 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 outline-none transition-all font-bold text-sm resize-none shadow-sm"
                     />
                  </div>
 
-                 <button 
+                 <motion.button 
                    type="submit"
                    disabled={loading}
-                   className="w-full bg-rose-600 text-white font-black py-5 md:py-6 rounded-2xl md:rounded-[2rem] uppercase tracking-widest text-[9px] md:text-[10px] shadow-xl shadow-rose-900/40 hover:bg-rose-700 active:scale-[0.98] transition-all disabled:opacity-50 overflow-hidden relative group"
+                   whileHover={{ scale: 1.01 }}
+                   whileTap={{ scale: 0.98 }}
+                   className="w-full bg-gradient-to-r from-rose-600 via-pink-600 to-rose-600 hover:from-rose-700 hover:to-pink-700 text-white font-black py-5 md:py-6 rounded-2xl md:rounded-[2rem] uppercase tracking-widest text-[9px] md:text-[10px] shadow-xl shadow-rose-500/25 active:scale-[0.98] transition-all disabled:opacity-50 overflow-hidden relative group"
                  >
                    <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                    {loading ? (
@@ -206,7 +223,7 @@ const ContactPage = () => {
                         <Send className="size-4" /> Finalize Transmission
                      </span>
                    )}
-                 </button>
+                 </motion.button>
               </form>
            </motion.div>
         </div>

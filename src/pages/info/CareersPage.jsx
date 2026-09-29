@@ -159,32 +159,62 @@ const CareersPage = () => {
 
       {/* Hiring Process */}
       <div className="container mx-auto px-4 max-w-6xl py-20 md:py-32">
-         <div className="bg-gray-950 dark:bg-gray-900 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-16 relative overflow-hidden border border-transparent dark:border-gray-800">
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-rose-900/20 to-transparent"></div>
+         <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-gradient-to-br from-white via-rose-50/40 to-pink-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-16 relative overflow-hidden border border-rose-100/80 dark:border-gray-800 shadow-2xl shadow-rose-100/50 dark:shadow-none transition-all duration-300"
+         >
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-rose-400/10 dark:from-rose-900/20 to-transparent pointer-events-none"></div>
+            <div className="absolute -bottom-16 -left-16 size-64 bg-purple-300/15 dark:bg-purple-900/10 rounded-full blur-3xl pointer-events-none"></div>
+            
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
                <div className="space-y-6 md:space-y-8">
-                  <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-rose-500 italic">How we hire</h2>
-                  <p className="text-3xl md:text-5xl font-black text-white leading-tight tracking-tighter uppercase italic">The Path to <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-500">Excellence</span></p>
-                  <p className="text-gray-400 text-sm md:text-base font-medium leading-relaxed max-w-md">Our process is rigorous, fair, and designed to find high-velocity individuals who love solving complex problems.</p>
+                  <div className="inline-block px-4 py-1.5 bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/20 rounded-full">
+                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-rose-600 dark:text-rose-400 italic">How we hire</span>
+                  </div>
+                  <p className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight tracking-tighter uppercase italic">
+                     The Path to <br/>
+                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 dark:from-rose-500 dark:to-purple-500">Excellence</span>
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base font-medium leading-relaxed max-w-md">
+                     Our process is rigorous, fair, and designed to find high-velocity individuals who love solving complex problems.
+                  </p>
                </div>
-               <div className="space-y-8 md:space-y-12">
+               
+               <div className="space-y-3 md:space-y-4">
                   {[
                     { step: '01', title: 'Application Review', text: 'We look for bold portfolios and clear evidence of impact.' },
                     { step: '02', title: 'Cultural Sync', text: 'A deep dive into your vision and how it aligns with Glam Portal.' },
                     { step: '03', title: 'Technical Deep-Dive', text: 'Solving real-world architectural challenges with the team.' },
                     { step: '04', title: 'Final Onboarding', text: 'Join the mission and start building the heritage.' },
                   ].map((item, i) => (
-                    <div key={i} className="flex gap-6 md:gap-8 group">
-                       <span className="text-2xl md:text-3xl font-black text-gray-800 dark:text-gray-700 group-hover:text-rose-500 transition-colors uppercase tracking-tighter italic">{item.step}</span>
+                    <motion.div 
+                      key={i} 
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      whileHover={{ x: 6 }}
+                      className="flex gap-6 md:gap-8 group p-4 md:p-5 rounded-2xl md:rounded-3xl hover:bg-white/80 dark:hover:bg-white/[0.03] border border-transparent hover:border-rose-100 dark:hover:border-gray-800 transition-all duration-300 shadow-none hover:shadow-lg hover:shadow-rose-100/40 dark:hover:shadow-none"
+                    >
+                       <span className="text-2xl md:text-3xl font-black text-rose-300 dark:text-gray-700 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors uppercase tracking-tighter italic">
+                          {item.step}
+                       </span>
                        <div className="space-y-1 md:space-y-2">
-                          <h4 className="text-base md:text-lg font-bold text-white uppercase tracking-tight">{item.title}</h4>
-                          <p className="text-[11px] md:text-sm text-gray-500 dark:text-gray-400 font-medium leading-relaxed">{item.text}</p>
+                          <h4 className="text-base md:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-tight group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                             {item.title}
+                          </h4>
+                          <p className="text-[11px] md:text-sm text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
+                             {item.text}
+                          </p>
                        </div>
-                    </div>
+                    </motion.div>
                   ))}
                </div>
             </div>
-         </div>
+         </motion.div>
       </div>
     </div>
   );

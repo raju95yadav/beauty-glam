@@ -37,31 +37,38 @@ const AboutPage = () => {
   return (
     <div className="bg-white dark:bg-gray-950 min-h-screen overflow-hidden transition-colors duration-300">
       {/* Hero Section - Luxury Gradient */}
-      <div className="relative pt-24 pb-16 md:pt-40 md:pb-32 bg-gray-950 overflow-hidden">
-        <div className="absolute inset-0">
-           <div className="absolute top-0 left-1/4 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-rose-600/20 rounded-full blur-[80px] md:blur-[120px] animate-pulse"></div>
-           <div className="absolute bottom-0 right-1/4 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-purple-600/10 rounded-full blur-[60px] md:blur-[100px]"></div>
-           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+      <div className="relative pt-28 pb-20 md:pt-44 md:pb-36 bg-gradient-to-b from-rose-50/70 via-pink-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 overflow-hidden border-b border-rose-100/60 dark:border-gray-800 transition-colors duration-500">
+        <div className="absolute inset-0 pointer-events-none">
+           <div className="absolute top-0 left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-rose-300/30 dark:bg-rose-600/20 rounded-full blur-[90px] md:blur-[140px] animate-pulse"></div>
+           <div className="absolute bottom-0 right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-purple-300/25 dark:bg-purple-600/15 rounded-full blur-[70px] md:blur-[120px]"></div>
+           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:48px_48px]"></div>
         </div>
         
         <div className="container mx-auto px-4 max-w-6xl relative z-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-5 py-2 bg-rose-600/10 border border-rose-500/20 rounded-full mb-6"
+            transition={{ duration: 0.6 }}
+            className="inline-block px-5 py-2 bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 dark:border-rose-500/30 rounded-full mb-6 shadow-sm"
           >
-            <span className="text-rose-500 text-[10px] font-black uppercase tracking-[0.4em]">The Heritage of Beauty</span>
+            <span className="text-rose-600 dark:text-rose-400 text-[10px] md:text-xs font-black uppercase tracking-[0.4em]">The Heritage of Beauty</span>
           </motion.div>
           <motion.h1 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter mb-6 text-white italic leading-none"
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter mb-6 text-gray-900 dark:text-white italic leading-none drop-shadow-sm"
           >
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">Story</span>
+            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 dark:from-rose-500 dark:to-purple-500">Story</span>
           </motion.h1>
-          <p className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-lg md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium"
+          >
             {content?.company.description}
-          </p>
+          </motion.p>
         </div>
       </div>
 
