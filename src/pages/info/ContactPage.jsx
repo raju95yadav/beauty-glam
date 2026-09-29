@@ -47,7 +47,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-gray-950 min-h-screen transition-colors duration-300">
       {/* Hero Section */}
       <div className="bg-gray-950 pt-24 pb-16 md:pt-40 md:pb-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
@@ -81,16 +81,16 @@ const ContactPage = () => {
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-white p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-gray-100 shadow-xl shadow-gray-200/50 space-y-6 md:space-y-8 group hover:border-rose-200 transition-all"
+                className="bg-white dark:bg-gray-900 p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none space-y-6 md:space-y-8 group hover:border-rose-200 dark:hover:border-rose-900 transition-all"
               >
-                 <div className="size-12 md:size-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                 <div className="size-12 md:size-14 bg-rose-50 dark:bg-rose-950/40 rounded-2xl flex items-center justify-center text-rose-600 dark:text-rose-400 group-hover:bg-rose-600 group-hover:text-white transition-all">
                     <Mail className="size-5 md:size-6" />
                  </div>
                  <div className="space-y-1 md:space-y-2">
-                    <h3 className="text-base md:text-lg font-black text-gray-900 uppercase tracking-tight">Email Support</h3>
-                    <p className="text-xs md:text-sm text-gray-500 font-medium">For general inquiries and partnership requests.</p>
+                    <h3 className="text-base md:text-lg font-black text-gray-900 dark:text-white uppercase tracking-tight">Email Support</h3>
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium">For general inquiries and partnership requests.</p>
                  </div>
-                 <a href={`mailto:${admin.email}`} className="block text-lg md:text-xl font-bold text-gray-900 hover:text-rose-600 transition-colors break-all">
+                 <a href={`mailto:${admin.email}`} className="block text-lg md:text-xl font-bold text-gray-900 dark:text-white hover:text-rose-600 dark:hover:text-rose-400 transition-colors break-all">
                    {admin.email}
                  </a>
               </motion.div>
@@ -99,16 +99,16 @@ const ContactPage = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-gray-100 shadow-xl shadow-gray-200/50 space-y-6 md:space-y-8 group hover:border-green-200 transition-all"
+                className="bg-white dark:bg-gray-900 p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none space-y-6 md:space-y-8 group hover:border-green-200 dark:hover:border-green-900 transition-all"
               >
-                 <div className="size-12 md:size-14 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all">
+                 <div className="size-12 md:size-14 bg-green-50 dark:bg-green-950/40 rounded-2xl flex items-center justify-center text-green-600 dark:text-green-400 group-hover:bg-green-600 group-hover:text-white transition-all">
                     <MessageSquare className="size-5 md:size-6" />
                  </div>
                  <div className="space-y-1 md:space-y-2">
-                    <h3 className="text-base md:text-lg font-black text-gray-900 uppercase tracking-tight">WhatsApp Live</h3>
-                    <p className="text-xs md:text-sm text-gray-500 font-medium">Instant support for your orders and delivery status.</p>
+                    <h3 className="text-base md:text-lg font-black text-gray-900 dark:text-white uppercase tracking-tight">WhatsApp Live</h3>
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium">Instant support for your orders and delivery status.</p>
                  </div>
-                 <a href={`https://wa.me/${admin.phone}`} target="_blank" className="block text-lg md:text-xl font-bold text-gray-900 hover:text-green-600 transition-colors">
+                 <a href={`https://wa.me/${admin.phone}`} target="_blank" rel="noopener noreferrer" className="block text-lg md:text-xl font-bold text-gray-900 dark:text-white hover:text-green-600 dark:hover:text-green-400 transition-colors">
                    + {admin.phone}
                  </a>
               </motion.div>
@@ -117,29 +117,29 @@ const ContactPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="md:col-span-2 bg-gray-50 p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] border border-gray-100 space-y-8 md:space-y-10"
+                className="md:col-span-2 bg-gray-50 dark:bg-gray-900/60 p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] border border-gray-100 dark:border-gray-800 space-y-8 md:space-y-10"
               >
                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
                     <div className="space-y-3 md:space-y-4">
-                       <div className="flex items-center gap-3 text-rose-600">
+                       <div className="flex items-center gap-3 text-rose-600 dark:text-rose-400">
                           <Clock size={18} md:size={20} />
                           <h4 className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]">Business Hours</h4>
                        </div>
-                       <p className="text-xs md:text-sm text-gray-900 font-bold">Mon - Sat: 10AM - 8PM<br/><span className="text-gray-400 font-medium opacity-60">Sunday: Emergency Only</span></p>
+                       <p className="text-xs md:text-sm text-gray-900 dark:text-white font-bold">Mon - Sat: 10AM - 8PM<br/><span className="text-gray-400 dark:text-gray-500 font-medium opacity-60">Sunday: Emergency Only</span></p>
                     </div>
                     <div className="space-y-3 md:space-y-4">
-                       <div className="flex items-center gap-3 text-purple-600">
+                       <div className="flex items-center gap-3 text-purple-600 dark:text-purple-400">
                           <MapPin size={18} md:size={20} />
                           <h4 className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]">Headquarters</h4>
                        </div>
-                       <p className="text-xs md:text-sm text-gray-900 font-bold leading-relaxed">Glam Hotel 2nd Floor, <br/>Station Road, Patna (Bihar)</p>
+                       <p className="text-xs md:text-sm text-gray-900 dark:text-white font-bold leading-relaxed">Glam Hotel 2nd Floor, <br/>Station Road, Patna (Bihar)</p>
                     </div>
                     <div className="space-y-3 md:space-y-4">
-                       <div className="flex items-center gap-3 text-blue-600">
+                       <div className="flex items-center gap-3 text-blue-600 dark:text-blue-400">
                           <Globe size={18} md:size={20} />
                           <h4 className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]">Corporate</h4>
                        </div>
-                       <p className="text-xs md:text-sm text-gray-900 font-bold">corporate@glamportal.com<br/><span className="text-gray-400 font-medium opacity-60">G-200, Business District</span></p>
+                       <p className="text-xs md:text-sm text-gray-900 dark:text-white font-bold">corporate@glamportal.com<br/><span className="text-gray-400 dark:text-gray-500 font-medium opacity-60">G-200, Business District</span></p>
                     </div>
                  </div>
               </motion.div>
@@ -149,16 +149,16 @@ const ContactPage = () => {
            <motion.div 
              initial={{ opacity: 0, scale: 0.95 }}
              animate={{ opacity: 1, scale: 1 }}
-             className="bg-gray-900 p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl shadow-rose-200/20 text-white space-y-8 md:space-y-10"
+             className="bg-gray-900 dark:bg-gray-900/90 p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl shadow-rose-200/20 dark:shadow-none text-white space-y-8 md:space-y-10 border border-transparent dark:border-gray-800"
            >
               <div className="space-y-2">
                  <h2 className="text-xl md:text-2xl font-black uppercase tracking-tighter">Send a Message</h2>
-                 <p className="text-[9px] md:text-xs text-gray-500 font-medium uppercase tracking-widest italic decoration-rose-500 underline decoration-2 underline-offset-4">We'll get back in 2 hours</p>
+                 <p className="text-[9px] md:text-xs text-gray-400 font-medium uppercase tracking-widest italic decoration-rose-500 underline decoration-2 underline-offset-4">We'll get back in 2 hours</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                  <div className="space-y-2">
-                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Identifier</label>
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Identifier</label>
                     <input 
                       type="text" 
                       required
@@ -169,7 +169,7 @@ const ContactPage = () => {
                     />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Digital Mail</label>
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Digital Mail</label>
                     <input 
                       type="email" 
                       required
@@ -180,7 +180,7 @@ const ContactPage = () => {
                     />
                  </div>
                  <div className="space-y-2">
-                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">The Inquiry</label>
+                    <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">The Inquiry</label>
                     <textarea 
                       required
                       rows="4"
@@ -213,11 +213,11 @@ const ContactPage = () => {
       </div>
 
       {/* Map Section Placeholder */}
-      <div className="h-[300px] md:h-[400px] bg-gray-100 relative grayscale opacity-50 overflow-hidden pointer-events-none mb-20 md:mb-32">
+      <div className="h-[300px] md:h-[400px] bg-gray-100 dark:bg-gray-900 relative grayscale opacity-50 overflow-hidden pointer-events-none mb-20 md:mb-32 border-y border-gray-100 dark:border-gray-800 transition-colors duration-300">
          <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center space-y-4 p-4">
-               <MapPin size={40} md:size={48} className="mx-auto text-gray-300" />
-               <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-gray-400">Patna, Bihar, India - 800001</p>
+               <MapPin size={40} md:size={48} className="mx-auto text-gray-300 dark:text-gray-600" />
+               <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-gray-400 dark:text-gray-500">Patna, Bihar, India - 800001</p>
             </div>
          </div>
          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]"></div>

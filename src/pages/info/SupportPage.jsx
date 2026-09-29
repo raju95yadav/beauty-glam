@@ -42,42 +42,42 @@ const SupportPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950 transition-colors duration-300">
         <Loader2 className="size-12 text-rose-600 animate-spin" />
       </div>
     );
   }
 
   if (!content) return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-white dark:bg-gray-950 transition-colors duration-300">
        <div className="text-center space-y-6">
-          <div className="size-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto text-gray-300">
+          <div className="size-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto text-gray-300 dark:text-gray-600">
              <Search size={40} />
           </div>
-          <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">Content Not Found</h2>
-          <Link to="/" className="inline-block bg-gray-900 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-[10px]">Return Home</Link>
+          <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Content Not Found</h2>
+          <Link to="/" className="inline-block bg-gray-900 dark:bg-rose-600 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-[10px]">Return Home</Link>
        </div>
     </div>
   );
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen transition-colors duration-300">
       {/* Header Tier */}
-      <div className="bg-white border-b border-gray-100 pt-24 pb-12 md:pt-32 md:pb-20">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 pt-24 pb-12 md:pt-32 md:pb-20 transition-colors duration-300">
          <div className="container mx-auto px-4 max-w-5xl">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-10">
                <div className="flex items-center gap-6 md:gap-8">
-                  <div className={`size-16 md:size-20 rounded-2xl md:rounded-[2rem] flex items-center justify-center border ${colors} shadow-xl shadow-gray-100`}>
+                  <div className={`size-16 md:size-20 rounded-2xl md:rounded-[2rem] flex items-center justify-center border ${colors} shadow-xl shadow-gray-100 dark:shadow-none`}>
                      <Icon className="size-8 md:size-10" />
                   </div>
                   <div>
-                     <h1 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2 md:mb-3 italic">
+                     <h1 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white uppercase tracking-tighter leading-none mb-2 md:mb-3 italic">
                         {content.title}
                      </h1>
                      <div className="flex items-center gap-3 md:gap-4">
-                        <span className="text-[9px] md:text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em]">Help Center</span>
-                        <div className="size-1 bg-gray-200 rounded-full"></div>
-                        <span className="text-[9px] md:text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em]">Updated April 2026</span>
+                        <span className="text-[9px] md:text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-[0.3em]">Help Center</span>
+                        <div className="size-1 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                        <span className="text-[9px] md:text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-[0.3em]">Updated April 2026</span>
                      </div>
                   </div>
                </div>
@@ -87,7 +87,7 @@ const SupportPage = () => {
                     <Link 
                       key={nav} 
                       to={`/support/${nav}`}
-                      className={`size-12 rounded-2xl flex items-center justify-center transition-all ${nav === type ? 'bg-gray-900 text-white shadow-lg rotate-12' : 'bg-gray-50 text-gray-400 hover:bg-gray-100'}`}
+                      className={`size-12 rounded-2xl flex items-center justify-center transition-all ${nav === type ? 'bg-gray-900 dark:bg-rose-600 text-white shadow-lg rotate-12' : 'bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                     >
                        {React.createElement(iconMap[nav], { size: 20 })}
                     </Link>
@@ -108,15 +108,15 @@ const SupportPage = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="bg-white rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 border border-gray-100 shadow-xl shadow-gray-200/20 group hover:border-gray-200 transition-all"
+                    className="bg-white dark:bg-gray-900 rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/20 dark:shadow-none group hover:border-gray-200 dark:hover:border-gray-700 transition-all"
                  >
                     <div className="flex items-start gap-6 md:gap-8">
-                       <span className="text-3xl md:text-4xl font-black text-gray-100 group-hover:text-rose-100 transition-colors uppercase tracking-tighter italic leading-none pt-1 md:pt-2">
+                       <span className="text-3xl md:text-4xl font-black text-gray-100 dark:text-gray-800 group-hover:text-rose-100 dark:group-hover:text-rose-950/60 transition-colors uppercase tracking-tighter italic leading-none pt-1 md:pt-2">
                          {section.id < 10 ? `0${section.id}` : section.id}
                        </span>
                        <div className="space-y-4 md:space-y-6">
-                          <h2 className="text-xl md:text-2xl font-black text-gray-900 uppercase tracking-tight">{section.title}</h2>
-                          <p className="text-gray-500 font-medium leading-relaxed text-base md:text-lg">
+                          <h2 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tight">{section.title}</h2>
+                          <p className="text-gray-500 dark:text-gray-400 font-medium leading-relaxed text-base md:text-lg">
                              {section.content}
                           </p>
                        </div>
@@ -126,7 +126,7 @@ const SupportPage = () => {
             </div>
 
             <div className="lg:col-span-4 space-y-8">
-               <div className="bg-gray-950 rounded-[3rem] p-10 text-white space-y-8 sticky top-32">
+               <div className="bg-gray-950 dark:bg-gray-900 rounded-[3rem] p-10 text-white space-y-8 sticky top-32 border border-transparent dark:border-gray-800">
                   <div className="space-y-4">
                      <h3 className="text-xs font-black uppercase tracking-[0.4em] text-rose-500">Need more help?</h3>
                      <p className="text-2xl font-black leading-tight tracking-tighter uppercase italic">Our concierge is here for you.</p>
