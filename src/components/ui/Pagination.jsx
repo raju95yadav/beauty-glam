@@ -10,19 +10,19 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
-        className="p-2 rounded-lg border border-gray-200 text-gray-400 hover:border-pink-600 hover:text-pink-600 disabled:opacity-30 disabled:pointer-events-none transition-all"
+        className="p-2.5 rounded-full border border-[#EFECE6] dark:border-[#2A2A2E] text-[#6E6D7A] hover:border-[#C5A880] hover:text-[#121214] dark:hover:text-[#FAF9F6] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
       >
-        <ChevronLeft className="size-5" />
+        <ChevronLeft className="size-4" />
       </button>
 
       {pages.map((page) => (
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`size-10 rounded-lg border font-bold text-sm transition-all ${
+          className={`size-10 rounded-full border font-black text-xs transition-all cursor-pointer ${
             currentPage === page
-              ? 'bg-pink-600 border-pink-600 text-white shadow-lg shadow-pink-100'
-              : 'border-gray-200 text-gray-600 hover:border-pink-300 hover:text-pink-600'
+              ? 'bg-[#0D0D0D] border-[#0D0D0D] dark:bg-[#FAF9F6] dark:border-[#FAF9F6] text-white dark:text-[#0D0D0D] shadow-md'
+              : 'border-[#EFECE6] dark:border-[#2A2A2E] text-[#6E6D7A] hover:border-[#C5A880] hover:text-[#121214] dark:hover:text-[#FAF9F6]'
           }`}
         >
           {page}
@@ -32,9 +32,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
-        className="p-2 rounded-lg border border-gray-200 text-gray-400 hover:border-pink-600 hover:text-pink-600 disabled:opacity-30 disabled:pointer-events-none transition-all"
+        className="p-2.5 rounded-full border border-[#EFECE6] dark:border-[#2A2A2E] text-[#6E6D7A] hover:border-[#C5A880] hover:text-[#121214] dark:hover:text-[#FAF9F6] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
       >
-        <ChevronRight className="size-5" />
+        <ChevronRight className="size-4" />
       </button>
     </div>
   );

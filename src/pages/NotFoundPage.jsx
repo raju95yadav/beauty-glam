@@ -10,24 +10,24 @@ const NotFoundPage = () => {
         animate={{ opacity: 1, scale: 1 }}
         className="text-center"
       >
-        <h1 className="text-9xl font-black text-pink-100 mb-4 select-none">404</h1>
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Ooops! Page Not Found</h2>
-        <p className="text-gray-500 mb-8 max-w-sm mx-auto">
-          The page you are looking for might have been removed, had its name changed or is temporarily unavailable.
+        <h1 className="text-9xl font-black text-[#EFECE6] dark:text-[#2A2A2E] mb-4 select-none tracking-tighter">404</h1>
+        <h2 className="text-3xl font-black text-[#121214] dark:text-[#FAF9F6] mb-4 tracking-tight">Ooops! Page Not Found</h2>
+        <p className="text-[#6E6D7A] mb-8 max-w-sm mx-auto text-sm leading-relaxed">
+          The page you are looking for might have been moved, had its luxury curation updated, or is temporarily unavailable.
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-4">
           <Link 
             to="/" 
-            className="flex items-center gap-2 bg-pink-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-pink-700 transition-all uppercase tracking-widest shadow-lg shadow-pink-100"
+            className="flex items-center gap-2 bg-[#0D0D0D] dark:bg-[#FAF9F6] text-white dark:text-[#0D0D0D] font-black px-8 py-3.5 rounded-full hover:bg-black dark:hover:bg-white transition-all uppercase text-xs tracking-widest shadow-xl shadow-black/10 active:scale-95"
           >
-            <Home className="size-5" />
+            <Home className="size-4 text-[#C5A880]" />
             Back to Home
           </Link>
           <button 
             onClick={() => window.history.back()}
-            className="flex items-center gap-2 text-gray-600 font-bold px-8 py-3 rounded-xl hover:bg-gray-100 transition-all uppercase tracking-widest"
+            className="flex items-center gap-2 text-[#121214] dark:text-[#FAF9F6] bg-white dark:bg-[#18181B] border border-[#EFECE6] dark:border-[#2A2A2E] hover:border-[#C5A880] font-black px-8 py-3.5 rounded-full transition-all uppercase text-xs tracking-widest active:scale-95"
           >
-            <ArrowLeft className="size-5" />
+            <ArrowLeft className="size-4 text-[#6E6D7A]" />
             Go Back
           </button>
         </div>

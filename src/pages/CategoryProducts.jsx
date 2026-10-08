@@ -43,38 +43,39 @@ const CategoryProducts = () => {
     };
 
     return (
-        <div className="bg-gray-50/50 dark:bg-gray-950 min-h-screen pb-20 transition-colors duration-300">
+        <div className="bg-[#FAF9F6] dark:bg-[#121214] min-h-screen pb-24 transition-colors duration-300">
             {/* Header / Breadcrumbs */}
-            <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+            <div className="bg-white dark:bg-[#18181B] border-b border-[#EFECE6] dark:border-[#2A2A2E]">
                 <div className="container mx-auto px-4 py-3.5 max-w-7xl">
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
-                        <Link to="/" className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Home</Link>
-                        <ChevronRight className="size-3" />
-                        <span className="text-rose-600 dark:text-rose-400">{displayName}</span>
+                    <div className="flex items-center gap-2 text-[10px] font-black text-[#6E6D7A] uppercase tracking-[0.2em]">
+                        <Link to="/" className="hover:text-[#121214] dark:hover:text-[#FAF9F6] transition-colors">Home</Link>
+                        <ChevronRight className="size-3 text-[#C5A880]" />
+                        <span className="text-[#121214] dark:text-[#FAF9F6] font-bold">{displayName}</span>
                     </div>
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 pt-10 max-w-7xl">
+            <div className="container mx-auto px-4 pt-12 max-w-7xl">
                 {/* Title Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                     >
-                        <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white uppercase tracking-tight leading-none mb-3">
-                            {displayName}<span className="text-rose-600 dark:text-rose-400 px-2 italic font-serif">Collection</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#C5A880] block mb-2">Editorial Atelier Curation</span>
+                        <h1 className="text-4xl md:text-6xl font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-tight leading-none mb-3">
+                            {displayName} <span className="text-[#C5A880] italic">Collection</span>
                         </h1>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">
-                            Exploring {products.length} premium {displayName} products curated for you
+                        <p className="text-[#6E6D7A] text-sm font-medium">
+                            Displaying {products.length} bespoke {displayName.toLowerCase()} creations
                         </p>
                     </motion.div>
                     
                     <Link 
                         to="/products"
-                        className="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl text-[11px] font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-200 dark:hover:border-rose-900 transition-all shadow-sm w-fit"
+                        className="flex items-center gap-2 px-6 py-3 bg-white dark:bg-[#18181B] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-full text-[11px] font-black uppercase tracking-wider text-[#121214] dark:text-[#FAF9F6] hover:border-[#C5A880] transition-all shadow-sm w-fit"
                     >
-                        <ArrowLeft className="size-4" /> View All Products
+                        <ArrowLeft className="size-4 text-[#C5A880]" /> View All Creations
                     </Link>
                 </div>
 
@@ -107,20 +108,20 @@ const CategoryProducts = () => {
                             key="empty"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="flex flex-col items-center justify-center py-28 bg-white/80 dark:bg-gray-900/80 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800 shadow-sm"
+                            className="flex flex-col items-center justify-center py-28 bg-white dark:bg-[#18181B] rounded-[3rem] border border-[#EFECE6] dark:border-[#2A2A2E] shadow-sm text-center px-4"
                         >
-                            <div className="size-20 bg-rose-50 dark:bg-rose-950/40 rounded-full flex items-center justify-center text-rose-600 dark:text-rose-400 mb-6 shadow-inner">
+                            <div className="size-20 bg-[#FAF9F6] dark:bg-[#2A2A2E] rounded-full flex items-center justify-center text-[#C5A880] mb-6 shadow-inner border border-[#EFECE6] dark:border-[#3E3E42]">
                                 <ShoppingBag className="size-10" />
                             </div>
-                            <h3 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white uppercase tracking-wider mb-2">No Products Found</h3>
-                            <p className="text-gray-500 dark:text-gray-400 text-sm mb-8 text-center max-w-xs">
-                                We're currently updating our {displayName} inventory. Please check back soon!
+                            <h3 className="text-xl md:text-2xl font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-wider mb-2">No Pieces Found</h3>
+                            <p className="text-[#6E6D7A] text-sm mb-8 max-w-xs">
+                                We are currently curating new {displayName} formulas for this season.
                             </p>
                             <Link 
                                 to="/products" 
-                                className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-rose-200 dark:shadow-none hover:scale-105 transition-all"
+                                className="bg-[#0D0D0D] dark:bg-[#FAF9F6] text-white dark:text-[#0D0D0D] px-8 py-4 rounded-full font-black uppercase tracking-wider text-xs shadow-xl shadow-black/10 hover:bg-black dark:hover:bg-white transition-all"
                             >
-                                Explore Other Categories
+                                Explore Full Catalogue
                             </Link>
                         </motion.div>
                     )}

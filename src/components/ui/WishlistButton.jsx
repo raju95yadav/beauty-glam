@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Heart } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useWishlist } from '../../context/WishlistContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
@@ -45,8 +45,8 @@ const WishlistButton = ({ product, className = '' }) => {
       aria-label={active ? 'Remove from wishlist' : 'Add to wishlist'}
       className={`size-9 md:size-10 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-md border ${
         active 
-          ? 'bg-rose-50/95 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900/60 shadow-rose-100/50 dark:shadow-none' 
-          : 'bg-white/90 dark:bg-gray-900/90 text-gray-400 dark:text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 border-gray-100 dark:border-gray-800'
+          ? 'bg-[#0D0D0D] dark:bg-[#FAF9F6] text-[#C5A880] border-[#0D0D0D] dark:border-white shadow-black/10' 
+          : 'bg-white/90 dark:bg-[#18181B]/90 text-[#6E6D7A] hover:text-[#C5A880] border-[#EFECE6] dark:border-[#2A2A2E]'
       } disabled:opacity-50 cursor-pointer ${className}`}
     >
       <motion.div
@@ -54,7 +54,7 @@ const WishlistButton = ({ product, className = '' }) => {
         transition={{ duration: 0.5, ease: 'easeInOut' }}
       >
         <Heart 
-          className={`size-4 md:size-4.5 transition-colors ${active ? 'fill-rose-600 dark:fill-rose-400 text-rose-600 dark:text-rose-400' : ''} ${busy ? 'animate-pulse' : ''}`} 
+          className={`size-4 md:size-4.5 transition-colors ${active ? 'fill-[#C5A880] text-[#C5A880]' : ''} ${busy ? 'animate-pulse' : ''}`} 
           strokeWidth={active ? 2.5 : 2}
         />
       </motion.div>

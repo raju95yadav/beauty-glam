@@ -85,26 +85,26 @@ const BannerSlider = () => {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black uppercase tracking-[0.25em] mb-6"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-[#C5A880]/40 text-[10px] font-black uppercase tracking-[0.25em] mb-6 text-[#FAF9F6]"
               >
-                <Sparkles size={12} className="text-yellow-400" /> {banners[current].badge}
+                <Sparkles size={12} className="text-[#C5A880]" /> {banners[current].badge}
               </motion.div>
 
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-4xl md:text-7xl font-light mb-4 tracking-tight leading-none drop-shadow-xl"
+                className="text-4xl md:text-7xl font-light mb-4 tracking-tight leading-none drop-shadow-xl text-[#FAF9F6]"
               >
                 {banners[current].title} <br />
-                <span className="font-serif italic text-rose-400">{banners[current].titleAccent}</span>
+                <span className="font-serif italic text-[#C5A880]">{banners[current].titleAccent}</span>
               </motion.h2>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
-                className="text-sm md:text-lg opacity-90 max-w-md leading-relaxed mb-10 font-medium"
+                className="text-sm md:text-lg opacity-90 max-w-md leading-relaxed mb-10 font-medium text-[#FAF9F6]"
               >
                 {banners[current].subtitle}
               </motion.p>
@@ -115,8 +115,8 @@ const BannerSlider = () => {
                 transition={{ delay: 0.9, duration: 0.8 }}
                 className="flex gap-4"
               >
-                <button className="bg-white text-gray-900 px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-2xl hover:bg-rose-600 hover:text-white transition-all flex items-center gap-3 active:scale-95 group">
-                  {banners[current].cta} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <button className="bg-[#0D0D0D] hover:bg-[#262626] text-white px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-2xl transition-all flex items-center gap-3 active:scale-95 group border border-white/15">
+                  {banners[current].cta} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform text-[#C5A880]" />
                 </button>
               </motion.div>
             </div>
@@ -133,7 +133,7 @@ const BannerSlider = () => {
               onClick={() => setCurrent(i)}
               className="relative p-2"
             >
-              <span className={`block size-1.5 rounded-full transition-all duration-500 ${current === i ? 'bg-rose-500 scale-150' : 'bg-white/30 hover:bg-white/60'
+              <span className={`block size-1.5 rounded-full transition-all duration-500 ${current === i ? 'bg-[#C5A880] scale-150 shadow-md' : 'bg-white/30 hover:bg-white/60'
                 }`} />
             </button>
           ))}

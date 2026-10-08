@@ -67,35 +67,39 @@ const ProfilePage = () => {
   };
 
   const menuItems = [
-    { icon: Package, label: 'My Orders', desc: 'Track, return or buy things again', path: '/orders' },
-    { icon: Heart, label: 'My Wishlist', desc: 'Items you have saved for later', path: '/wishlist' },
-    { icon: MapPin, label: 'My Addresses', desc: 'Manage your shipping addresses', path: '/profile' },
-    { icon: Bell, label: 'Notifications', desc: 'Stay updated on offers and orders', path: '/profile' },
-    { icon: Settings, label: 'Account Settings', desc: 'Update your profile and password', path: '#' },
+    { icon: Package, label: 'My Orders', desc: 'Track, return or buy pieces again', path: '/orders' },
+    { icon: Heart, label: 'My Wishlist', desc: 'Exclusive items you have saved for later', path: '/wishlist' },
+    { icon: MapPin, label: 'My Addresses', desc: 'Manage your primary delivery locations', path: '/profile' },
+    { icon: Bell, label: 'Notifications', desc: 'Stay updated on private drops & allocations', path: '/profile' },
+    { icon: Settings, label: 'Account Settings', desc: 'Update your profile and security credentials', path: '#' },
   ];
 
   if (!user) return null;
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen pb-12 transition-colors duration-300">
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+    <div className="bg-[#FAF9F6] dark:bg-[#121214] text-[#121214] dark:text-[#FAF9F6] min-h-screen pb-16 transition-colors duration-300">
+      {/* Profile Header */}
+      <div className="bg-white dark:bg-[#18181B] border-b border-[#EFECE6] dark:border-[#2A2A2E]">
         <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-8">
-          <div className="size-24 rounded-full bg-pink-100 dark:bg-rose-950/50 flex items-center justify-center text-pink-600 dark:text-rose-400 border-4 border-pink-50 dark:border-rose-900/30 shadow-inner">
-            <User className="size-12" />
+          <div className="size-24 rounded-full bg-[#FAF9F6] dark:bg-[#2A2A2E] flex items-center justify-center text-[#121214] dark:text-[#FAF9F6] border-4 border-[#EFECE6] dark:border-[#3E3E42] shadow-inner">
+            <User className="size-12 text-[#C5A880]" />
           </div>
           <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{user.name || 'User'}</h1>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">{user.email}</p>
-            <div className="flex flex-wrap justify-center md:justify-start gap-4">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF9F6] dark:bg-[#2A2A2E] border border-[#EFECE6] dark:border-[#3E3E42] text-[10px] font-black uppercase tracking-[0.2em] text-[#C5A880] mb-2">
+              <Sparkles className="size-3" /> Atelier Member
+            </div>
+            <h1 className="text-3xl font-black text-[#121214] dark:text-[#FAF9F6] mb-1 tracking-tight">{user.name || 'Member'}</h1>
+            <p className="text-[#6E6D7A] text-sm mb-4 font-medium">{user.email}</p>
+            <div className="flex flex-wrap justify-center md:justify-start gap-3">
                <button 
                  onClick={() => setIsEditModalOpen(true)} 
-                 className="px-4 py-1.5 border border-pink-600 dark:border-rose-500 text-pink-600 dark:text-rose-400 text-xs font-bold rounded-full hover:bg-pink-600 hover:text-white transition-all uppercase tracking-tighter"
+                 className="px-5 py-2 border border-[#0D0D0D] dark:border-[#FAF9F6] text-[#0D0D0D] dark:text-[#FAF9F6] text-xs font-black rounded-full hover:bg-[#0D0D0D] hover:text-white dark:hover:bg-[#FAF9F6] dark:hover:text-[#0D0D0D] transition-all uppercase tracking-widest shadow-sm"
                >
                  Edit Profile
                </button>
                <button 
                  onClick={logout}
-                 className="px-4 py-1.5 border border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-400 text-xs font-bold rounded-full hover:border-red-500 hover:text-red-500 transition-all uppercase tracking-tighter flex items-center gap-2"
+                 className="px-5 py-2 border border-[#EFECE6] dark:border-[#2A2A2E] text-[#6E6D7A] text-xs font-black rounded-full hover:border-red-500 hover:text-red-500 transition-all uppercase tracking-widest flex items-center gap-2"
                >
                  <LogOut className="size-3" /> Logout
                </button>
@@ -104,9 +108,10 @@ const ProfilePage = () => {
         </div>
       </div>
 
+      {/* Main Grid */}
       <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-4">
-          <h2 className="text-lg font-bold text-gray-800 dark:text-white uppercase tracking-widest mb-6">Account Dashboard</h2>
+        <div className="lg:col-span-2 space-y-6">
+          <h2 className="text-xs font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-[0.25em] mb-4">Account Dashboard</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {menuItems.map((item, i) => (
               <motion.button
@@ -119,80 +124,82 @@ const ProfilePage = () => {
                     navigate(item.path);
                   }
                 }}
-                className="p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-all text-left flex items-start gap-5 group"
+                className="p-6 bg-white dark:bg-[#18181B] rounded-[2rem] border border-[#EFECE6] dark:border-[#2A2A2E] shadow-sm hover:shadow-md transition-all text-left flex items-start gap-5 group"
               >
-                <div className="p-3 bg-pink-50 dark:bg-rose-950/40 rounded-xl text-pink-600 dark:text-rose-400 group-hover:bg-pink-600 group-hover:text-white transition-colors">
-                  <item.icon className="size-6" />
+                <div className="p-3.5 bg-[#FAF9F6] dark:bg-[#2A2A2E] rounded-2xl text-[#C5A880] group-hover:bg-[#0D0D0D] group-hover:text-white dark:group-hover:bg-[#FAF9F6] dark:group-hover:text-[#0D0D0D] transition-colors">
+                  <item.icon className="size-5" />
                 </div>
                 <div className="flex-grow">
-                  <h3 className="font-bold text-gray-800 dark:text-gray-100 mb-1">{item.label}</h3>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed">{item.desc}</p>
+                  <h3 className="font-black text-sm text-[#121214] dark:text-[#FAF9F6] mb-1 uppercase tracking-tight">{item.label}</h3>
+                  <p className="text-xs text-[#6E6D7A] leading-relaxed font-medium">{item.desc}</p>
                 </div>
-                <ChevronRight className="size-5 text-gray-300 dark:text-gray-600 group-hover:text-pink-600 dark:group-hover:text-rose-400 transition-colors" />
+                <ChevronRight className="size-5 text-[#6E6D7A]/50 group-hover:text-[#C5A880] transition-colors shrink-0 mt-1" />
               </motion.button>
             ))}
           </div>
         </div>
 
         <div className="space-y-6">
-          {/* Welcome Banner */}
-          <div className="bg-gradient-to-br from-pink-600 to-rose-500 p-8 rounded-2xl text-white shadow-xl shadow-pink-100 dark:shadow-none relative overflow-hidden">
+          {/* Editorial Welcome Banner */}
+          <div className="bg-[#0D0D0D] p-8 rounded-[2rem] text-white shadow-xl shadow-black/10 border border-[#2A2A2E] relative overflow-hidden">
              <div className="relative z-10">
-               <h3 className="font-bold text-xl mb-2">Welcome Back!</h3>
-               <p className="text-sm opacity-90 mb-6 font-medium">Enjoy your shopping experience with exclusive deals and fast delivery.</p>
-               <Link to="/products" className="bg-white text-pink-600 px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-pink-50 transition-colors shadow-lg inline-block">
-                 Shop Now
+               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[9px] font-black uppercase tracking-[0.2em] text-[#C5A880] mb-4">
+                 VIP Curations
+               </div>
+               <h3 className="font-black text-xl mb-2 tracking-tight">Atelier Experience</h3>
+               <p className="text-xs text-[#FAF9F6]/80 mb-6 font-medium leading-relaxed">Indulge in our private edit of iconic fragrances, high-performance skincare, and bespoke makeup.</p>
+               <Link to="/products" className="bg-[#FAF9F6] text-[#0D0D0D] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-white transition-all shadow-md inline-block">
+                 Explore Collection
                </Link>
              </div>
-             <div className="absolute -bottom-4 -right-4 size-32 bg-white/10 rounded-full blur-2xl"></div>
-             <div className="absolute -top-4 -left-4 size-24 bg-white/5 rounded-full blur-xl"></div>
+             <div className="absolute -bottom-8 -right-8 size-36 bg-[#C5A880]/15 rounded-full blur-2xl"></div>
           </div>
 
-          {/* VIP Beauty Circle & Newsletter Management Card */}
-          <div className="p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm space-y-4">
+          {/* VIP Beauty Circle Card */}
+          <div className="p-6 bg-white dark:bg-[#18181B] rounded-[2rem] border border-[#EFECE6] dark:border-[#2A2A2E] shadow-sm space-y-4">
              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                   <div className="size-10 rounded-xl bg-pink-50 dark:bg-rose-950/40 flex items-center justify-center text-pink-600 dark:text-rose-400">
+                   <div className="size-10 rounded-2xl bg-[#FAF9F6] dark:bg-[#2A2A2E] flex items-center justify-center text-[#C5A880]">
                       <Sparkles className="size-5" />
                    </div>
                    <div>
-                      <h4 className="font-bold text-sm text-gray-900 dark:text-white">VIP Beauty Circle</h4>
-                      <p className="text-[11px] text-gray-400 dark:text-gray-500">Exclusive drops & perks</p>
+                      <h4 className="font-black text-sm text-[#121214] dark:text-[#FAF9F6] uppercase tracking-tight">VIP Beauty Circle</h4>
+                      <p className="text-[11px] text-[#6E6D7A] font-medium">Private drops & perks</p>
                    </div>
                 </div>
                 {checkingSub ? (
-                   <Loader2 className="size-4 animate-spin text-gray-400" />
+                   <Loader2 className="size-4 animate-spin text-[#6E6D7A]" />
                 ) : (
                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 ${
                       isSubscribed 
                         ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                        : 'bg-[#FAF9F6] dark:bg-[#2A2A2E] text-[#6E6D7A]'
                    }`}>
                       {isSubscribed ? (
                         <>
                           <CheckCircle2 className="size-3" /> Subscribed
                         </>
                       ) : (
-                        'Not Subscribed'
+                        'Not Enrolled'
                       )}
                    </span>
                 )}
              </div>
 
-             <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+             <p className="text-xs text-[#6E6D7A] leading-relaxed font-medium">
                {isSubscribed 
-                 ? `Your email (${user.email}) is active in the Beauty Circle. You will receive first-access alerts and VIP discounts.`
-                 : `Subscribe to get early notifications on flash drops, private sales, and beauty advice delivered to ${user.email}.`
+                 ? `Your email (${user.email}) is enrolled in the Atelier Circle. You will receive first-access alerts and VIP allocations.`
+                 : `Subscribe to receive early notifications on flash drops, private sales, and curated advice delivered to ${user.email}.`
                }
              </p>
 
              <button
                onClick={handleToggleNewsletter}
                disabled={subLoading || checkingSub}
-               className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 uppercase tracking-wider ${
+               className={`w-full py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 uppercase tracking-widest ${
                  isSubscribed 
-                   ? 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-red-500 hover:text-red-500' 
-                   : 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md hover:opacity-95'
+                   ? 'border border-[#EFECE6] dark:border-[#2A2A2E] text-[#6E6D7A] hover:border-red-500 hover:text-red-500' 
+                   : 'bg-[#0D0D0D] dark:bg-[#FAF9F6] text-white dark:text-[#0D0D0D] shadow-md hover:bg-black dark:hover:bg-white'
                }`}
              >
                {subLoading ? (
@@ -201,7 +208,7 @@ const ProfilePage = () => {
                  'Unsubscribe'
                ) : (
                  <>
-                   <Mail className="size-3.5" /> Join the Circle (1-Click)
+                   <Mail className="size-3.5 text-[#C5A880]" /> Join the Circle (1-Click)
                  </>
                )}
              </button>

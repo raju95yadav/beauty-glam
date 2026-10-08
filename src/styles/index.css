@@ -3,21 +3,77 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+@theme {
+  /* Editorial French Atelier Palette (Clean, Timeless, High-Conversion) */
+  --color-warm-alabaster: #FAF9F6;
+  --color-pure-milk: #FFFFFF;
+  --color-noir-slate: #121214;
+  --color-soft-umber: #6E6D7A;
+  --color-parisian-onyx: #0D0D0D;
+  --color-champagne-gold: #C5A880;
+  --color-gold-light: #E0CFA9;
+  --color-gold-dark: #9E8055;
+  --color-cashmere-gray: #EFECE6;
+
+  /* Atelier Semantic Tokens */
+  --color-atelier-base: #FAF9F6;
+  --color-atelier-surface: #FFFFFF;
+  --color-atelier-text: #121214;
+  --color-atelier-muted: #6E6D7A;
+  --color-atelier-cta: #0D0D0D;
+  --color-atelier-gold: #C5A880;
+  --color-atelier-border: #EFECE6;
+
+  /* Rose palette remapped to French Atelier luxury tones */
+  --color-rose-50: #FAF9F6;
+  --color-rose-100: #EFECE6;
+  --color-rose-200: #E2DDD5;
+  --color-rose-300: #D8C7B0;
+  --color-rose-400: #C5A880; /* Champagne Gold */
+  --color-rose-500: #C5A880; /* Champagne Gold accent */
+  --color-rose-600: #0D0D0D; /* Parisian Onyx primary CTA */
+  --color-rose-700: #1A1A1A;
+  --color-rose-800: #121214;
+  --color-rose-900: #0D0D0D;
+  --color-rose-950: #080808;
+
+  /* Pink palette remapped to French Atelier luxury tones */
+  --color-pink-50: #FAF9F6;
+  --color-pink-100: #EFECE6;
+  --color-pink-200: #E2DDD5;
+  --color-pink-300: #D8C7B0;
+  --color-pink-400: #C5A880;
+  --color-pink-500: #C5A880;
+  --color-pink-600: #0D0D0D;
+  --color-pink-700: #1A1A1A;
+  --color-pink-800: #121214;
+  --color-pink-900: #0D0D0D;
+  --color-pink-950: #080808;
+}
+
 :root {
-  --primary: #e11d48; /* shadcn rose-600 */
-  --secondary: #3f414d;
-  --accent: #f3f3f3;
-  --gold: #D4AF37;
-  --rose-gold: #B76E79;
-  --pearl: #fdfcf0;
-  --champagne: #F7E7CE;
-  --charcoal: #1A1A1A;
+  --primary-base: #FAF9F6; /* Warm Alabaster */
+  --surface-card: #FFFFFF; /* Pure Milk */
+  --primary-text: #121214; /* Noir Slate */
+  --secondary-text: #6E6D7A; /* Soft Umber */
+  --primary-cta: #0D0D0D; /* Parisian Onyx */
+  --brand-accent: #C5A880; /* Champagne Gold */
+  --subtle-stroke: #EFECE6; /* Cashmere Gray */
+
+  --primary: #0D0D0D;
+  --secondary: #6E6D7A;
+  --accent: #C5A880;
+  --gold: #C5A880;
+  --rose-gold: #C5A880;
+  --pearl: #FAF9F6;
+  --champagne: #C5A880;
+  --charcoal: #121214;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  color: #3f414d;
-  background-color: #ffffff;
+  color: #121214;
+  background-color: #FAF9F6;
   -webkit-font-smoothing: antialiased;
   transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -27,8 +83,8 @@ html.dark {
 }
 
 html.dark body {
-  background-color: #030712;
-  color: #f3f4f6;
+  background-color: #121214;
+  color: #FAF9F6;
 }
 
 /* Custom Utilities */
@@ -52,8 +108,8 @@ html.dark input:-webkit-autofill,
 html.dark input:-webkit-autofill:hover, 
 html.dark input:-webkit-autofill:focus, 
 html.dark input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #111827 inset !important;
-    -webkit-text-fill-color: #f3f4f6 !important;
+    -webkit-box-shadow: 0 0 0 30px #18181B inset !important;
+    -webkit-text-fill-color: #FAF9F6 !important;
 }
 
 /* Page Transitions */
@@ -65,41 +121,43 @@ html.dark input:-webkit-autofill:active {
   transition: opacity 300ms ease-in;
 }
 
-/* Button Animations */
+/* Button & Action Styling */
 .btn-premium {
-  @apply transition-all duration-300 transform active:scale-95 hover:brightness-110;
+  @apply transition-all duration-300 transform active:scale-95 hover:brightness-105;
+}
+
+.btn-cta {
+  @apply bg-[#0D0D0D] hover:bg-[#262626] text-white dark:bg-[#FAF9F6] dark:text-[#0D0D0D] dark:hover:bg-white transition-all duration-300 active:scale-95 shadow-md flex items-center justify-center font-bold tracking-wider;
+}
+
+.badge-gold {
+  @apply bg-[#C5A880]/15 text-[#9E8055] dark:text-[#E0CFA9] border border-[#C5A880]/30 font-bold uppercase tracking-wider text-[10px] px-2.5 py-0.5 rounded-full;
 }
 
 /* Glassmorphism helpers */
 .glass {
-  @apply bg-white/70 backdrop-blur-md border border-white/20;
-}
-
-html.dark .glass {
-  background-color: rgba(17, 24, 39, 0.75);
-  border-color: rgba(255, 255, 255, 0.08);
+  @apply bg-white/85 dark:bg-[#18181B]/85 backdrop-blur-md border border-[#EFECE6] dark:border-white/10;
 }
 
 /* Custom shadows */
 .shadow-premium {
-  box-shadow: 0 10px 30px -5px rgba(252, 39, 121, 0.1);
+  box-shadow: 0 10px 30px -5px rgba(13, 13, 13, 0.08);
 }
 
 .shadow-soft {
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 40px -10px rgba(18, 18, 20, 0.04);
 }
 
 .shadow-gold {
-  box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 10px 25px -5px rgba(197, 168, 128, 0.25);
 }
 
 /* Gradients */
 .bg-mesh-pearl {
-  background-color: #ffffff;
+  background-color: #FAF9F6;
   background-image: 
-    radial-gradient(at 0% 0%, hsla(339,49%,91%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,90%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,91%,1) 0, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(197, 168, 128, 0.08) 0, transparent 50%), 
+    radial-gradient(at 100% 100%, rgba(13, 13, 13, 0.03) 0, transparent 50%);
 }
 
 .bg-shimmer {
@@ -117,11 +175,11 @@ html.dark .glass {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.4),
+    rgba(197, 168, 128, 0.2),
     transparent
   );
   transform: skewX(-20deg);
-  animation: shimmer-effect 3s infinite;
+  animation: shimmer-effect 3.5s infinite;
 }
 
 @keyframes shimmer-effect {

@@ -13,34 +13,34 @@ const CODOption = ({ onValidChange }) => {
        <motion.div 
          initial={{ opacity: 0, y: 10 }}
          animate={{ opacity: 1, y: 0 }}
-         className="bg-gray-50 dark:bg-gray-800/40 p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 text-center space-y-6"
+         className="bg-white dark:bg-[#18181B] p-8 rounded-[2.5rem] border border-[#EFECE6] dark:border-[#2A2A2E] text-center space-y-6 shadow-sm"
        >
-          <div className="size-20 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto shadow-sm text-pink-600 dark:text-pink-400 border border-gray-100 dark:border-gray-700">
-             <Banknote className="size-10" />
+          <div className="size-20 bg-[#FAF9F6] dark:bg-[#121214] rounded-full flex items-center justify-center mx-auto shadow-sm text-[#C5A880] border border-[#EFECE6] dark:border-[#2A2A2E]">
+             <Banknote className="size-9 text-[#C5A880]" />
           </div>
           <div className="space-y-2">
-             <h3 className="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Cash on Delivery</h3>
-             <p className="text-gray-500 dark:text-gray-400 text-sm max-w-xs mx-auto leading-relaxed">
-                Pay with cash when your order is delivered to your doorstep.
+             <h3 className="text-xl font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-tight">Cash on Delivery</h3>
+             <p className="text-[#6E6D7A] text-sm max-w-xs mx-auto leading-relaxed font-medium">
+                Settle directly upon personal delivery of your bespoke atelier selection.
              </p>
           </div>
           
-          <div className="flex items-center gap-3 justify-center text-[10px] font-black uppercase tracking-[0.2em] text-pink-600 dark:text-pink-400 bg-pink-50/50 dark:bg-pink-950/30 py-3 rounded-2xl border border-pink-100 dark:border-pink-900/40">
-             <ShieldCheck className="size-4" />
-             Safe & Secure
+          <div className="flex items-center gap-2 justify-center text-[10px] font-black uppercase tracking-[0.2em] text-[#121214] dark:text-[#FAF9F6] bg-[#FAF9F6] dark:bg-[#121214] py-3 rounded-2xl border border-[#EFECE6] dark:border-[#2A2A2E]">
+             <ShieldCheck className="size-4 text-[#C5A880]" />
+             Safe & Verified Delivery
           </div>
        </motion.div>
 
        <div className="px-6 space-y-4">
-          <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">Important Note:</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-[#6E6D7A]">Delivery Notes:</p>
           <ul className="space-y-2">
              {[
-               'Please keep the exact amount ready',
-               'Change might not be available with delivery partner',
-               'Digital payment on delivery may be available'
+               'Please keep exact payment ready at handover',
+               'Change may be limited with courier partner',
+               'Contactless digital payment option available upon dispatch'
              ].map((note, i) => (
-               <li key={i} className="flex gap-3 text-[11px] text-gray-500 dark:text-gray-400 font-medium">
-                  <span className="text-pink-600 dark:text-pink-400 mt-1">•</span>
+               <li key={i} className="flex gap-3 text-xs text-[#6E6D7A] font-medium">
+                  <span className="text-[#C5A880] mt-0.5">•</span>
                   {note}
                </li>
              ))}

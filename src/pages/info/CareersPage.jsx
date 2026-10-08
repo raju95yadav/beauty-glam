@@ -7,6 +7,7 @@ const CareersPage = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -22,88 +23,101 @@ const CareersPage = () => {
     fetchJobs();
   }, []);
 
+  const filteredJobs = jobs.filter(j => 
+    !searchQuery || 
+    j.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    j.department?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    j.location?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen pb-20 md:pb-32 transition-colors duration-300">
+    <div className="bg-[#FAF9F6] dark:bg-[#121214] min-h-screen pb-20 md:pb-32 transition-colors duration-300">
       {/* Hero */}
-      <div className="bg-white dark:bg-gray-900 pt-24 pb-16 md:pt-40 md:pb-32 border-b border-gray-100 dark:border-gray-800 relative overflow-hidden transition-colors duration-300">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-rose-50/50 dark:bg-rose-950/20 -skew-x-12 translate-x-1/2 opacity-50"></div>
+      <div className="bg-[#FFFFFF] dark:bg-[#18181B] pt-24 pb-16 md:pt-40 md:pb-28 border-b border-[#EFECE6] dark:border-[#2A2A2E] relative overflow-hidden transition-colors duration-300">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#C5A880]/10 -skew-x-12 translate-x-1/2 opacity-60"></div>
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <motion.div
-             initial={{ opacity: 0, y: 20 }}
+             initial={{ opacity: 0, y: 15 }}
              animate={{ opacity: 1, y: 0 }}
-             className="inline-flex items-center gap-2 px-4 py-1.5 bg-rose-600/10 text-rose-600 dark:text-rose-400 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] rounded-full mb-6 md:mb-10"
+             className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#FAF9F6] dark:bg-[#202024] border border-[#EFECE6] dark:border-[#2A2A2E] text-[#121214] dark:text-[#FAF9F6] text-[10px] font-semibold uppercase tracking-[0.25em] rounded-full mb-6 md:mb-8"
           >
-             <Star size={12} className="fill-rose-600 dark:fill-rose-400" /> Shaping the Future
+             <Star size={12} className="text-[#C5A880] fill-[#C5A880]" /> Shaping the Atelier
           </motion.div>
           <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-8xl font-black text-gray-900 dark:text-white uppercase tracking-tighter mb-6 md:mb-10 italic leading-[0.9]"
+            className="text-4xl md:text-7xl font-bold text-[#121214] dark:text-[#FAF9F6] uppercase tracking-tight mb-6 leading-tight"
           >
-            Join <span className="text-rose-600 dark:text-rose-500 underline decoration-rose-200 dark:decoration-rose-900 decoration-8 underline-offset-[8px] md:underline-offset-[12px]">Glam</span> Portal
+            Careers at <span className="italic font-serif text-[#C5A880]">Glam Atelier</span>
           </motion.h1>
-          <p className="text-lg md:text-2xl text-gray-400 dark:text-gray-400 font-medium max-w-2xl leading-relaxed">
-            We're looking for visionary thinkers and relentless executors to build the world's most elegant beauty ecosystem.
+          <p className="text-base md:text-xl text-[#6E6D7A] dark:text-[#A1A1AA] max-w-2xl leading-relaxed">
+            We are looking for visionary thinkers and craftspeople to build the world's most elegant luxury beauty destination.
           </p>
         </div>
       </div>
 
       {/* Jobs Section */}
-      <div className="container mx-auto px-4 py-12 md:py-24 max-w-6xl">
-        <div className="flex flex-col md:flex-row justify-between md:items-end gap-8 md:gap-10 mb-12 md:mb-20 border-b border-gray-100 dark:border-gray-800 pb-8 md:pb-10">
-           <div className="space-y-2 md:space-y-4">
-              <h2 className="text-[10px] font-black text-rose-600 dark:text-rose-400 uppercase tracking-[0.4em]">Available Roles</h2>
-              <p className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Current Openings</p>
+      <div className="container mx-auto px-4 py-12 md:py-20 max-w-6xl">
+        <div className="flex flex-col md:flex-row justify-between md:items-end gap-6 mb-10 border-b border-[#EFECE6] dark:border-[#2A2A2E] pb-8">
+           <div className="space-y-1.5">
+              <h2 className="text-[11px] font-bold text-[#C5A880] uppercase tracking-[0.3em]">Available Roles</h2>
+              <p className="text-2xl md:text-3xl font-bold text-[#121214] dark:text-[#FAF9F6] tracking-tight">Open Opportunities</p>
            </div>
            <div className="relative group w-full md:min-w-[320px]">
               <input 
                 type="text" 
-                placeholder="Find your next challenge..." 
-                className="w-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 pl-12 md:pl-14 pr-6 py-4 md:py-5 rounded-2xl text-sm font-bold shadow-sm focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 outline-none transition-all"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search position or department..." 
+                className="w-full bg-[#FFFFFF] dark:bg-[#18181B] border border-[#EFECE6] dark:border-[#2A2A2E] text-[#121214] dark:text-[#FAF9F6] placeholder-[#6E6D7A] dark:placeholder-[#A1A1AA] pl-11 pr-5 py-3.5 rounded-xl text-sm font-medium shadow-sm focus:border-[#0D0D0D] dark:focus:border-[#C5A880] outline-none transition-all"
               />
-              <Search className="absolute left-5 md:left-6 top-1/2 -translate-y-1/2 size-4 md:size-5 text-gray-300 dark:text-gray-600 pointer-events-none group-focus-within:text-rose-600 dark:group-focus-within:text-rose-400 transition-colors" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-[#6E6D7A] pointer-events-none group-focus-within:text-[#121214] dark:group-focus-within:text-[#FAF9F6] transition-colors" />
            </div>
         </div>
 
         {loading ? (
-          <div className="flex justify-center flex-col items-center py-32 gap-6 bg-white dark:bg-gray-900 rounded-[4rem] border border-gray-100 dark:border-gray-800 italic">
-             <Loader2 className="size-12 text-rose-600 animate-spin" />
-             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">Scanning for talent...</p>
+          <div className="flex justify-center flex-col items-center py-28 gap-4 bg-[#FFFFFF] dark:bg-[#18181B] rounded-3xl border border-[#EFECE6] dark:border-[#2A2A2E]">
+             <Loader2 className="size-10 text-[#C5A880] animate-spin" />
+             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#6E6D7A]">Loading opportunities...</p>
+          </div>
+        ) : filteredJobs.length === 0 ? (
+          <div className="text-center py-20 bg-[#FFFFFF] dark:bg-[#18181B] rounded-3xl border border-[#EFECE6] dark:border-[#2A2A2E] p-8">
+            <p className="text-[#6E6D7A] dark:text-[#A1A1AA] text-sm">No openings found matching your criteria.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
-            {jobs.map((job) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            {filteredJobs.map((job) => (
               <motion.div 
-                key={job.id}
-                initial={{ opacity: 0, y: 20 }}
+                key={job.id || job._id}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 onClick={() => setSelectedJob(job === selectedJob ? null : job)}
                 className={`
-                  bg-white dark:bg-gray-900 p-6 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border transition-all cursor-pointer group relative overflow-hidden
-                  ${selectedJob === job ? 'border-rose-600 ring-4 ring-rose-500/10' : 'border-gray-100 dark:border-gray-800 hover:border-rose-200 dark:hover:border-rose-900 hover:shadow-2xl hover:shadow-rose-100/50 dark:hover:shadow-none'}
+                  bg-[#FFFFFF] dark:bg-[#18181B] p-6 md:p-8 rounded-3xl border transition-all cursor-pointer group relative overflow-hidden
+                  ${selectedJob === job ? 'border-[#0D0D0D] dark:border-[#C5A880] ring-2 ring-[#C5A880]/20' : 'border-[#EFECE6] dark:border-[#2A2A2E] hover:border-[#C5A880] hover:shadow-lg hover:shadow-black/[0.03]'}
                 `}
               >
-                 <div className="flex justify-between items-start mb-6 md:mb-8 relative z-10">
-                    <div className="space-y-2 md:space-y-3">
-                       <span className="inline-block px-3 py-1 bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-400 text-[9px] font-black uppercase tracking-widest rounded-lg group-hover:bg-rose-50 dark:group-hover:bg-rose-950/40 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                 <div className="flex justify-between items-start mb-5 relative z-10">
+                    <div className="space-y-2">
+                       <span className="inline-block px-3 py-1 bg-[#FAF9F6] dark:bg-[#202024] text-[#6E6D7A] dark:text-[#A1A1AA] text-[10px] font-semibold uppercase tracking-wider rounded-md group-hover:bg-[#0D0D0D] group-hover:text-white transition-colors">
                          {job.department}
                        </span>
-                       <h3 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors tracking-tight">{job.title}</h3>
+                       <h3 className="text-xl font-bold text-[#121214] dark:text-[#FAF9F6] tracking-tight">{job.title}</h3>
                     </div>
-                    <div className="size-10 md:size-12 bg-gray-50 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-gray-400 dark:text-gray-300 group-hover:bg-rose-600 group-hover:text-white transition-all transform group-hover:rotate-12">
-                       <ArrowRight size={18} md:size={20} />
+                    <div className="size-10 bg-[#FAF9F6] dark:bg-[#202024] rounded-xl flex items-center justify-center text-[#121214] dark:text-[#FAF9F6] group-hover:bg-[#0D0D0D] group-hover:text-[#C5A880] transition-all">
+                       <ArrowRight size={18} />
                     </div>
                  </div>
 
-                 <p className="text-gray-500 dark:text-gray-400 text-xs md:text-sm leading-relaxed mb-6 md:mb-8 relative z-10 font-medium">
+                 <p className="text-[#6E6D7A] dark:text-[#A1A1AA] text-sm leading-relaxed mb-6 relative z-10 font-normal">
                    {job.description}
                  </p>
 
-                 <div className="flex items-center gap-4 md:gap-6 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-6 md:mb-8 relative z-10">
-                    <span className="flex items-center gap-2"><Briefcase className="size-3.5 md:size-4" /> Full-Time</span>
-                    <span className="flex items-center gap-2"><MapPin className="size-3.5 md:size-4" /> {job.location}</span>
+                 <div className="flex items-center gap-5 text-[10px] font-semibold uppercase tracking-wider text-[#6E6D7A] dark:text-[#A1A1AA] relative z-10">
+                    <span className="flex items-center gap-1.5"><Briefcase className="size-3.5" /> Full-Time</span>
+                    <span className="flex items-center gap-1.5"><MapPin className="size-3.5" /> {job.location || 'Paris / Remote'}</span>
                  </div>
 
                  <AnimatePresence>
@@ -112,45 +126,42 @@ const CareersPage = () => {
                        initial={{ height: 0, opacity: 0 }}
                        animate={{ height: 'auto', opacity: 1 }}
                        exit={{ height: 0, opacity: 0 }}
-                       className="overflow-hidden border-t border-gray-100 dark:border-gray-800 pt-8 mt-4 space-y-8"
+                       className="overflow-hidden border-t border-[#EFECE6] dark:border-[#2A2A2E] pt-6 mt-6 space-y-6"
                      >
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                           <div className="space-y-4">
-                              <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-900 dark:text-white flex items-center gap-2">
-                                <Sparkles size={12} className="text-rose-500" /> Requirements
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                           <div className="space-y-3">
+                              <h4 className="text-[10px] font-bold uppercase tracking-wider text-[#121214] dark:text-[#FAF9F6] flex items-center gap-2">
+                                <Sparkles size={12} className="text-[#C5A880]" /> Requirements
                               </h4>
-                              <ul className="space-y-3">
-                                 {job.requirements.map((req, i) => (
-                                   <li key={i} className="flex items-start gap-2 text-xs text-gray-500 dark:text-gray-400 font-medium">
-                                      <CheckCircle2 size={14} className="text-rose-500 shrink-0 mt-0.5" />
+                              <ul className="space-y-2">
+                                 {(job.requirements || ['Experience in high-growth e-commerce', 'Keen eye for luxury design']).map((req, i) => (
+                                   <li key={i} className="flex items-start gap-2 text-xs text-[#6E6D7A] dark:text-[#A1A1AA]">
+                                      <CheckCircle2 size={13} className="text-[#C5A880] shrink-0 mt-0.5" />
                                       {req}
                                    </li>
                                  ))}
                               </ul>
                            </div>
-                           <div className="space-y-4">
-                              <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-900 dark:text-white flex items-center gap-2">
-                                <Star size={12} className="text-purple-500" /> Perks
+                           <div className="space-y-3">
+                              <h4 className="text-[10px] font-bold uppercase tracking-wider text-[#121214] dark:text-[#FAF9F6] flex items-center gap-2">
+                                <Star size={12} className="text-[#C5A880]" /> Perks
                               </h4>
-                              <ul className="space-y-3">
-                                 {job.perks.map((perk, i) => (
-                                   <li key={i} className="flex items-start gap-2 text-xs text-gray-500 dark:text-gray-400 font-medium">
-                                      <CheckCircle2 size={14} className="text-purple-500 shrink-0 mt-0.5" />
+                              <ul className="space-y-2">
+                                 {(job.perks || ['Competitive equity + salary', 'Annual luxury beauty allowance', 'Flexible hybrid policy']).map((perk, i) => (
+                                   <li key={i} className="flex items-start gap-2 text-xs text-[#6E6D7A] dark:text-[#A1A1AA]">
+                                      <CheckCircle2 size={13} className="text-[#C5A880] shrink-0 mt-0.5" />
                                       {perk}
                                    </li>
                                  ))}
                               </ul>
                            </div>
                         </div>
-                        <button className="w-full bg-gray-900 dark:bg-rose-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-rose-600 dark:hover:bg-rose-700 transition-all shadow-xl shadow-gray-200 dark:shadow-none">
+                        <button className="w-full bg-[#0D0D0D] hover:bg-[#262626] dark:bg-[#FAF9F6] dark:hover:bg-white text-white dark:text-[#0D0D0D] py-4 rounded-xl font-bold uppercase tracking-wider text-xs transition-all shadow-md">
                            Submit Application
                         </button>
                      </motion.div>
                    )}
                  </AnimatePresence>
-                 
-                 {/* Decorative Background Element */}
-                 <div className="absolute -bottom-10 -right-10 size-40 bg-rose-50 dark:bg-rose-950/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity blur-2xl"></div>
               </motion.div>
             ))}
           </div>
@@ -158,59 +169,51 @@ const CareersPage = () => {
       </div>
 
       {/* Hiring Process */}
-      <div className="container mx-auto px-4 max-w-6xl py-20 md:py-32">
+      <div className="container mx-auto px-4 max-w-6xl py-16 md:py-24">
          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-white via-rose-50/40 to-pink-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-16 relative overflow-hidden border border-rose-100/80 dark:border-gray-800 shadow-2xl shadow-rose-100/50 dark:shadow-none transition-all duration-300"
+            transition={{ duration: 0.5 }}
+            className="bg-[#FFFFFF] dark:bg-[#18181B] rounded-3xl md:rounded-[2.5rem] p-8 md:p-14 relative overflow-hidden border border-[#EFECE6] dark:border-[#2A2A2E] shadow-xl shadow-black/[0.02]"
          >
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-rose-400/10 dark:from-rose-900/20 to-transparent pointer-events-none"></div>
-            <div className="absolute -bottom-16 -left-16 size-64 bg-purple-300/15 dark:bg-purple-900/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
-               <div className="space-y-6 md:space-y-8">
-                  <div className="inline-block px-4 py-1.5 bg-rose-500/10 dark:bg-rose-500/20 border border-rose-500/20 rounded-full">
-                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-rose-600 dark:text-rose-400 italic">How we hire</span>
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+               <div className="space-y-5">
+                  <div className="inline-block px-3 py-1 bg-[#FAF9F6] dark:bg-[#202024] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-full">
+                     <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#C5A880]">Our Method</span>
                   </div>
-                  <p className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight tracking-tighter uppercase italic">
+                  <p className="text-3xl md:text-5xl font-bold text-[#121214] dark:text-[#FAF9F6] leading-tight tracking-tight">
                      The Path to <br/>
-                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 dark:from-rose-500 dark:to-purple-500">Excellence</span>
+                     <span className="italic font-serif text-[#C5A880]">Excellence</span>
                   </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base font-medium leading-relaxed max-w-md">
-                     Our process is rigorous, fair, and designed to find high-velocity individuals who love solving complex problems.
+                  <p className="text-[#6E6D7A] dark:text-[#A1A1AA] text-sm leading-relaxed max-w-md">
+                     Our process is thoughtful, direct, and tailored for exceptional individuals who take pride in meticulous execution.
                   </p>
                </div>
                
-               <div className="space-y-3 md:space-y-4">
+               <div className="space-y-3">
                   {[
-                    { step: '01', title: 'Application Review', text: 'We look for bold portfolios and clear evidence of impact.' },
-                    { step: '02', title: 'Cultural Sync', text: 'A deep dive into your vision and how it aligns with Glam Portal.' },
-                    { step: '03', title: 'Technical Deep-Dive', text: 'Solving real-world architectural challenges with the team.' },
-                    { step: '04', title: 'Final Onboarding', text: 'Join the mission and start building the heritage.' },
+                    { step: '01', title: 'Curated Portfolio Review', text: 'We review evidence of impact, precision, and passion.' },
+                    { step: '02', title: 'Atelier Alignment', text: 'Discussion about our aesthetic philosophies and shared vision.' },
+                    { step: '03', title: 'Practical Deep-Dive', text: 'Collaborative problem solving on live architectural challenges.' },
+                    { step: '04', title: 'Offer & Induction', text: 'Welcome to the atelier to co-create the future of luxury beauty.' },
                   ].map((item, i) => (
-                    <motion.div 
+                    <div 
                       key={i} 
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1, duration: 0.5 }}
-                      whileHover={{ x: 6 }}
-                      className="flex gap-6 md:gap-8 group p-4 md:p-5 rounded-2xl md:rounded-3xl hover:bg-white/80 dark:hover:bg-white/[0.03] border border-transparent hover:border-rose-100 dark:hover:border-gray-800 transition-all duration-300 shadow-none hover:shadow-lg hover:shadow-rose-100/40 dark:hover:shadow-none"
+                      className="flex gap-5 p-3.5 rounded-2xl hover:bg-[#FAF9F6] dark:hover:bg-[#202024] transition-all"
                     >
-                       <span className="text-2xl md:text-3xl font-black text-rose-300 dark:text-gray-700 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors uppercase tracking-tighter italic">
+                       <span className="text-xl md:text-2xl font-serif italic text-[#C5A880]">
                           {item.step}
                        </span>
-                       <div className="space-y-1 md:space-y-2">
-                          <h4 className="text-base md:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-tight group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                       <div className="space-y-0.5">
+                          <h4 className="text-sm font-bold text-[#121214] dark:text-[#FAF9F6] uppercase tracking-wide">
                              {item.title}
                           </h4>
-                          <p className="text-[11px] md:text-sm text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
+                          <p className="text-xs text-[#6E6D7A] dark:text-[#A1A1AA] leading-relaxed">
                              {item.text}
                           </p>
                        </div>
-                    </motion.div>
+                    </div>
                   ))}
                </div>
             </div>

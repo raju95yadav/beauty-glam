@@ -39,8 +39,8 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
     }, 800);
   };
 
-  const inputClasses = "w-full bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700/60 rounded-2xl px-5 py-4 text-xs font-bold text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all uppercase tracking-widest";
-  const labelClasses = "text-[10px] font-black text-gray-400 dark:text-gray-400 uppercase tracking-[0.2em] mb-2 block ml-1";
+  const inputClasses = "w-full bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-2xl px-5 py-4 text-xs font-bold text-[#121214] dark:text-[#FAF9F6] placeholder-[#6E6D7A]/50 focus:outline-none focus:ring-2 focus:ring-[#C5A880]/20 focus:border-[#C5A880] transition-all uppercase tracking-widest";
+  const labelClasses = "text-[10px] font-black text-[#6E6D7A] uppercase tracking-[0.2em] mb-2 block ml-1";
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Add New Shipping Address" size="md">
@@ -50,7 +50,7 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           <div className="md:col-span-2">
             <label className={labelClasses}>Recipient Name</label>
             <div className="relative group">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#6E6D7A] group-focus-within:text-[#C5A880] transition-colors">
                 <User size={14} />
               </div>
               <input
@@ -69,7 +69,7 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           <div className="md:col-span-2">
             <label className={labelClasses}>Street Address</label>
             <div className="relative group">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#6E6D7A] group-focus-within:text-[#C5A880] transition-colors">
                 <Home size={14} />
               </div>
               <input
@@ -88,7 +88,7 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           <div>
             <label className={labelClasses}>City</label>
             <div className="relative group">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#6E6D7A] group-focus-within:text-[#C5A880] transition-colors">
                 <MapPin size={14} />
               </div>
               <input
@@ -107,7 +107,7 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           <div>
             <label className={labelClasses}>State</label>
             <div className="relative group">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#6E6D7A] group-focus-within:text-[#C5A880] transition-colors">
                 <Globe size={14} />
               </div>
               <input
@@ -126,7 +126,7 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           <div>
             <label className={labelClasses}>Zip Code</label>
             <div className="relative group">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#6E6D7A] group-focus-within:text-[#C5A880] transition-colors">
                 <MapPin size={14} />
               </div>
               <input
@@ -146,7 +146,7 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           <div>
             <label className={labelClasses}>Phone Number</label>
             <div className="relative group">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#6E6D7A] group-focus-within:text-[#C5A880] transition-colors">
                 <Phone size={14} />
               </div>
               <input
@@ -163,18 +163,18 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData }) => {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex gap-4">
+        <div className="pt-6 border-t border-[#EFECE6] dark:border-[#2A2A2E] flex gap-4">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-8 py-5 border border-gray-100 dark:border-gray-700 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+            className="flex-1 px-8 py-4 border border-[#EFECE6] dark:border-[#2A2A2E] rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-[#6E6D7A] hover:bg-[#FAF9F6] dark:hover:bg-[#121214] transition-all"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="flex-[2] bg-gray-950 dark:bg-pink-600 text-white px-8 py-5 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-rose-600 dark:hover:bg-pink-700 transition-all shadow-xl shadow-gray-200 dark:shadow-none hover:shadow-rose-100 flex items-center justify-center disabled:opacity-50"
+            className="flex-[2] bg-[#0D0D0D] dark:bg-[#FAF9F6] text-white dark:text-[#0D0D0D] px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-black dark:hover:bg-white transition-all shadow-xl shadow-black/10 flex items-center justify-center disabled:opacity-50"
           >
             {loading ? 'Processing...' : 'Save & Select Address'}
           </button>

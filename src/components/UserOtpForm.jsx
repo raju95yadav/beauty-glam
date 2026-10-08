@@ -115,18 +115,18 @@ const UserOtpForm = () => {
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between px-1">
-                <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">
+                <label className="text-[10px] font-bold text-[#6E6D7A] uppercase tracking-[0.2em]">
                   Email Destination
                 </label>
                 {email && (
-                  <span className="text-[10px] font-semibold text-rose-500 dark:text-rose-400">
+                  <span className="text-[10px] font-semibold text-[#C5A880]">
                     Ready to send code
                   </span>
                 )}
               </div>
               <div className="relative group/input">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg group-focus-within/input:bg-rose-50 dark:group-focus-within/input:bg-rose-950/30 transition-colors">
-                  <Mail className="size-4 text-gray-400 group-focus-within/input:text-rose-500 transition-colors" />
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-[#FAF9F6] dark:bg-[#121214] rounded-lg group-focus-within/input:bg-[#C5A880]/15 transition-colors">
+                  <Mail className="size-4 text-[#6E6D7A] group-focus-within/input:text-[#C5A880] transition-colors" />
                 </div>
                 <input
                   type="email"
@@ -135,7 +135,7 @@ const UserOtpForm = () => {
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-14 pr-4 py-4 bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-rose-200 dark:focus:border-rose-900 outline-none transition-all font-medium text-gray-700 dark:text-gray-200 placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-sm text-sm"
+                  className="w-full pl-14 pr-4 py-4 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-white/10 rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-medium text-[#121214] dark:text-[#FAF9F6] placeholder:text-[#6E6D7A]/50 shadow-sm text-sm"
                 />
               </div>
             </div>
@@ -143,16 +143,16 @@ const UserOtpForm = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group w-full py-4 bg-rose-600 text-white font-bold text-[11px] uppercase tracking-[0.25em] rounded-2xl shadow-rose-100 dark:shadow-none hover:bg-rose-700 active:scale-[0.98] sm:active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 bg-shimmer relative overflow-hidden cursor-pointer"
+              className="group w-full py-4 bg-[#0D0D0D] hover:bg-[#262626] text-white dark:bg-[#FAF9F6] dark:text-[#0D0D0D] dark:hover:bg-white font-bold text-[11px] uppercase tracking-[0.25em] rounded-2xl shadow-xl transition-all disabled:opacity-50 active:scale-[0.98] relative overflow-hidden cursor-pointer"
             >
               {loading ? <Loader2 className="size-5 animate-spin mx-auto text-white/50" /> : (
                 <span className="flex items-center justify-center gap-2 relative z-10">
-                  {email ? 'Request New OTP' : 'Request OTP'} <ArrowRight size={14} className="opacity-50 transition-transform duration-200 group-hover:translate-x-1" />
+                  {email ? 'Request New OTP' : 'Request OTP'} <ArrowRight size={14} className="opacity-60 text-[#C5A880] transition-transform duration-200 group-hover:translate-x-1" />
                 </span>
               )}
             </button>
             
-            <p className="text-center text-[9px] text-gray-400 dark:text-gray-600 uppercase tracking-widest leading-relaxed">
+            <p className="text-center text-[9px] text-[#6E6D7A] uppercase tracking-widest leading-relaxed">
               We'll send a one-time password to verify your identity.
             </p>
           </motion.form>
@@ -166,14 +166,14 @@ const UserOtpForm = () => {
             className="space-y-4"
           >
             {/* Prominent Verification Header with Direct Change Email Button */}
-            <div className="bg-rose-50/60 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/40 rounded-2xl p-3.5 text-center">
-              <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] block mb-1">
+            <div className="bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-white/10 rounded-2xl p-3.5 text-center">
+              <label className="text-[10px] font-bold text-[#6E6D7A] uppercase tracking-[0.2em] block mb-1">
                 Verification Code
               </label>
 
               <div className="flex items-center justify-center gap-1.5 flex-wrap my-1">
-                <span className="text-[11px] text-gray-500 dark:text-gray-400">Sent to</span>
-                <span className="font-bold text-gray-900 dark:text-white px-2 py-0.5 rounded-md bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-xs font-mono select-all">
+                <span className="text-[11px] text-[#6E6D7A]">Sent to</span>
+                <span className="font-bold text-[#121214] dark:text-[#FAF9F6] px-2 py-0.5 rounded-md bg-white dark:bg-[#18181B] border border-[#EFECE6] dark:border-white/10 text-xs font-mono select-all">
                   {email.trim().toLowerCase()}
                 </span>
                 
@@ -184,21 +184,21 @@ const UserOtpForm = () => {
                     setStep(1);
                     setOtp('');
                   }}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs ml-1"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#0D0D0D] hover:bg-[#262626] text-white text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs ml-1"
                   title="Change email and request new OTP"
                 >
-                  <Pencil size={11} /> Change
+                  <Pencil size={11} className="text-[#C5A880]" /> Change
                 </button>
               </div>
 
-              <p className="text-[10px] font-medium text-amber-600 dark:text-amber-400 mt-1.5">
+              <p className="text-[10px] font-medium text-[#C5A880] mt-1.5">
                 (Please check both your <b>Inbox</b> &amp; <b>Spam/Promotions</b> folder)
               </p>
             </div>
             
             <div className="relative group/input">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg group-focus-within/input:bg-rose-50 dark:group-focus-within/input:bg-rose-950/30 transition-colors">
-                 <ShieldCheck className="size-4 text-gray-400 group-focus-within/input:text-rose-500 transition-colors" />
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-[#FAF9F6] dark:bg-[#121214] rounded-lg group-focus-within/input:bg-[#C5A880]/15 transition-colors">
+                 <ShieldCheck className="size-4 text-[#6E6D7A] group-focus-within/input:text-[#C5A880] transition-colors" />
               </div>
               <input
                 type="text"
@@ -208,14 +208,14 @@ const UserOtpForm = () => {
                 placeholder="••••••"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
-                className="w-full pl-14 pr-4 py-4 text-center text-3xl tracking-[0.5em] bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-rose-200 dark:focus:border-rose-900 outline-none transition-all font-light text-gray-700 dark:text-gray-200 placeholder:text-gray-200 dark:placeholder:text-gray-800 shadow-sm"
+                className="w-full pl-14 pr-4 py-4 text-center text-3xl tracking-[0.5em] bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-white/10 rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-light text-[#121214] dark:text-[#FAF9F6] placeholder:text-[#6E6D7A]/30 shadow-sm"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="group w-full py-4 bg-gray-900 dark:bg-rose-600 text-white font-bold text-[11px] uppercase tracking-[0.25em] rounded-2xl shadow-xl hover:bg-black dark:hover:bg-rose-700 active:scale-[0.98] sm:active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 cursor-pointer"
+              className="group w-full py-4 bg-[#0D0D0D] hover:bg-[#262626] text-white dark:bg-[#FAF9F6] dark:text-[#0D0D0D] dark:hover:bg-white font-bold text-[11px] uppercase tracking-[0.25em] rounded-2xl shadow-xl active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
             >
               {loading ? <Loader2 className="size-5 animate-spin mx-auto text-white/50" /> : 'Authorize Access'}
             </button>
@@ -225,7 +225,7 @@ const UserOtpForm = () => {
                 type="button"
                 disabled={timer > 0 || loading}
                 onClick={handleSendOTP}
-                className="text-[10px] font-bold text-rose-500 dark:text-rose-400 uppercase tracking-[0.2em] disabled:opacity-30 disabled:cursor-not-allowed hover:underline transition-all cursor-pointer"
+                className="text-[10px] font-bold text-[#C5A880] uppercase tracking-[0.2em] disabled:opacity-30 disabled:cursor-not-allowed hover:underline transition-all cursor-pointer"
               >
                 {timer > 0 ? `Resend available in ${timer}s` : 'Resend Verification Code'}
               </button>
@@ -237,10 +237,10 @@ const UserOtpForm = () => {
                   setStep(1);
                   setOtp('');
                 }}
-                className="w-full py-2.5 px-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-gray-900/40 hover:bg-rose-50 hover:border-rose-200 dark:hover:bg-rose-950/20 dark:hover:border-rose-900 text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 text-[11px] font-semibold transition-all flex items-center justify-center gap-1.5 shadow-xs group cursor-pointer"
+                className="w-full py-2.5 px-3 rounded-xl border border-[#EFECE6] dark:border-white/10 bg-white/70 dark:bg-[#18181B] hover:bg-[#FAF9F6] hover:border-[#C5A880]/40 text-[#6E6D7A] hover:text-[#121214] dark:hover:text-[#FAF9F6] text-[11px] font-semibold transition-all flex items-center justify-center gap-1.5 shadow-xs group cursor-pointer"
               >
-                <ArrowLeft size={13} className="text-rose-500 transition-transform group-hover:-translate-x-1" />
-                <span>Wrong email? <strong className="text-rose-600 dark:text-rose-400 underline decoration-rose-300">Change Email &amp; Request New OTP</strong></span>
+                <ArrowLeft size={13} className="text-[#C5A880] transition-transform group-hover:-translate-x-1" />
+                <span>Wrong email? <strong className="text-[#121214] dark:text-[#FAF9F6] underline decoration-[#C5A880]">Change Email &amp; Request New OTP</strong></span>
               </button>
             </div>
           </motion.form>

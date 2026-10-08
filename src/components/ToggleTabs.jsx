@@ -3,17 +3,17 @@ import { motion } from 'framer-motion';
 
 const ToggleTabs = ({ activeTab, onTabChange }) => {
   return (
-    <div className="flex p-1 bg-gray-50/50 dark:bg-gray-800/20 backdrop-blur-sm rounded-full mb-6 border border-gray-100 dark:border-gray-800/50">
+    <div className="flex p-1 bg-[#FAF9F6] dark:bg-[#18181B] rounded-full mb-6 border border-[#EFECE6] dark:border-[#2A2A2E]">
       <button
         onClick={() => onTabChange('user')}
-        className={`relative flex-1 py-3.5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 ${
-          activeTab === 'user' ? 'text-white' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+        className={`relative flex-1 py-3 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${
+          activeTab === 'user' ? 'text-white dark:text-[#0D0D0D]' : 'text-[#6E6D7A] hover:text-[#121214] dark:hover:text-white'
         }`}
       >
         {activeTab === 'user' && (
           <motion.div
             layoutId="active-tab-glow"
-            className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-600 rounded-full shadow-lg shadow-rose-200 dark:shadow-none"
+            className="absolute inset-0 bg-[#0D0D0D] dark:bg-[#FAF9F6] rounded-full shadow-md"
             transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
           />
         )}
@@ -21,14 +21,14 @@ const ToggleTabs = ({ activeTab, onTabChange }) => {
       </button>
       <button
         onClick={() => onTabChange('admin')}
-        className={`relative flex-1 py-3.5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 ${
-          activeTab === 'admin' ? 'text-white' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+        className={`relative flex-1 py-3 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${
+          activeTab === 'admin' ? 'text-white dark:text-[#0D0D0D]' : 'text-[#6E6D7A] hover:text-[#121214] dark:hover:text-white'
         }`}
       >
         {activeTab === 'admin' && (
           <motion.div
             layoutId="active-tab-glow"
-            className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 rounded-full shadow-lg"
+            className="absolute inset-0 bg-[#0D0D0D] dark:bg-[#FAF9F6] rounded-full shadow-md"
             transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
           />
         )}

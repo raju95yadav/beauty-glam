@@ -31,13 +31,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative transition-all duration-300 border-b border-gray-100/70 dark:border-gray-800/70">
+    <nav className="relative transition-all duration-300 border-b border-[#EFECE6] dark:border-white/10">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-18 gap-4">
           {/* Mobile Menu Trigger */}
           <button 
             onClick={() => setIsMobileMenuOpen(true)}
-            className="md:hidden p-2.5 bg-gray-100/80 dark:bg-gray-900/80 rounded-2xl text-gray-700 dark:text-gray-300 transition-all hover:scale-105 active:scale-95"
+            className="md:hidden p-2.5 bg-white dark:bg-[#18181B] border border-[#EFECE6] dark:border-white/10 rounded-2xl text-[#121214] dark:text-[#FAF9F6] transition-all hover:scale-105 active:scale-95 shadow-sm"
             aria-label="Open navigation menu"
           >
             <Menu className="size-5" />
@@ -45,8 +45,8 @@ const Navbar = () => {
 
           {/* Luxury Logo */}
           <Link to="/" className="flex items-baseline gap-0.5 group shrink-0">
-             <span className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white tracking-tighter transition-colors group-hover:text-rose-600">GLAM</span>
-             <span className="text-rose-600 font-serif italic text-2xl md:text-3xl tracking-tight transition-transform group-hover:-translate-y-0.5 block">Beauty</span>
+             <span className="text-2xl md:text-3xl font-black text-[#121214] dark:text-[#FAF9F6] tracking-tighter transition-colors group-hover:text-[#C5A880]">GLAM</span>
+             <span className="text-[#C5A880] font-serif italic text-2xl md:text-3xl tracking-tight transition-transform group-hover:-translate-y-0.5 block">Beauty</span>
           </Link>
 
           {/* Premium Search Container */}
@@ -76,23 +76,23 @@ const Navbar = () => {
                     setIsUserMenuOpen(prev => !prev);
                   }
                 }}
-                className="flex items-center gap-2.5 p-1.5 md:p-2 hover:bg-gray-100/80 dark:hover:bg-gray-900/80 rounded-2xl transition-all group cursor-pointer"
+                className="flex items-center gap-2.5 p-1.5 md:p-2 hover:bg-[#EFECE6]/50 dark:hover:bg-white/5 rounded-2xl transition-all group cursor-pointer"
                 aria-label="User account menu"
               >
                 {user ? (
-                  <div className="size-9 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-bold text-xs flex items-center justify-center shadow-sm shrink-0">
+                  <div className="size-9 rounded-full bg-gradient-to-tr from-[#0D0D0D] to-[#C5A880] text-white font-bold text-xs flex items-center justify-center shadow-sm shrink-0 border border-[#C5A880]/30">
                     {getInitials(user.name)}
                   </div>
                 ) : (
-                  <div className="size-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-rose-50 dark:group-hover:bg-rose-950/40 group-hover:text-rose-600 transition-colors">
+                  <div className="size-9 rounded-full bg-white dark:bg-[#18181B] border border-[#EFECE6] dark:border-white/10 flex items-center justify-center text-[#6E6D7A] dark:text-[#FAF9F6] group-hover:bg-[#C5A880]/10 group-hover:text-[#0D0D0D] dark:group-hover:text-[#C5A880] transition-colors shadow-sm">
                     <User className="size-4.5" />
                   </div>
                 )}
                 <div className="hidden xl:block text-left min-w-0">
-                  <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-0.5">
+                  <p className="text-[9px] text-[#6E6D7A] font-bold uppercase tracking-[0.2em] mb-0.5">
                     {user ? 'Member' : 'Access'}
                   </p>
-                  <p className="text-[11px] font-black text-gray-900 dark:text-gray-100 uppercase tracking-wider truncate max-w-[100px]">
+                  <p className="text-[11px] font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-wider truncate max-w-[100px]">
                     {user ? (user.name?.split(' ')[0] || 'Member') : 'Sign In'}
                   </p>
                 </div>
@@ -105,18 +105,18 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute right-0 mt-2 w-64 backdrop-blur-lg bg-white/95 dark:bg-gray-900/95 border border-gray-100 dark:border-gray-800 shadow-xl rounded-2xl p-2 z-50 overflow-hidden"
+                    className="absolute right-0 mt-2 w-64 backdrop-blur-xl bg-white/95 dark:bg-[#18181B]/95 border border-[#EFECE6] dark:border-white/10 shadow-2xl rounded-2xl p-2 z-50 overflow-hidden"
                   >
                     {/* User Details Header Card */}
-                    <div className="p-3 bg-gradient-to-r from-rose-50/80 to-amber-50/40 dark:from-rose-950/40 dark:to-gray-900/60 rounded-xl mb-1.5 flex items-center gap-3 border border-rose-100/50 dark:border-rose-900/30">
-                      <div className="size-10 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 text-white font-bold text-xs flex items-center justify-center shadow-md shrink-0">
+                    <div className="p-3 bg-[#FAF9F6] dark:bg-[#121214] rounded-xl mb-1.5 flex items-center gap-3 border border-[#EFECE6] dark:border-white/10">
+                      <div className="size-10 rounded-full bg-gradient-to-tr from-[#0D0D0D] to-[#C5A880] text-white font-bold text-xs flex items-center justify-center shadow-md shrink-0 border border-[#C5A880]/30">
                         {getInitials(user.name)}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider truncate">
+                        <p className="text-xs font-bold text-[#121214] dark:text-[#FAF9F6] uppercase tracking-wider truncate">
                           {user.name || 'Member'}
                         </p>
-                        <p className="text-[11px] text-gray-500 dark:text-gray-400 truncate">
+                        <p className="text-[11px] text-[#6E6D7A] truncate">
                           {user.email}
                         </p>
                       </div>
@@ -127,34 +127,34 @@ const Navbar = () => {
                       <Link 
                         to="/profile" 
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl transition-colors"
+                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-[#6E6D7A] hover:text-[#121214] dark:hover:text-[#FAF9F6] hover:bg-[#FAF9F6] dark:hover:bg-white/5 uppercase tracking-wider rounded-xl transition-colors"
                       >
-                        <UserCircle className="size-4 text-gray-400 group-hover:text-rose-600" />
+                        <UserCircle className="size-4 text-[#C5A880]" />
                         Account Details
                       </Link>
                       <Link 
                         to="/orders" 
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl transition-colors"
+                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-[#6E6D7A] hover:text-[#121214] dark:hover:text-[#FAF9F6] hover:bg-[#FAF9F6] dark:hover:bg-white/5 uppercase tracking-wider rounded-xl transition-colors"
                       >
-                        <Package className="size-4 text-gray-400 group-hover:text-rose-600" />
+                        <Package className="size-4 text-[#C5A880]" />
                         Order History
                       </Link>
                       <Link 
                         to="/wishlist" 
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 rounded-xl transition-colors"
+                        className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-[#6E6D7A] hover:text-[#121214] dark:hover:text-[#FAF9F6] hover:bg-[#FAF9F6] dark:hover:bg-white/5 uppercase tracking-wider rounded-xl transition-colors"
                       >
-                        <Heart className="size-4 text-gray-400 group-hover:text-rose-600" />
+                        <Heart className="size-4 text-[#C5A880]" />
                         My Wishlist
                       </Link>
                     </div>
 
-                    <div className="my-1.5 border-t border-gray-100 dark:border-gray-800" />
+                    <div className="my-1.5 border-t border-[#EFECE6] dark:border-white/10" />
 
                     <button 
                       onClick={() => { logout(); navigate('/'); setIsUserMenuOpen(false); }}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-xl transition-colors uppercase tracking-wider cursor-pointer"
+                      className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-xl transition-colors uppercase tracking-wider cursor-pointer"
                     >
                       <LogOut className="size-4" />
                       Sign Out
@@ -166,22 +166,22 @@ const Navbar = () => {
 
             <Link 
               to="/wishlist" 
-              className="size-10 md:size-11 rounded-2xl flex items-center justify-center text-gray-700 dark:text-gray-300 bg-gray-50/80 dark:bg-gray-900/80 border border-gray-100 dark:border-gray-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 hover:border-rose-200 dark:hover:border-rose-900/50 transition-all duration-300 hover:scale-105 active:scale-95 group relative hidden md:flex cursor-pointer"
+              className="size-10 md:size-11 rounded-2xl flex items-center justify-center text-[#121214] dark:text-[#FAF9F6] bg-white dark:bg-[#18181B] border border-[#EFECE6] dark:border-white/10 hover:border-[#C5A880]/50 hover:text-[#C5A880] transition-all duration-300 hover:scale-105 active:scale-95 group relative hidden md:flex cursor-pointer shadow-sm"
               aria-label="View Wishlist"
             >
-              <Heart className="size-4.5 transition-transform duration-300 group-hover:scale-110 group-hover:fill-rose-500 group-hover:text-rose-500" />
+              <Heart className="size-4.5 transition-transform duration-300 group-hover:scale-110 group-hover:fill-[#C5A880] group-hover:text-[#C5A880]" />
             </Link>
 
             <Link 
               to="/cart" 
-              className="relative flex items-center gap-2 h-10 md:h-11 px-3 md:px-3.5 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-700 hover:to-pink-700 text-white font-medium shadow-md shadow-rose-500/20 hover:shadow-lg hover:shadow-rose-500/35 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] group cursor-pointer"
+              className="relative flex items-center gap-2 h-10 md:h-11 px-3.5 md:px-4 rounded-2xl bg-[#0D0D0D] hover:bg-[#262626] dark:bg-[#FAF9F6] dark:text-[#0D0D0D] text-white font-medium shadow-md shadow-black/10 hover:shadow-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] group cursor-pointer border border-[#0D0D0D]/10"
               aria-label="View Shopping Bag"
             >
               <ShoppingBag className="size-4.5 transition-transform duration-300 group-hover:-rotate-6" />
               <span className="hidden sm:inline-block text-[11px] font-black uppercase tracking-wider">
                 Bag
               </span>
-              <span className="px-1.5 py-0.5 min-w-[20px] h-5 rounded-full bg-white text-rose-600 dark:bg-gray-950 dark:text-rose-400 text-[10px] font-black flex items-center justify-center shadow-sm">
+              <span className="px-1.5 py-0.5 min-w-[20px] h-5 rounded-full bg-[#C5A880] text-[#0D0D0D] dark:bg-[#0D0D0D] dark:text-[#C5A880] text-[10px] font-black flex items-center justify-center shadow-sm">
                 {cartCount}
               </span>
             </Link>
@@ -209,30 +209,30 @@ const Navbar = () => {
             >
               <div className="p-8">
                 <div className="flex justify-between items-center mb-10">
-                  <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-baseline gap-0.5">
-                    <span className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">GLAM</span>
-                    <span className="text-rose-600 font-serif italic text-2xl tracking-tight">Portal</span>
+                  <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-baseline gap-1">
+                    <span className="text-2xl font-bold text-[#121214] dark:text-[#FAF9F6] tracking-tight">GLAM</span>
+                    <span className="text-[#C5A880] font-serif italic text-2xl tracking-tight">Atelier</span>
                   </Link>
-                  <button onClick={() => setIsMobileMenuOpen(false)} className="p-3 bg-gray-50 dark:bg-gray-900 rounded-full hover:rotate-90 transition-transform">
-                    <X className="size-5 text-gray-500" />
+                  <button onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 bg-[#FAF9F6] dark:bg-[#202024] rounded-full hover:rotate-90 transition-transform">
+                    <X className="size-5 text-[#6E6D7A]" />
                   </button>
                 </div>
 
-                <div className="mb-6 bg-gray-50 dark:bg-gray-900 rounded-[2rem] p-4 border border-gray-100 dark:border-gray-800 focus-within:ring-2 focus-within:ring-rose-500 transition-all">
+                <div className="mb-6 bg-[#FAF9F6] dark:bg-[#202024] rounded-2xl p-3 border border-[#EFECE6] dark:border-[#2A2A2E] focus-within:border-[#0D0D0D] transition-all">
                   <SearchBar onSearchSuccess={() => setIsMobileMenuOpen(false)} />
                 </div>
 
                 {/* Mobile Drawer Theme Switch */}
-                <div className="mb-8">
+                <div className="mb-6">
                   <ThemeToggle variant="row" />
                 </div>
 
-                <nav className="space-y-8">
-                  <div className="space-y-3">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6 px-2 flex items-center gap-2">
-                       <Sparkles size={12} className="text-rose-400" /> Curated Collections
+                <nav className="space-y-6">
+                  <div className="space-y-2.5">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#6E6D7A] mb-4 px-2 flex items-center gap-2">
+                       <Sparkles size={12} className="text-[#C5A880]" /> Curated Collections
                     </h3>
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="grid grid-cols-1 gap-1.5">
                        {[
                          { name: 'Featured Products', path: '/products', primary: true, icon: Zap },
                          { name: 'Makeup', path: '/category/makeup', icon: Sparkles },
@@ -247,34 +247,34 @@ const Navbar = () => {
                            key={item.name} 
                            to={item.path} 
                            onClick={() => setIsMobileMenuOpen(false)} 
-                           className={`flex items-center gap-4 p-4 rounded-2xl text-[11px] font-bold uppercase tracking-widest transition-all ${
-                             item.primary ? 'bg-gray-900 text-white shadow-xl shadow-gray-200' : 'bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:text-rose-600'
+                           className={`flex items-center gap-3.5 p-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all ${
+                             item.primary ? 'bg-[#0D0D0D] text-white shadow-sm' : 'bg-[#FAF9F6] dark:bg-[#202024] text-[#121214] dark:text-[#FAF9F6] hover:text-[#C5A880]'
                            }`}
                          >
-                           <item.icon className={`size-4 ${item.primary ? 'text-rose-400' : 'text-gray-400'}`} strokeWidth={2.5} />
+                           <item.icon className={`size-4 ${item.primary ? 'text-[#C5A880]' : 'text-[#6E6D7A]'}`} strokeWidth={2} />
                            {item.name}
                          </Link>
                        ))}
                     </div>
                   </div>
 
-                  <div className="pt-8 border-t border-gray-100 dark:border-gray-900">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6 px-2">Member Portal</h3>
+                  <div className="pt-6 border-t border-[#EFECE6] dark:border-[#2A2A2E]">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#6E6D7A] mb-4 px-2">Member Portal</h3>
                     {user ? (
                       <div className="grid grid-cols-1 gap-1">
-                        <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 p-4 text-[11px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-rose-600 transition-all">
-                          <UserCircle className="size-5" /> Account Details
+                        <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-3 text-xs font-semibold uppercase tracking-wider text-[#121214] dark:text-[#FAF9F6] hover:text-[#C5A880] transition-all">
+                          <UserCircle className="size-5 text-[#6E6D7A]" /> Account Details
                         </Link>
-                        <Link to="/orders" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 p-4 text-[11px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-rose-600 transition-all">
-                          <Package className="size-5" /> Track Orders
+                        <Link to="/orders" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-3 text-xs font-semibold uppercase tracking-wider text-[#121214] dark:text-[#FAF9F6] hover:text-[#C5A880] transition-all">
+                          <Package className="size-5 text-[#6E6D7A]" /> Track Orders
                         </Link>
-                        <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="w-full flex items-center gap-4 p-4 text-[11px] font-bold uppercase tracking-widest text-rose-500 hover:bg-rose-50 transition-all rounded-2xl mt-4">
+                        <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="w-full flex items-center gap-3 p-3 text-xs font-semibold uppercase tracking-wider text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-all rounded-xl mt-2">
                           <LogOut className="size-5" /> Sign Out
                         </button>
                       </div>
                     ) : (
-                      <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block p-5 bg-rose-600 text-white text-center rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-2xl shadow-rose-200">
-                        Sign In / Join Now
+                      <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block p-4 bg-[#0D0D0D] hover:bg-[#262626] dark:bg-[#FAF9F6] dark:hover:bg-white text-white dark:text-[#0D0D0D] text-center rounded-xl font-bold uppercase tracking-wider text-xs shadow-sm">
+                        Sign In / Join Atelier
                       </Link>
                     )}
                   </div>

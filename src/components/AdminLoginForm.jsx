@@ -65,23 +65,23 @@ const AdminLoginForm = () => {
         <input type="text" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" autoComplete="off" />
         <input type="password" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" autoComplete="off" />
 
-        <div className="bg-gray-900/5 dark:bg-white/5 border border-gray-100 dark:border-white/5 p-6 rounded-[2rem] shadow-soft">
+        <div className="bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-white/10 p-6 rounded-[2rem] shadow-soft">
           <div className="flex items-center gap-4">
-             <div className="size-10 bg-gray-900 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-white shadow-soft">
-                <ShieldCheck size={20} className="text-rose-400" />
+             <div className="size-10 bg-[#0D0D0D] rounded-2xl flex items-center justify-center text-[#C5A880] shadow-soft border border-[#C5A880]/30">
+                <ShieldCheck size={20} className="text-[#C5A880]" />
              </div>
              <div>
-               <p className="text-[10px] font-bold text-gray-900 dark:text-gray-100 uppercase tracking-[0.2em]">Authorized Access</p>
-               <p className="text-[9px] text-gray-400 dark:text-gray-500 mt-0.5 uppercase tracking-widest font-medium italic">Administrative Gateway</p>
+               <p className="text-[10px] font-bold text-[#121214] dark:text-[#FAF9F6] uppercase tracking-[0.2em]">Authorized Access</p>
+               <p className="text-[9px] text-[#6E6D7A] mt-0.5 uppercase tracking-widest font-medium italic">Administrative Gateway</p>
              </div>
           </div>
         </div>
 
         <div className="space-y-3">
-          <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] px-1">Identity</label>
+          <label className="text-[10px] font-bold text-[#6E6D7A] uppercase tracking-[0.2em] px-1">Identity</label>
           <div className="relative group/input">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg group-focus-within/input:bg-gray-900 dark:group-focus-within/input:bg-white transition-all duration-300">
-              <Mail className="size-4 text-gray-400 group-focus-within/input:text-white dark:group-focus-within/input:text-gray-900 transition-colors" />
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-[#FAF9F6] dark:bg-[#121214] rounded-lg group-focus-within/input:bg-[#0D0D0D] group-focus-within/input:text-[#C5A880] transition-all duration-300">
+              <Mail className="size-4 text-[#6E6D7A] group-focus-within/input:text-[#C5A880] transition-colors" />
             </div>
             <input
               type="email"
@@ -94,16 +94,16 @@ const AdminLoginForm = () => {
               placeholder="Enter admin email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-14 pr-4 py-5 bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-gray-900 dark:focus:border-white outline-none transition-all font-medium text-gray-700 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-sm"
+              className="w-full pl-14 pr-4 py-5 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-white/10 rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-medium text-[#121214] dark:text-[#FAF9F6] placeholder:text-[#6E6D7A]/50 shadow-sm"
             />
           </div>
         </div>
 
         <div className="space-y-3">
-          <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] px-1">Credential</label>
+          <label className="text-[10px] font-bold text-[#6E6D7A] uppercase tracking-[0.2em] px-1">Credential</label>
           <div className="relative group/input">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg group-focus-within/input:bg-gray-900 dark:group-focus-within/input:bg-white transition-all duration-300">
-              <Key className="size-4 text-gray-400 group-focus-within/input:text-white dark:group-focus-within/input:text-gray-900 transition-colors" />
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 p-1.5 bg-[#FAF9F6] dark:bg-[#121214] rounded-lg group-focus-within/input:bg-[#0D0D0D] group-focus-within/input:text-[#C5A880] transition-all duration-300">
+              <Key className="size-4 text-[#6E6D7A] group-focus-within/input:text-[#C5A880] transition-colors" />
             </div>
             <input
               type="password"
@@ -114,7 +114,7 @@ const AdminLoginForm = () => {
               placeholder="Enter admin security password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-14 pr-4 py-5 bg-gray-50/30 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-800 rounded-2xl focus:bg-white dark:focus:bg-gray-900 focus:border-gray-900 dark:focus:border-white outline-none transition-all font-medium text-gray-700 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-sm"
+              className="w-full pl-14 pr-4 py-5 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-white/10 rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-medium text-[#121214] dark:text-[#FAF9F6] placeholder:text-[#6E6D7A]/50 shadow-sm"
             />
           </div>
         </div>
@@ -122,20 +122,20 @@ const AdminLoginForm = () => {
         <button
           type="submit"
           disabled={loading || isRedirecting}
-          className="w-full py-5 bg-gray-900 text-white font-bold text-[11px] uppercase tracking-[0.25em] rounded-2xl shadow-xl hover:bg-black active:scale-[0.98] transition-all disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-3"
+          className="w-full py-5 bg-[#0D0D0D] hover:bg-[#262626] text-white dark:bg-[#FAF9F6] dark:text-[#0D0D0D] dark:hover:bg-white font-bold text-[11px] uppercase tracking-[0.25em] rounded-2xl shadow-xl active:scale-[0.98] transition-all disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-3 cursor-pointer"
         >
           {loading ? (
             <>
-              <div className="size-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-              <span className="opacity-70">Verifying Identity...</span>
+              <div className="size-4 border-2 border-[#C5A880]/20 border-t-[#C5A880] rounded-full animate-spin" />
+              <span className="opacity-70 text-[#FAF9F6]">Verifying Identity...</span>
             </>
           ) : (
             <>
-              Secure Authorize <ArrowRight size={16} className="opacity-40" />
+              Secure Authorize <ArrowRight size={16} className="text-[#C5A880]" />
           </>
         )}
       </button>
-      <p className="text-center text-[9px] text-gray-400 dark:text-gray-600 uppercase tracking-widest leading-relaxed">
+      <p className="text-center text-[9px] text-[#6E6D7A] uppercase tracking-widest leading-relaxed">
         Access to this portal is restricted and monitored.
       </p>
     </motion.form>

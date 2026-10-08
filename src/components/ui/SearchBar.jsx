@@ -31,7 +31,7 @@ const HighlightMatch = ({ text, query }) => {
     <>
       {parts.map((part, i) =>
         regex.test(part) ? (
-          <span key={i} className="font-bold text-rose-600 dark:text-rose-400">
+          <span key={i} className="font-black text-[#121214] dark:text-[#FAF9F6] underline decoration-[#C5A880]">
             {part}
           </span>
         ) : (
@@ -213,16 +213,16 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
           onKeyDown={handleKeyDown}
-          placeholder="Search beauty products, brands, ingredients..."
+          placeholder="Search luxury formulations, iconic scents, shades..."
           role="combobox"
           aria-expanded={showDropdown}
           aria-autocomplete="list"
-          className="w-full pl-10 pr-11 py-2.5 bg-gray-100/90 dark:bg-gray-900/90 border border-transparent dark:border-gray-800 rounded-2xl outline-none focus:bg-white dark:focus:bg-gray-950 focus:border-rose-300 dark:focus:border-rose-500/50 focus:ring-4 focus:ring-rose-50 dark:focus:ring-rose-950/40 transition-all font-medium text-sm text-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 shadow-inner"
+          className="w-full pl-10 pr-11 py-2.5 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-full outline-none focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 transition-all font-medium text-sm text-[#121214] dark:text-[#FAF9F6] placeholder-[#6E6D7A]/60"
         />
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 size-4 pointer-events-none" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6E6D7A] size-4 pointer-events-none" />
 
         {loading ? (
-          <Loader2 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-rose-600 dark:text-rose-400 size-4 animate-spin" />
+          <Loader2 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#C5A880] size-4 animate-spin" />
         ) : query ? (
           <button
             type="button"
@@ -232,7 +232,7 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
               setActiveIndex(-1);
               inputRef.current?.focus();
             }}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-0.5 cursor-pointer"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#6E6D7A] hover:text-[#121214] dark:hover:text-white transition-colors p-0.5 cursor-pointer"
             aria-label="Clear search"
           >
             <X className="size-4" />
@@ -248,13 +248,13 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 w-full mt-2 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 py-3 z-50 overflow-hidden"
+            className="absolute top-full left-0 w-full mt-2 bg-white dark:bg-[#18181B] backdrop-blur-xl rounded-[2rem] shadow-2xl border border-[#EFECE6] dark:border-[#2A2A2E] py-3 z-50 overflow-hidden"
           >
             {/* Case 1: Search suggestions results */}
             {hasQuery && results.length > 0 && (
               <div ref={resultsListRef} className="space-y-1">
-                <div className="px-4 py-1.5 flex items-center justify-between text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-                  <span>Suggested Products</span>
+                <div className="px-5 py-2 flex items-center justify-between text-[10px] font-black text-[#6E6D7A] uppercase tracking-wider">
+                  <span>Atelier Recommendations</span>
                   <span>Use ↑↓ to navigate</span>
                 </div>
                 {results.map((item, index) => {
@@ -265,14 +265,14 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
                       type="button"
                       onClick={() => handleSelectProduct(item)}
                       onMouseEnter={() => setActiveIndex(index)}
-                      className={`w-full px-4 py-2.5 text-left transition-colors flex items-center justify-between gap-3 group cursor-pointer ${
+                      className={`w-full px-5 py-3 text-left transition-colors flex items-center justify-between gap-3 group cursor-pointer ${
                         isSelected 
-                          ? 'bg-rose-50/80 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400' 
-                          : 'hover:bg-gray-50 dark:hover:bg-gray-800/60'
+                          ? 'bg-[#FAF9F6] dark:bg-[#2A2A2E] text-[#121214] dark:text-[#FAF9F6]' 
+                          : 'hover:bg-[#FAF9F6] dark:hover:bg-[#2A2A2E]'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="size-11 rounded-xl bg-gray-100 dark:bg-gray-800 overflow-hidden shrink-0 border border-gray-100 dark:border-gray-700/60">
+                        <div className="size-11 rounded-xl bg-[#FAF9F6] dark:bg-[#121214] overflow-hidden shrink-0 border border-[#EFECE6] dark:border-[#2A2A2E]">
                           <img
                             src={item.images?.[0]?.url || 'https://placehold.co/100x100?text=Beauty'}
                             alt={item.name}
@@ -280,22 +280,22 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
                           />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-xs font-semibold text-gray-800 dark:text-gray-200 line-clamp-1 group-hover:text-rose-600 dark:group-hover:text-rose-400">
+                          <p className="text-xs font-bold text-[#121214] dark:text-[#FAF9F6] line-clamp-1 group-hover:text-[#C5A880]">
                             <HighlightMatch text={item.name} query={query} />
                           </p>
                           <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-[11px] font-bold text-gray-900 dark:text-white">
+                            <span className="text-[11px] font-black text-[#121214] dark:text-[#FAF9F6]">
                               ₹{item.price}
                             </span>
                             {item.brand && (
-                              <span className="text-[10px] text-gray-400 dark:text-gray-500 truncate">
+                              <span className="text-[10px] text-[#6E6D7A] truncate">
                                 • {item.brand}
                               </span>
                             )}
                           </div>
                         </div>
                       </div>
-                      <ArrowRight className={`size-4 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ${isSelected ? 'opacity-100 text-rose-600 dark:text-rose-400' : 'text-gray-400'}`} />
+                      <ArrowRight className={`size-4 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ${isSelected ? 'opacity-100 text-[#C5A880]' : 'text-[#6E6D7A]'}`} />
                     </button>
                   );
                 })}
@@ -305,33 +305,33 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
             {/* Case 2: No suggestions found for query */}
             {hasQuery && !loading && results.length === 0 && (
               <div className="px-5 py-6 text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                  No beauty products found for &ldquo;<span className="font-semibold text-gray-800 dark:text-gray-200">{query}</span>&rdquo;
+                <p className="text-xs text-[#6E6D7A] mb-3">
+                  No products found for &ldquo;<span className="font-semibold text-[#121214] dark:text-[#FAF9F6]">{query}</span>&rdquo;
                 </p>
                 <button
                   type="button"
                   onClick={() => executeSearch()}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#FAF9F6] dark:bg-[#2A2A2E] text-[#121214] dark:text-[#FAF9F6] text-xs font-black border border-[#EFECE6] dark:border-[#3E3E42] hover:border-[#C5A880] transition-colors cursor-pointer"
                 >
-                  <Search className="size-3.5" /> Search all products for &ldquo;{query}&rdquo;
+                  <Search className="size-3.5 text-[#C5A880]" /> Search catalogue for &ldquo;{query}&rdquo;
                 </button>
               </div>
             )}
 
             {/* Case 3: Empty query - Trending Searches & Recent Searches */}
             {!hasQuery && (
-              <div className="space-y-4 px-4 py-2">
+              <div className="space-y-4 px-5 py-2">
                 {/* Recent Searches */}
                 {recentSearches.length > 0 && (
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
-                        <Clock className="size-3" /> Recent Searches
+                      <span className="text-[10px] font-black text-[#6E6D7A] uppercase tracking-wider flex items-center gap-1.5">
+                        <Clock className="size-3 text-[#C5A880]" /> Recent Searches
                       </span>
                       <button
                         type="button"
                         onClick={clearAllRecentSearches}
-                        className="text-[10px] font-semibold text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
+                        className="text-[10px] font-bold text-[#6E6D7A] hover:text-[#121214] dark:hover:text-[#FAF9F6] transition-colors cursor-pointer"
                       >
                         Clear All
                       </button>
@@ -341,13 +341,13 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
                         <div
                           key={term}
                           onClick={() => executeSearch(term)}
-                          className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-gray-50 dark:bg-gray-800/80 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 border border-gray-200/70 dark:border-gray-700/60 transition-all cursor-pointer"
+                          className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-[#FAF9F6] dark:bg-[#121214] hover:border-[#C5A880] text-[#121214] dark:text-[#FAF9F6] border border-[#EFECE6] dark:border-[#2A2A2E] transition-all cursor-pointer"
                         >
                           <span>{term}</span>
                           <button
                             type="button"
                             onClick={(e) => removeRecentSearch(e, term)}
-                            className="text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 p-0.5 rounded-full"
+                            className="text-[#6E6D7A] hover:text-[#121214] dark:hover:text-white p-0.5 rounded-full"
                             title="Remove"
                           >
                             <X className="size-3" />
@@ -360,9 +360,9 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
 
                 {/* Trending Searches */}
                 <div>
-                  <div className="flex items-center gap-1.5 mb-2.5 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-                    <TrendingUp className="size-3 text-rose-500" />
-                    <span>Trending Searches</span>
+                  <div className="flex items-center gap-1.5 mb-2.5 text-[10px] font-black text-[#6E6D7A] uppercase tracking-wider">
+                    <TrendingUp className="size-3 text-[#C5A880]" />
+                    <span>Curated Trends</span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {TRENDING_SEARCHES.map((tag) => (
@@ -370,9 +370,9 @@ const SearchBar = ({ className = '', onSearchSuccess }) => {
                         key={tag}
                         type="button"
                         onClick={() => executeSearch(tag)}
-                        className="px-3 py-1.5 rounded-full text-xs font-medium bg-gray-50 dark:bg-gray-800/80 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 border border-gray-200/70 dark:border-gray-700/60 transition-all cursor-pointer flex items-center gap-1"
+                        className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#FAF9F6] dark:bg-[#121214] hover:border-[#C5A880] text-[#121214] dark:text-[#FAF9F6] border border-[#EFECE6] dark:border-[#2A2A2E] transition-all cursor-pointer flex items-center gap-1"
                       >
-                        <span className="text-rose-500 text-[11px]">#</span>
+                        <span className="text-[#C5A880] text-[11px]">#</span>
                         <span>{tag}</span>
                       </button>
                     ))}

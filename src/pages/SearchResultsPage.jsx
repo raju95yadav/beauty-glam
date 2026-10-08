@@ -28,19 +28,20 @@ const SearchResultsPage = () => {
   }, [query]);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-          <Search className="text-rose-600 dark:text-rose-400 size-6" />
-          Search Results for &quot;{query}&quot;
+    <div className="container mx-auto px-4 py-12 max-w-7xl">
+      <div className="mb-10">
+        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#C5A880] block mb-2">Search Curation</span>
+        <h1 className="text-2xl md:text-4xl font-black text-[#121214] dark:text-[#FAF9F6] flex items-center gap-3 tracking-tight">
+          <Search className="text-[#C5A880] size-7" />
+          Results for &ldquo;{query}&rdquo;
         </h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{products.length} items found</p>
+        <p className="text-xs text-[#6E6D7A] font-medium mt-1 uppercase tracking-wider">{products.length} {products.length === 1 ? 'creation' : 'creations'} located</p>
       </div>
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24">
-          <Loader2 className="size-12 text-rose-600 dark:text-rose-400 animate-spin mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 font-medium text-sm">Searching for your beauty favorites...</p>
+          <Loader2 className="size-10 text-[#C5A880] animate-spin mb-4" />
+          <p className="text-[#6E6D7A] font-bold text-xs uppercase tracking-widest">Searching the atelier catalogue...</p>
         </div>
       ) : products.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
@@ -49,16 +50,16 @@ const SearchResultsPage = () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-24 bg-white dark:bg-gray-900/80 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800 shadow-sm p-6">
-          <p className="text-gray-500 dark:text-gray-400 mb-6 text-sm">We couldn&apos;t find any matches for &quot;{query}&quot;</p>
+        <div className="text-center py-24 bg-white dark:bg-[#18181B] rounded-[3rem] border border-[#EFECE6] dark:border-[#2A2A2E] shadow-xl shadow-black/5 dark:shadow-none p-8">
+          <p className="text-[#6E6D7A] mb-8 text-sm font-medium">We could not find any matches for &ldquo;{query}&rdquo;</p>
           <div className="max-w-md mx-auto">
-             <h3 className="font-bold text-gray-800 dark:text-gray-200 mb-4 uppercase tracking-wider text-xs">Try searching for:</h3>
+             <h3 className="font-black text-[#121214] dark:text-[#FAF9F6] mb-4 uppercase tracking-widest text-[11px]">Recommended Inquiries:</h3>
              <div className="flex flex-wrap justify-center gap-2">
-               {['Lipstick', 'Face Wash', 'Moisturizer', 'Perfume', 'Mascara'].map((tag) => (
+               {['Lipstick', 'Serum', 'Moisturizer', 'Perfume', 'Mascara', 'Sunscreen'].map((tag) => (
                  <button 
                    key={tag}
                    onClick={() => navigate(`/search?q=${tag}`)}
-                   className="px-4 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 hover:border-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-all shadow-sm cursor-pointer"
+                   className="px-4 py-2 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-full text-xs font-bold text-[#121214] dark:text-[#FAF9F6] hover:border-[#C5A880] transition-all cursor-pointer"
                  >
                    {tag}
                  </button>

@@ -104,10 +104,10 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-white dark:bg-gray-950 text-gray-500 dark:text-gray-400 pt-24 pb-12 overflow-hidden border-t border-gray-100 dark:border-gray-900 transition-colors duration-300">
+    <footer className="relative bg-[#FAF9F6] dark:bg-[#121214] text-[#6E6D7A] dark:text-[#9E9EA7] pt-24 pb-12 overflow-hidden border-t border-[#EFECE6] dark:border-white/10 transition-colors duration-300">
       {/* Decorative Gradient Overlays */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/5 dark:bg-rose-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gray-400/5 dark:bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#C5A880]/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-black/5 dark:bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
 
       <motion.div 
         variants={containerVariants}
@@ -121,11 +121,11 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="space-y-8">
             <div className="space-y-4">
               <Link to="/">
-                <h3 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic">
-                  GLAM Beauty<span className="text-pink-600 dark:text-rose-500">.</span>
+                <h3 className="text-3xl font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-tighter italic">
+                  GLAM Beauty<span className="text-[#C5A880]">.</span>
                 </h3>
               </Link>
-              <p className="text-sm leading-relaxed max-w-xs text-gray-500 dark:text-gray-400">
+              <p className="text-sm leading-relaxed max-w-xs text-[#6E6D7A] dark:text-[#9E9EA7]">
                 Your premier destination for luxury beauty. Curating the finest makeup, skincare, and wellness products since 2026.
               </p>
             </div>
@@ -135,7 +135,7 @@ const Footer = () => {
                 { 
                   name: 'Instagram',
                   icon: Instagram, 
-                  href: 'https://www.instagram.com/rajuyd.94', // Developer personal Instagram; change to official store IG in future
+                  href: 'https://www.instagram.com/rajuyd.94',
                   isExternal: true,
                   title: 'Instagram (@rajuyd.94)'
                 },
@@ -176,7 +176,7 @@ const Footer = () => {
                   title={social.title}
                   whileHover={{ y: -5, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="size-10 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-pink-600 dark:hover:bg-rose-600 hover:text-white transition-all border border-gray-200 dark:border-gray-800 cursor-pointer shadow-sm"
+                  className="size-10 rounded-xl bg-white dark:bg-[#18181B] flex items-center justify-center text-[#6E6D7A] hover:bg-[#0D0D0D] hover:text-[#C5A880] dark:hover:bg-[#FAF9F6] dark:hover:text-[#0D0D0D] transition-all border border-[#EFECE6] dark:border-white/10 cursor-pointer shadow-sm"
                 >
                   <social.icon className="size-5" />
                 </motion.a>
@@ -187,7 +187,7 @@ const Footer = () => {
           {/* Links Sections */}
           {footerSections.map((section, idx) => (
             <motion.div variants={itemVariants} key={idx} className="space-y-8">
-              <h4 className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-[0.3em] italic border-b border-gray-100 dark:border-gray-900 pb-4 inline-block">
+              <h4 className="text-xs font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-[0.3em] italic border-b border-[#EFECE6] dark:border-white/10 pb-4 inline-block">
                 {section.title}
               </h4>
               <ul className="space-y-4">
@@ -195,16 +195,16 @@ const Footer = () => {
                   <li key={i}>
                     <Link 
                       to={link.path} 
-                      className="group flex items-center gap-4 text-[13px] font-bold text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all duration-300"
+                      className="group flex items-center gap-4 text-[13px] font-bold text-[#6E6D7A] hover:text-[#121214] dark:hover:text-[#FAF9F6] transition-all duration-300"
                     >
                       <div className="relative">
-                        <span className="size-9 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 group-hover:bg-rose-600 group-hover:text-white group-hover:-rotate-12 transition-all duration-500 border border-gray-100 dark:border-gray-800 shadow-sm group-hover:shadow-rose-100 group-hover:shadow-lg">
+                        <span className="size-9 rounded-xl bg-white dark:bg-[#18181B] flex items-center justify-center text-[#6E6D7A] group-hover:bg-[#0D0D0D] group-hover:text-[#C5A880] dark:group-hover:bg-[#FAF9F6] dark:group-hover:text-[#0D0D0D] group-hover:-rotate-12 transition-all duration-500 border border-[#EFECE6] dark:border-white/10 shadow-sm">
                           <link.icon className="size-4" />
                         </span>
                         {/* Subtle Active Indicator */}
-                        <span className="absolute -top-1 -right-1 size-2 bg-rose-500 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 border-2 border-white dark:border-gray-900"></span>
+                        <span className="absolute -top-1 -right-1 size-2 bg-[#C5A880] rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 border-2 border-white dark:border-[#121214]"></span>
                       </div>
-                      <span className="uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300 decoration-rose-500/30 underline-offset-4 group-hover:underline">
+                      <span className="uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300">
                         {link.label}
                       </span>
                     </Link>
@@ -216,11 +216,11 @@ const Footer = () => {
 
           {/* Newsletter Section */}
           <motion.div variants={itemVariants} className="space-y-8">
-            <h4 className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-[0.3em] italic border-b border-gray-100 dark:border-gray-900 pb-4 inline-block">
+            <h4 className="text-xs font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-[0.3em] italic border-b border-[#EFECE6] dark:border-white/10 pb-4 inline-block">
               Join the Circle
             </h4>
             <div className="space-y-6">
-              <p className="text-sm text-gray-500 dark:text-gray-400">Subscribe for early access to drops and exclusive beauty tips.</p>
+              <p className="text-sm text-[#6E6D7A] dark:text-[#9E9EA7]">Subscribe for early access to drops and exclusive beauty tips.</p>
               
               <form onSubmit={handleSubscribe} className="relative group">
                 <input 
@@ -228,17 +228,17 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your Email Address" 
-                  className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[2rem] px-8 py-5 text-[11px] font-bold text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all pr-14 shadow-sm"
+                  className="w-full bg-white dark:bg-[#18181B] border border-[#EFECE6] dark:border-white/10 rounded-[2rem] px-8 py-5 text-[11px] font-bold text-[#121214] dark:text-[#FAF9F6] placeholder-[#6E6D7A] focus:outline-none focus:ring-2 focus:ring-[#C5A880]/30 focus:border-[#C5A880] transition-all pr-14 shadow-sm"
                 />
                 <button 
                   type="submit"
                   disabled={loading}
-                  className="absolute right-2.5 top-2.5 bottom-2.5 px-3.5 bg-gray-950 dark:bg-rose-600 text-white rounded-2xl hover:bg-rose-600 dark:hover:bg-rose-500 transition-all flex items-center justify-center disabled:opacity-50 shadow-lg"
+                  className="absolute right-2.5 top-2.5 bottom-2.5 px-3.5 bg-[#0D0D0D] hover:bg-[#262626] text-white dark:bg-[#FAF9F6] dark:text-[#0D0D0D] rounded-2xl transition-all flex items-center justify-center disabled:opacity-50 shadow-md"
                 >
                   {loading ? (
                     <Loader2 className="size-4 animate-spin" />
                   ) : subscribed ? (
-                    <CheckCircle2 className="size-4 text-emerald-400" />
+                    <CheckCircle2 className="size-4 text-[#C5A880]" />
                   ) : (
                     <ArrowRight className="size-4" />
                   )}
@@ -246,15 +246,15 @@ const Footer = () => {
               </form>
 
               {subscribed && (
-                <p className="text-xs text-rose-600 dark:text-rose-400 font-bold flex items-center gap-1.5 animate-fade-in">
-                  <CheckCircle2 className="size-3.5 flex-shrink-0 text-rose-600 dark:text-rose-400" />
+                <p className="text-xs text-[#9E8055] dark:text-[#E0CFA9] font-bold flex items-center gap-1.5 animate-fade-in">
+                  <CheckCircle2 className="size-3.5 flex-shrink-0 text-[#C5A880]" />
                   You're in! Welcome to the Beauty Circle.
                 </p>
               )}
               
-              <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
-                 <div className="size-5 rounded-full bg-rose-50 dark:bg-rose-950/40 flex items-center justify-center">
-                    <Heart className="size-2.5 text-rose-600 fill-rose-600" />
+              <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-[#6E6D7A]">
+                 <div className="size-5 rounded-full bg-[#C5A880]/15 flex items-center justify-center">
+                    <Heart className="size-2.5 text-[#C5A880] fill-[#C5A880]" />
                  </div>
                  Join 10M+ beauty lovers
               </div>
@@ -263,14 +263,14 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-gray-100 dark:border-gray-900 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500">
+        <div className="pt-10 border-t border-[#EFECE6] dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#6E6D7A]">
             &copy; {new Date().getFullYear()} Glam Boutique. All Rights Reserved.
           </p>
-          <div className="flex gap-10 text-[9px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500">
-             <span className="hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer transition-all hover:-translate-y-0.5">Privacy</span>
-             <span className="hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer transition-all hover:-translate-y-0.5">Terms</span>
-             <span className="hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer transition-all hover:-translate-y-0.5">Legal</span>
+          <div className="flex gap-10 text-[9px] font-black uppercase tracking-[0.4em] text-[#6E6D7A]">
+             <span className="hover:text-[#121214] dark:hover:text-[#FAF9F6] cursor-pointer transition-all hover:-translate-y-0.5">Privacy</span>
+             <span className="hover:text-[#121214] dark:hover:text-[#FAF9F6] cursor-pointer transition-all hover:-translate-y-0.5">Terms</span>
+             <span className="hover:text-[#121214] dark:hover:text-[#FAF9F6] cursor-pointer transition-all hover:-translate-y-0.5">Legal</span>
           </div>
         </div>
       </motion.div>

@@ -10,9 +10,9 @@ const MainLayout = () => {
   const { activeModal, closeModal } = useUI();
 
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 selection:bg-rose-100 dark:selection:bg-rose-950/60 selection:text-rose-600 transition-colors duration-300">
+    <div className="flex flex-col min-h-screen bg-[#FAF9F6] dark:bg-[#121214] text-[#121214] dark:text-[#FAF9F6] selection:bg-[#C5A880]/30 selection:text-[#121214] transition-colors duration-300">
       {/* Unified Luxury Glassmorphic Header Stack */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-white/90 dark:bg-gray-950/90 border-b border-gray-200/50 dark:border-gray-800/50 transition-colors duration-300">
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#FAF9F6]/95 dark:bg-[#121214]/95 border-b border-[#EFECE6] dark:border-white/10 transition-colors duration-300">
         <AnnouncementBar />
         <Navbar />
         <CategoryMenu />

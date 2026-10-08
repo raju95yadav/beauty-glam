@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { CreditCard, User, Calendar, Lock } from 'lucide-react';
 
 const CardForm = ({ onValidChange, onSubmit, loading }) => {
@@ -69,45 +69,45 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
            onClick={() => setIsFlipped(!isFlipped)}
         >
           {/* Front Side */}
-          <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-3xl p-8 text-white shadow-2xl border border-white/10 overflow-hidden">
-             <div className="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+          <div className="absolute inset-0 backface-hidden bg-[#0D0D0D] rounded-3xl p-8 text-white shadow-2xl border border-[#2A2A2E] overflow-hidden">
+             <div className="absolute top-0 right-0 w-64 h-64 bg-[#C5A880]/15 rounded-full blur-3xl -mr-32 -mt-32"></div>
              
              <div className="flex justify-between items-start mb-12">
-                <div className="size-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg shadow-inner flex items-center justify-center overflow-hidden">
-                   <div className="w-full h-0.5 bg-black/10 my-1"></div>
-                   <div className="w-full h-0.5 bg-black/10 my-1"></div>
+                <div className="size-12 bg-gradient-to-br from-[#E2DDD5] via-[#C5A880] to-[#9E8055] rounded-xl shadow-inner flex items-center justify-center overflow-hidden border border-[#C5A880]/30">
+                   <div className="w-full h-0.5 bg-black/20 my-1"></div>
+                   <div className="w-full h-0.5 bg-black/20 my-1"></div>
                 </div>
-                <span className="text-xl font-black italic tracking-tighter opacity-80">{cardType(cardData.number)}</span>
+                <span className="text-xl font-black italic tracking-tighter text-[#C5A880]">{cardType(cardData.number)}</span>
              </div>
 
              <div className="space-y-8">
-                <div className="text-2xl font-bold tracking-[0.2em] shadow-sm">
+                <div className="text-2xl font-bold tracking-[0.2em] shadow-sm text-[#FAF9F6]">
                    {cardData.number || '•••• •••• •••• ••••'}
                 </div>
                 <div className="flex justify-between items-end">
                    <div className="space-y-1">
-                      <p className="text-[8px] font-black uppercase tracking-widest opacity-50">Card Holder</p>
-                      <p className="text-xs font-bold uppercase tracking-widest">{cardData.name || 'Your Name'}</p>
+                      <p className="text-[8px] font-black uppercase tracking-widest text-[#6E6D7A]">Card Holder</p>
+                      <p className="text-xs font-bold uppercase tracking-widest text-[#FAF9F6]">{cardData.name || 'Your Name'}</p>
                    </div>
                    <div className="space-y-1 text-right">
-                      <p className="text-[8px] font-black uppercase tracking-widest opacity-50">Expires</p>
-                      <p className="text-xs font-bold tracking-widest">{cardData.expiry || 'MM/YY'}</p>
+                      <p className="text-[8px] font-black uppercase tracking-widest text-[#6E6D7A]">Expires</p>
+                      <p className="text-xs font-bold tracking-widest text-[#FAF9F6]">{cardData.expiry || 'MM/YY'}</p>
                    </div>
                 </div>
              </div>
           </div>
 
           {/* Back Side */}
-          <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl text-white shadow-2xl border border-white/10 rotate-y-180 flex flex-col justify-between py-8">
-             <div className="w-full h-12 bg-black/80 mt-4"></div>
+          <div className="absolute inset-0 backface-hidden bg-[#18181B] rounded-3xl text-white shadow-2xl border border-[#2A2A2E] rotate-y-180 flex flex-col justify-between py-8">
+             <div className="w-full h-12 bg-black mt-4"></div>
              <div className="px-8 space-y-4">
                 <div className="flex justify-end pr-4">
-                   <div className="bg-white text-gray-900 px-4 py-2 rounded-lg font-mono font-bold tracking-widest">
+                   <div className="bg-[#FAF9F6] text-[#0D0D0D] px-4 py-2 rounded-lg font-mono font-bold tracking-widest">
                       {cardData.cvv || '•••'}
                    </div>
                 </div>
-                <p className="text-[8px] opacity-40 leading-relaxed text-center">
-                   ⚠️ TEST MODE — This is a simulated payment for demonstration only. No real transaction will be processed. Real payment integration is ready for production.
+                <p className="text-[8px] text-[#6E6D7A] leading-relaxed text-center uppercase tracking-wider">
+                   TEST MODE — Simulated atelier payment demo
                 </p>
              </div>
           </div>
@@ -116,7 +116,7 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
 
       {/* Form Inputs Header */}
       <div className="flex justify-between items-center px-1">
-         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Card Details</span>
+         <span className="text-[10px] font-black uppercase tracking-widest text-[#6E6D7A]">Card Details</span>
          <button
            type="button"
            onClick={() => {
@@ -124,9 +124,9 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
              setCardData(demo);
              onValidChange(true, demo);
            }}
-           className="text-[10px] font-black text-pink-600 uppercase tracking-widest hover:underline bg-pink-50 px-3 py-1.5 rounded-xl border border-pink-100 transition-all"
+           className="text-[10px] font-black text-[#121214] dark:text-[#FAF9F6] uppercase tracking-widest hover:underline bg-[#FAF9F6] dark:bg-[#2A2A2E] px-3.5 py-1.5 rounded-full border border-[#EFECE6] dark:border-[#3E3E42] transition-all flex items-center gap-1.5"
          >
-           ⚡ Auto-fill Test Card
+           <span className="text-[#C5A880]">⚡</span> Auto-fill Test Card
          </button>
       </div>
 
@@ -141,12 +141,12 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
               onFocus={() => setIsFlipped(false)}
               maxLength="19"
               placeholder=" "
-              className="peer w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-pink-600 outline-none transition-all font-bold text-sm"
+              className="peer w-full px-6 py-4 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-bold text-sm text-[#121214] dark:text-[#FAF9F6]"
             />
-            <label className="absolute left-6 top-4 text-xs font-bold text-gray-400 uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white peer-focus:px-2 peer-focus:text-pink-600 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-pink-600">
+            <label className="absolute left-6 top-4 text-xs font-bold text-[#6E6D7A] uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white dark:peer-focus:bg-[#18181B] peer-focus:px-2 peer-focus:text-[#121214] dark:peer-focus:text-[#FAF9F6] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white dark:peer-[:not(:placeholder-shown)]:bg-[#18181B] peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[#121214] dark:peer-[:not(:placeholder-shown)]:text-[#FAF9F6]">
                Card Number
             </label>
-            <CreditCard className="absolute right-6 top-4 size-5 text-gray-300 peer-focus:text-pink-600 transition-colors" />
+            <CreditCard className="absolute right-6 top-4 size-5 text-[#6E6D7A] peer-focus:text-[#C5A880] transition-colors" />
          </div>
 
          <div className="relative md:col-span-2 group">
@@ -157,12 +157,12 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
               onChange={handleChange}
               onFocus={() => setIsFlipped(false)}
               placeholder=" "
-              className="peer w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-pink-600 outline-none transition-all font-bold text-sm"
+              className="peer w-full px-6 py-4 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-bold text-sm text-[#121214] dark:text-[#FAF9F6]"
             />
-            <label className="absolute left-6 top-4 text-xs font-bold text-gray-400 uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white peer-focus:px-2 peer-focus:text-pink-600 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-pink-600">
+            <label className="absolute left-6 top-4 text-xs font-bold text-[#6E6D7A] uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white dark:peer-focus:bg-[#18181B] peer-focus:px-2 peer-focus:text-[#121214] dark:peer-focus:text-[#FAF9F6] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white dark:peer-[:not(:placeholder-shown)]:bg-[#18181B] peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[#121214] dark:peer-[:not(:placeholder-shown)]:text-[#FAF9F6]">
                Card Holder Name
             </label>
-            <User className="absolute right-6 top-4 size-5 text-gray-300 peer-focus:text-pink-600 transition-colors" />
+            <User className="absolute right-6 top-4 size-5 text-[#6E6D7A] peer-focus:text-[#C5A880] transition-colors" />
          </div>
 
          <div className="relative group">
@@ -174,12 +174,12 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
               onFocus={() => setIsFlipped(false)}
               maxLength="5"
               placeholder=" "
-              className="peer w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-pink-600 outline-none transition-all font-bold text-sm"
+              className="peer w-full px-6 py-4 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-bold text-sm text-[#121214] dark:text-[#FAF9F6]"
             />
-            <label className="absolute left-6 top-4 text-xs font-bold text-gray-400 uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white peer-focus:px-2 peer-focus:text-pink-600 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-pink-600">
+            <label className="absolute left-6 top-4 text-xs font-bold text-[#6E6D7A] uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white dark:peer-focus:bg-[#18181B] peer-focus:px-2 peer-focus:text-[#121214] dark:peer-focus:text-[#FAF9F6] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white dark:peer-[:not(:placeholder-shown)]:bg-[#18181B] peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[#121214] dark:peer-[:not(:placeholder-shown)]:text-[#FAF9F6]">
                Expiry (MM/YY)
             </label>
-            <Calendar className="absolute right-6 top-4 size-5 text-gray-300 peer-focus:text-pink-600 transition-colors" />
+            <Calendar className="absolute right-6 top-4 size-5 text-[#6E6D7A] peer-focus:text-[#C5A880] transition-colors" />
          </div>
 
          <div className="relative group">
@@ -191,12 +191,12 @@ const CardForm = ({ onValidChange, onSubmit, loading }) => {
               onFocus={() => setIsFlipped(true)}
               maxLength="3"
               placeholder=" "
-              className="peer w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-pink-600 outline-none transition-all font-bold text-sm"
+              className="peer w-full px-6 py-4 bg-[#FAF9F6] dark:bg-[#121214] border border-[#EFECE6] dark:border-[#2A2A2E] rounded-2xl focus:bg-white dark:focus:bg-[#18181B] focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 outline-none transition-all font-bold text-sm text-[#121214] dark:text-[#FAF9F6]"
             />
-            <label className="absolute left-6 top-4 text-xs font-bold text-gray-400 uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white peer-focus:px-2 peer-focus:text-pink-600 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-pink-600">
+            <label className="absolute left-6 top-4 text-xs font-bold text-[#6E6D7A] uppercase tracking-widest pointer-events-none transition-all peer-focus:-top-2 peer-focus:left-4 peer-focus:bg-white dark:peer-focus:bg-[#18181B] peer-focus:px-2 peer-focus:text-[#121214] dark:peer-focus:text-[#FAF9F6] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-4 peer-[:not(:placeholder-shown)]:bg-white dark:peer-[:not(:placeholder-shown)]:bg-[#18181B] peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[#121214] dark:peer-[:not(:placeholder-shown)]:text-[#FAF9F6]">
                CVV
             </label>
-            <Lock className="absolute right-6 top-4 size-5 text-gray-300 peer-focus:text-pink-600 transition-colors" />
+            <Lock className="absolute right-6 top-4 size-5 text-[#6E6D7A] peer-focus:text-[#C5A880] transition-colors" />
          </div>
       </div>
     </div>

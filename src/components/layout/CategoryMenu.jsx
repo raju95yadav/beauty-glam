@@ -60,13 +60,13 @@ const CategoryMenu = () => {
             >
               <Link
                 to={`/category/${category.name.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')}`}
-                className="flex items-center gap-2 text-[11px] md:text-[12px] font-semibold text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors duration-200 uppercase tracking-wider py-2.5 block whitespace-nowrap"
+                className="flex items-center gap-2 text-[11px] md:text-[12px] font-semibold text-[#6E6D7A] hover:text-[#121214] dark:text-[#9E9EA7] dark:hover:text-[#FAF9F6] transition-colors duration-200 uppercase tracking-wider py-2.5 block whitespace-nowrap"
               >
-                <category.icon className="size-3.5 text-gray-400 dark:text-gray-500 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors" strokeWidth={2} />
+                <category.icon className="size-3.5 text-[#6E6D7A] dark:text-[#9E9EA7] group-hover:text-[#C5A880] transition-colors" strokeWidth={2} />
                 {category.name}
               </Link>
               <motion.div 
-                className="absolute bottom-0 left-0 h-[2px] bg-rose-600 dark:bg-rose-400 rounded-full"
+                className="absolute bottom-0 left-0 h-[2px] bg-[#C5A880] rounded-full"
                 initial={{ width: 0 }}
                 whileHover={{ width: '100%' }}
                 transition={{ duration: 0.2 }}

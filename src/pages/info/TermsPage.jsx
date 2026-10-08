@@ -7,11 +7,11 @@ const TermsPage = () => {
     {
       icon: FileText,
       title: "1. Acceptance of Terms",
-      content: "By accessing and using Glam Portal, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. Our services are strictly for personal and non-commercial use. If you do not agree to these terms, please discontinue use immediately."
+      content: "By accessing and using Glam Atelier, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. Our services are strictly for personal and non-commercial use. If you do not agree to these terms, please discontinue use immediately."
     },
     {
       icon: Lock,
-      title: "2. User Accounts",
+      title: "2. Client Accounts",
       content: "You are responsible for maintaining the confidentiality of your account credentials. Any activity under your account is your responsibility. We reserve the right to terminate accounts that provide false information or violate our safety guidelines."
     },
     {
@@ -32,7 +32,7 @@ const TermsPage = () => {
     {
       icon: Eye,
       title: "6. Intellectual Property",
-      content: "All content—including logos, designs, text, and images—is the exclusive property of Glam Beauty and protected by international copyright laws. Unauthorized reproduction is strictly prohibited."
+      content: "All content—including logos, designs, text, and images—is the exclusive property of Glam Atelier and protected by international copyright laws. Unauthorized reproduction is strictly prohibited."
     },
     {
       icon: ShieldAlert,
@@ -42,7 +42,7 @@ const TermsPage = () => {
     {
       icon: AlertCircle,
       title: "8. Limitation of Liability",
-      content: "Glam Beauty shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use our services or products."
+      content: "Glam Atelier shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use our services or products."
     },
     {
       icon: Scale,
@@ -57,72 +57,75 @@ const TermsPage = () => {
   ];
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen py-16 md:py-32 transition-colors duration-300">
+    <div className="bg-[#FAF9F6] dark:bg-[#121214] min-h-screen py-16 md:py-28 transition-colors duration-300">
        <div className="container mx-auto px-4 max-w-5xl">
           <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-gray-900 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-12 md:gap-20 transition-colors duration-300"
+            className="bg-[#FFFFFF] dark:bg-[#18181B] rounded-3xl md:rounded-[2.5rem] p-8 md:p-16 shadow-xl shadow-black/[0.02] border border-[#EFECE6] dark:border-[#2A2A2E] flex flex-col md:flex-row gap-12 md:gap-16 transition-colors duration-300"
           >
              {/* Sidebar Info */}
-             <div className="md:w-1/3 space-y-8 md:space-y-10">
-                <div className="space-y-4 md:space-y-6">
-                   <div className="size-16 md:size-20 bg-rose-50 dark:bg-gray-800 rounded-2xl md:rounded-[2rem] flex items-center justify-center text-rose-600 dark:text-rose-400 shadow-xl shadow-rose-100/50 dark:shadow-none border border-rose-100 dark:border-gray-700 mx-auto md:mx-0">
-                      <Gavel className="size-8 md:size-10" />
+             <div className="md:w-1/3 space-y-6">
+                <div className="space-y-4">
+                   <div className="size-14 md:size-16 bg-[#FAF9F6] dark:bg-[#202024] rounded-2xl flex items-center justify-center text-[#C5A880] border border-[#EFECE6] dark:border-[#2A2A2E] shadow-sm">
+                      <Gavel className="size-7 md:size-8" />
                    </div>
-                   <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white uppercase tracking-tighter leading-none italic text-center md:text-left">Legal <br className="hidden md:block"/> <span className="text-rose-600 dark:text-rose-500">Framework</span></h1>
+                   <h1 className="text-3xl md:text-4xl font-bold text-[#121214] dark:text-[#FAF9F6] uppercase tracking-tight leading-none">
+                     Legal <br className="hidden md:block"/> 
+                     <span className="italic font-serif text-[#C5A880]">Charter</span>
+                   </h1>
                 </div>
                 
-                <div className="p-8 bg-gray-50 dark:bg-gray-800/50 rounded-3xl border border-gray-100 dark:border-gray-800 space-y-4">
-                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500">Current Iteration</p>
-                   <p className="text-sm font-bold text-gray-900 dark:text-white leading-relaxed">Version 2.4.0 <br/> Effective April 18, 2026</p>
-                   <div className="h-1 w-12 bg-rose-500 rounded-full"></div>
-                   <p className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">Please review these terms periodically as they may change without direct notification.</p>
+                <div className="p-6 bg-[#FAF9F6] dark:bg-[#202024] rounded-2xl border border-[#EFECE6] dark:border-[#2A2A2E] space-y-3">
+                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#C5A880]">Edition</p>
+                   <p className="text-xs font-bold text-[#121214] dark:text-[#FAF9F6] leading-relaxed">Version 2.4.0 <br/> Effective April 2026</p>
+                   <div className="h-0.5 w-8 bg-[#C5A880] rounded-full"></div>
+                   <p className="text-[11px] text-[#6E6D7A] dark:text-[#A1A1AA] leading-relaxed">Terms may be periodically revised to align with regulatory standards.</p>
                 </div>
 
-                <div className="space-y-4 pt-10">
-                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-900 dark:text-white border-l-2 border-rose-500 pl-4">Contact Legal Dept</p>
-                   <p className="text-xs text-gray-400 dark:text-gray-500 font-medium leading-relaxed pl-4">For legal inquiries: legal@glamportal.com</p>
+                <div className="space-y-2 pt-4">
+                   <p className="text-[10px] font-bold uppercase tracking-wider text-[#121214] dark:text-[#FAF9F6] border-l-2 border-[#C5A880] pl-3">Legal Department</p>
+                   <p className="text-xs text-[#6E6D7A] dark:text-[#A1A1AA] pl-3">legal@glamportal.com</p>
                 </div>
              </div>
 
              {/* Content Area */}
-             <div className="md:w-2/3 space-y-12 md:space-y-16">
-                <div className="prose prose-pink max-w-none">
-                   <p className="text-gray-500 dark:text-gray-400 text-base md:text-lg leading-relaxed font-medium italic border-b border-gray-100 dark:border-gray-800 pb-8 md:pb-10">
-                      "At Glam Beauty, we prioritize transparency and trust. Our terms are designed to protect both our heritage and our community of beauty enthusiasts."
+             <div className="md:w-2/3 space-y-10">
+                <div>
+                   <p className="text-[#6E6D7A] dark:text-[#A1A1AA] text-base leading-relaxed italic border-b border-[#EFECE6] dark:border-[#2A2A2E] pb-6">
+                      "At Glam Atelier, we uphold absolute clarity, authenticity, and legal discretion across every client engagement."
                    </p>
                 </div>
 
-                <div className="space-y-10 md:space-y-16">
+                <div className="space-y-8">
                    {sections.map((section, i) => (
                      <motion.section 
                        key={i}
-                       initial={{ opacity: 0, x: 20 }}
+                       initial={{ opacity: 0, x: 15 }}
                        whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }}
-                       transition={{ delay: i * 0.05 }}
-                       className="group"
+                       transition={{ delay: i * 0.03 }}
+                       className="group space-y-2"
                      >
-                        <div className="flex items-center gap-4 md:gap-6 mb-3 md:mb-4">
-                           <div className="size-8 md:size-10 rounded-lg md:rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-300 group-hover:bg-rose-600 group-hover:text-white transition-all transform group-hover:rotate-6 border border-gray-100 dark:border-gray-700">
-                              <section.icon size={16} md:size={20} />
+                        <div className="flex items-center gap-3">
+                           <div className="size-8 rounded-lg bg-[#FAF9F6] dark:bg-[#202024] flex items-center justify-center text-[#C5A880] border border-[#EFECE6] dark:border-[#2A2A2E]">
+                              <section.icon size={15} />
                            </div>
-                           <h2 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tight m-0">{section.title}</h2>
+                           <h2 className="text-base font-bold text-[#121214] dark:text-[#FAF9F6] uppercase tracking-wide">{section.title}</h2>
                         </div>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base leading-relaxed pl-12 md:pl-16 font-medium">
+                        <p className="text-[#6E6D7A] dark:text-[#A1A1AA] text-sm leading-relaxed pl-11">
                            {section.content}
                         </p>
                      </motion.section>
                    ))}
                 </div>
 
-                <div className="pt-20 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center">
-                   <p className="text-[9px] font-black text-gray-300 dark:text-gray-600 uppercase tracking-[0.5em]">Glam Portal Legal © 2026</p>
-                   <div className="flex gap-4">
-                      <div className="size-2 bg-rose-200 dark:bg-rose-900 rounded-full"></div>
-                      <div className="size-2 bg-rose-400 dark:bg-rose-600 rounded-full"></div>
-                      <div className="size-2 bg-rose-600 dark:bg-rose-400 rounded-full"></div>
+                <div className="pt-10 border-t border-[#EFECE6] dark:border-[#2A2A2E] flex justify-between items-center">
+                   <p className="text-[10px] font-bold text-[#6E6D7A] dark:text-[#A1A1AA] uppercase tracking-wider">Glam Atelier Legal © 2026</p>
+                   <div className="flex gap-2">
+                      <div className="size-2 bg-[#EFECE6] dark:bg-[#2A2A2E] rounded-full"></div>
+                      <div className="size-2 bg-[#C5A880] rounded-full"></div>
+                      <div className="size-2 bg-[#0D0D0D] dark:bg-[#FAF9F6] rounded-full"></div>
                    </div>
                 </div>
              </div>
